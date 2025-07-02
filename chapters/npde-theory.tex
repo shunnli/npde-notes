@@ -1,0 +1,1666 @@
+\chapter{差分方法的性质}
+
+主要关注差分格式的三大性质：
+\begin{itemize}
+    \item 相容性：当网格尺寸趋于零时，差分格式应逼近于偏微分方程；
+    \item 稳定性：偏微分方程的定解条件（初值，边值）的微小变化对差分格式的近似解的影响（在某个模的意义下）不应无限增长；（同理计算过程中的舍入误差也不会无限增长）
+    \item 收敛性：当网格尺寸趋于零时，满足差分格式的近似解应收敛于满足偏微分方程的准确解。
+\end{itemize}
+此外，本章也关注偏微分方程和差分格式的耗散色散性分析。
+
+\section{相容性}
+
+相容性体现的是差分格式对偏微分方程的逼近程度，包括逐点相容性和模相容性，逐点相容性主要通过局部截断误差来衡量。
+
+\begin{definition}[局部截断误差]
+    对于偏微分方程 $\mathcal{L} u = g$ 以及对应的差分格式 $L v_j^n = g_j^n$，
+    定义在 $(x_j,t^n)$ 处的局部截断误差为
+    \[
+        \tau_j^n := L u_j^n - g_j^n - (\mathcal{L}u(x_j,t^n) - g(x_j,t^n)) = L u_j^n - g_j^n
+    \]
+    其中 $u(x,t)$ 是满足偏微分方程的充分光滑函数。
+\end{definition}
+
+\begin{definition}[逐点相容性]
+    称偏微分方程 $\mathcal{L} u = g$ 对应的差分格式 $L v_j^n = g_j^n$ 是（无条件）逐点相容的：如果局部截断误差 $\tau_j^n$ 在
+    $\Delta x,\Delta t\to 0$时满足
+    \[
+        \tau_j^n \to 0.
+    \]
+    进一步，称这个格式的局部截断误差阶是 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
+    \[
+        \tau_j^n = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+    \]
+\end{definition}
+
+\begin{remark}
+    这里记号 $(p,q)$ 的分量顺序没有什么意义，在不同的资料中可能使用了不同的顺序，保持上下文记号一致即可。
+\end{remark}
+
+\begin{definition}[模相容性]\label{def:consistency-norm}
+    对于双层差分格式
+    \[
+        V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}
+    \]
+    将满足偏微分方程的充分光滑函数 $U$ 代入会产生余项 $\Delta t\,T^{n}$
+    \[
+        U^{n+1} = Q \, U^{n} + \Delta t\, G^{n} + \Delta t\, T^{n}
+    \]
+    称双层差分格式是（无条件）关于 $\|\cdot\|$ 模相容的：
+    如果随着 $\Delta x \to 0$，$\Delta t \to 0$，有
+    \[
+        \|T^{n}\|  \to 0
+    \]
+    进一步，称这个格式的$\|\cdot\|$ 模相容阶是 $(p,q)$：如果存在不可改善的正数 $p,q$，使得下式成立
+    \[
+        \|T^{n}\|  = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+    \]
+\end{definition}
+
+\begin{remark}
+    对于显格式，通常可以整理为如下形式
+    \[
+        V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}
+    \]
+    但是对于隐格式（例如全隐格式，Crank–Nicolson 格式，$\theta$ 格式），可能会得到如下形式
+    \[
+        P V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}
+    \]
+    不需要计算 $P^{-1}$ 来整理为定义~\ref{def:consistency-norm} 中的形式，
+    直接将满足偏微分方程的充分光滑函数 $U$ 代入会产生余项 $\Delta t\,T^{n}$
+    \[
+        P U^{n+1} = Q \, U^{n} + \Delta t\, G^{n} + \Delta t\, T^{n}
+    \]
+    相容性分析仍然是针对 $T^{n}$ 进行的。
+\end{remark}
+
+\section{稳定性}
+
+稳定性体现的是偏微分方程的定解条件（初值，边值）的微小变化对差分格式的近似解的影响（在某个模的意义下），我们主要讨论初值稳定性。
+
+\begin{definition}[稳定性]
+    对于双层差分格式
+    \[
+        V^{n+1} = Q \, V^n,\quad n \ge 0,
+    \]
+    其中 $Q$ 为差分算子，$V^n = (\cdots,v_{-1}^n,v_0^n,v_1^n,\cdots)$。
+    称该差分格式是关于 $\| \cdot \|$ 模稳定的，若对于任意 $(x,t)$，存在 $\Delta x_0 >0$，$\Delta t_0 > 0$，$K \ge 0$，$\beta \ge 0$，使得
+    $\forall\, 0 < t = (n+1)\Delta t$，$0 < \Delta x \le \Delta x_0$，$0 < \Delta t \le \Delta t_0$，有
+    \[
+        \| V^{n+1} \| \le K e^{\beta t}\,\| V^0 \|
+    \]
+\end{definition}
+
+\begin{remark}
+    由于稳定性含义与具体的模选取有关，对同一个格式选择不同的模进行分析，也可能得到不同的稳定性结论。
+\end{remark}
+
+\begin{theorem}
+    双层差分格式 $V^{n+1} = Q \, V^n$ 关于 $\| \cdot \|$ 模稳定的充要条件是：存在 $\Delta x_0 >0$，$\Delta t_0 > 0$，$K \ge 0$，$\beta \ge 0$，使得
+    $\forall\, 0 < t = (n+1)\Delta t$，$0 < \Delta x \le \Delta x_0$，$0 < \Delta t \le \Delta t_0$，有
+    \[
+        \| Q^{n+1} \| \le K e^{\beta t}
+    \]
+\end{theorem}
+
+\begin{theorem}
+    双层差分格式 $V^{n+1} = Q \, V^n$ 关于 $\|\cdot\|$ 模稳定的必要条件是：
+    存在常数 $C \ge 0$，使得
+    \[
+        \sigma(Q) = \max_i|\lambda_i(Q)| \le 1 + C\,\Delta t
+    \]
+\end{theorem}
+
+\begin{remark}
+    对于任意矩阵和任意范数，都有 $\sigma(A) \le \|A\|$ 成立，但是反方向的估计需要加上一些条件，这是上述命题通常只是必要而不充分的主要原因，
+    例如：若 $Q$ 是正规矩阵（即 $Q Q^\mathsf{H} = Q^\mathsf{H} Q$），则上述条件是充要的。
+    充分性证明利用了正规矩阵的性质 $\sigma(Q) = \| Q \|$；
+    若 $Q$ 可以相似变换为一个正规矩阵：$Q = S \tilde{Q} S^{-1}$，并且变换矩阵及其逆矩阵的范数一致有界，那么也可以保证充分性，
+    这利用了如下性质
+    \[
+        \| Q^n \| \le \| S \| \| S^{-1} \| \| \tilde{Q}^n \| = \| S \| \| S^{-1} \|\, |\sigma(Q)|^n
+    \]
+\end{remark}
+
+
+\section{收敛性}
+
+收敛性体现的是满足差分格式的近似解和满足偏微分方程的准确解之间的关系，包括逐点收敛和按模收敛。
+
+
+\begin{definition}[逐点收敛性]
+    称差分格式是（无条件）逐点收敛的，如果随着 $\Delta x,\,\Delta t \to 0$，
+    $j\Delta x \to x_*$，$n \Delta t \to t_*$，有
+    \[
+        v_j^n \to u(x_*,t_*)
+    \]
+    其中 $u$ 是满足偏微分方程的充分光滑函数。
+    进一步，称这个格式的逐点收敛阶为 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
+    \[
+        u(x_*,t_*) - v_j^n = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+    \]
+\end{definition}
+
+\begin{definition}[模收敛性]
+    称差分格式是（无条件）按$\| \cdot \|$ 模收敛的，如果随着 $\Delta x,\,\Delta t \to 0$，
+    $n \Delta t \to t_*$，有
+    \[
+        \|U^n - V^n\| \to 0
+    \]
+    其中 $U$ 是满足偏微分方程的充分光滑函数。
+    进一步，称这个格式在$\|\cdot\|$ 模意义下的收敛阶为 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
+    \[
+        \|U^n - V^n\| = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+    \]
+\end{definition}
+
+\begin{remark}
+    关于差分格式的精度，有的资料中将其视作格式的相容阶，有的资料中将其视作格式的收敛阶，
+    虽然根据 Lax 等价定理，这两者通常是一致的，但是为了避免歧义，在笔记中选择避免使用精度的概念。
+\end{remark}
+
+\section{Lax 定理}
+
+收敛性是我们的最终目标，但是不易证明，差分格式的相容性相对最容易验证。
+基于Lax等价定理，可以将问题归结于差分格式的稳定性证明。
+
+\begin{theorem}[Lax 等价定理]
+    考虑一个适定的线性偏微分方程定解问题，若双层线性差分格式是相容的，那么它的稳定性与收敛性是等价的，并且收敛阶不低于相容阶。
+\end{theorem}
+
+\begin{remark}
+    Lax 等价定理的充分性证明比较简单，但是必要性证明较为复杂，需要利用泛函分析中的共鸣定理。
+\end{remark}
+
+\begin{theorem}[Lax 定理]
+    考虑一个适定的线性偏微分方程定解问题，假设它的双层线性差分格式
+    \[
+        V^{n+1} = Q \,V^n +\Delta t \,G^n
+    \]
+    是按 $\|\cdot\|$ 模相容的，并且关于 $\|\cdot\|$ 模具有 $(p,q)$ 阶相容阶，那么：
+    格式若关于 $\|\cdot\|$ 模是稳定的，则关于 $\|\cdot\|$ 模 $(p,q)$ 阶收敛。
+\end{theorem}
+
+因此通常有两类方法可以证明格式的收敛性：
+\begin{enumerate}
+    \item 直接证明：先计算局部截断误差，然后计算整体误差 $e_j^n = u_j^n - v_j^n$，使用不等式放缩证明整体误差趋于0；
+    \item 间接证明：分别证明相容性和稳定性，然后利用 Lax 等价定理得证收敛性。
+\end{enumerate}
+
+\section{稳定性证明}
+
+根据 Lax 等价定理，我们主要关注格式的稳定性分析即可。
+对于差分格式的稳定性证明有很多种方法，主要包括
+\begin{enumerate}
+    \item Fourier 方法（$L^2$ 模稳定的充要条件）
+    \item CFL 方法（任意模稳定的必要条件）
+    \item 冻结系数法（稳定的必要条件）
+    \item 离散最大模原理（$L^\infty$ 模稳定的充分条件）
+    \item 能量方法（$L^2$ 模稳定的充分条件）
+    \item[] $\cdots$
+\end{enumerate}
+
+
+\subsection{Fourier 方法}
+
+对于纯初值问题或具有周期边界条件的问题，假设在空间上进行均匀剖分，考虑标量方程的线性常系数双层差分格式
+\[
+    V^{n+1} = Q \, V^n,\quad \widehat{V}^{n+1} = \widehat{Q} \, \widehat{V}^n
+\]
+记 $\widehat{Q}(\omega)$ 为放大因子，稳定性要求
+\[
+    \| V^{n+1}\|\le K e^{\beta(n+1)\Delta t} \,\| V^0\|
+\]
+其中 $K,\beta$ 是与时间无关的系数，$L^2$ 模稳定等价于要求
+\[
+    |\widehat{Q}(\omega)|^{n+1} \le K e^{\beta(n+1)\Delta t}
+\]
+由此可以导出著名的 von Neumann 条件。
+
+\begin{theorem}[von Neumann condition]
+    双层差分格式 $V^{n+1} = Q \, V^n$ 是 $L^2$ 模稳定的，等价于存在常数 $C>0$，使得放大因子 $\widehat{Q}(\omega)$ 在 $\Delta t$ 适当小的时候满足
+    \[
+        |\widehat{Q}(\omega)| \le 1+C \Delta t
+    \]
+\end{theorem}
+
+\begin{proof}
+    如果 $|\widehat{Q}(\omega)| \le 1 + C \Delta t$，根据不等式易得
+    \[
+        |\widehat{Q}(\omega)|^{n+1} \le (1 + C \Delta t)^{n+1} \le e^{C (n+1)\Delta t}.
+    \]
+    如果稳定，则有 $|\widehat{Q}(\omega)|  \le K^{\frac{1}{n+1}} e^{\beta \Delta t}$，也可以根据不等式进行放缩：
+    记 $T = (n+1)\Delta t$，在 $\Delta t$ 足够小时成立
+    \[
+        |\widehat{Q}(\omega)|  \le K^{\frac{1}{n+1}} e^{\beta \Delta t}
+        = K^{\frac{\Delta t}{T}} e^{\beta \Delta t}
+        = e^{(\beta + \frac{\ln K}{T})\Delta t}
+        = 1 + \mathcal{O}(\Delta t)
+    \]
+    因此，存在 $\Delta t_0$ 以及 $C>0$，使得对于 $0 < \Delta t \le \Delta t_0$，下式成立
+    \[
+        |\widehat{Q}(\omega)| \le 1+C \Delta t. \qedhere
+    \]
+\end{proof}
+
+\begin{remark}
+    大部分情况下，放大因子并不会显式包括 $\Delta t$，此时自动得到严格的 von Neumann 条件：$|\widehat{Q}(\omega)| \le 1$，
+    对应的稳定性要求变为
+    \[
+        |\widehat{Q}(\omega)|^{n+1} \le 1,\quad
+        \| V^{n+1}\|\le  \| V^0\|
+    \]
+\end{remark}
+
+\begin{remark}
+    对于多层差分格式或者方程组的差分格式，记号和稳定性分析都更加复杂，
+    并且在一般情况下，von Neumann 条件只是稳定的必要条件，需要加上额外条件才能证明充分性。
+\end{remark}
+
+Fourier方法在分析稳定性时非常简便，但是应用范围有很多限制，至少包括：
+\begin{enumerate}
+    \item 只能用于分析常系数方程；
+    \item 要求空间网格是均匀的；
+    \item 要求问题是纯初值问题或者具有周期性边界条件。（分别对应 Fourier 变换和 Fourier 级数）
+\end{enumerate}
+对于不满足限制的情况，例如涉及到变系数或非线性问题，或者使用非均匀网格，或者考虑非周期边界情况时，均无法直接应用 Fourier 方法。
+
+\begin{example}\label{eg:theta-1}
+    考虑 $u_t = b u_{xx}$（$b > 0$）的 $\theta$ 格式
+    \[
+        v^{n+1}_j - v^n_j = \Delta t\, b(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j),\quad Q = D_+ D_-.
+    \]
+    分析其 $L^2$ 模稳定性。
+\end{example}
+
+\begin{solution*}
+    计算放大因子（记 $\mu = \frac{b \Delta t}{\Delta x^2}$）
+    \[
+        \widehat{Q} = \frac{1-4\mu(1-\theta)\sin^2(\frac{\xi}2)}{1+4\mu\theta\sin^2(\frac{\xi}2)},\quad (\xi = \omega \Delta x)
+    \]
+    要求$-1 \le \widehat{Q} \le 1$，显然有$\widehat{Q}\le 1$，对于$-1 \le \widehat{Q}$等价于
+    \begin{gather*}
+        2\left(1+4\mu \theta \sin^2(\frac{\xi}2)\right) \ge 4 \mu \sin^2(\frac{\xi}2)
+        \\
+        1 -  4\mu(\frac12-\theta) \sin^2(\frac{\xi}2) \ge 0
+    \end{gather*}
+    稳定性要求对任意 $\xi$ 均成立，即要求
+    \[
+        4\mu(\frac12-\theta) \le 1
+    \]
+    因此，在 $L^2$ 模意义下，当 $\frac12 \le \theta \le 1$ 时，格式无条件稳定；
+    当 $0 <\theta < \frac12$ 时，格式有条件稳定，要求 $\mu \le \frac{1}{2(1-2\theta)}$。
+\end{solution*}
+
+\subsection{CFL 方法}
+
+对于双曲型问题，考虑特征线，要求数值解依赖区包含精确解的依赖区，否则不稳定。
+但是这只是（在任意模下）稳定的必要不充分条件，例如对于对流方程
+\begin{itemize}
+    \item FTCS格式即使满足 CFL 条件 $|\frac{a \Delta t}{\Delta x}| \le 1$ 也是不稳定的；
+    \item 蛙跳格式的 CFL 条件是 $|\frac{b \Delta t}{\Delta x^2}| \le 1$，但是 $L^2$ 模稳定性的充要条件是 $|\frac{b \Delta t}{\Delta x^2}| < 1$，不允许取等。
+\end{itemize}
+
+\begin{remark}
+    对于扩散方程没有 CFL 条件这种概念，因为扩散方程不是双曲型问题，而是抛物型问题。
+    不建议将针对扩散方程的稳定性条件（例如 $\frac{b \Delta t}{\Delta x^2} \le \frac12$）也称为 CFL 条件。
+\end{remark}
+
+
+\subsection{冻结系数法}
+
+冻结系数法的思路非常朴素：将变系数问题在局部近似视作常系数问题，就可以使用针对常系数差分格式的分析手段对变系数差分格式进行模糊的稳定性分析。
+具体过程如下：
+\begin{enumerate}
+    \item 将差分系数冻结为某个常数，导出相应的线性常系数差分格式；
+    \item 利用其他的准确分析技术，给出相应的稳定性要求；
+    \item 考虑所有合理的系数冻结范围，所有的稳定性要求的交集就是冻结系数方法给出的结果。
+\end{enumerate}
+冻结系数法只是一种模糊的分析手段，得到的是稳定的必要条件，至于是哪一种模意义下的稳定，与具体采用的分析手段有关。
+
+\begin{example}
+    对于变系数扩散方程
+    \[
+        u_t = b(x,t) u_{xx},\quad b(x,t) \ge \varepsilon > 0.
+    \]
+    考虑如下格式
+    \[
+        \frac{v_j^{n+1} - v_j^n}{\Delta t} = b_j^n \frac{v_{j+1}^n - 2v_j^n + v_{j-1}^n}{\Delta x^2}
+    \]
+    采用冻结系数法分析其最大模和 $L^2$ 模稳定性。
+\end{example}
+
+\begin{solution*}
+    将 $b_j^n$ 近似为某个常数 $b > 0$，得到线性常系数格式
+    \[
+        \frac{v_j^{n+1} - v_j^n}{\Delta t} = b \frac{v_{j+1}^n - 2v_j^n + v_{j-1}^n}{\Delta x^2}
+    \]
+    显然其最大模和 $L^2$ 模稳定性条件均为
+    \[
+        \frac{b \Delta t}{\Delta x^2} \le \frac12
+    \]
+    取遍所有的 $b_j^n$ 时，上式都应当成立，因此相应稳定性要求的交集为
+    \[
+        \frac{\Delta t}{\Delta x^2} \max_{x,\,t} b(x,t) \le \frac12
+    \]
+    这就是冻结系数法给出的最大模和 $L^2$ 模稳定的必要条件。
+\end{solution*}
+
+
+\subsection{离散最大模原理}
+
+要求格式保证数值解的离散最大模 $\| v^{n+1}\|_\infty \le \| v^{n}\|_\infty$ 关于时间不增，得到的是最大模稳定的充分条件。
+证明过程通常只需要使用如下平凡的不等式：若 $a_i \ge 0$，则有
+\[
+    |a_1 x_1 + a_2 x_2 + \cdots + a_n x_n | \le a_1 | x_1 | + a_2 | x_2 | + \cdots + a_n | x_n |
+    \le \left(\sum_{i=1}^n a_i \right)\max_i |x_i|
+\]
+
+
+\begin{example}\label{eg:theta-2}
+    考虑 $u_t = b u_{xx}$ 的 $\theta$ 格式
+    \[
+        v^{n+1}_j - v^n_j = \Delta t\,b (\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j),\quad Q = D_+ D_-.
+    \]
+    分析其最大模稳定性。
+\end{example}
+
+\begin{solution*}
+    记 $\mu = \frac{b \Delta t}{\Delta x^2}$，将差分格式整理为
+    \[
+        (1 + 2 \theta \mu) v_j^{n+1}
+        = \left[1-2(1-\theta) \mu \right] v_j^n + (1-\theta) \mu (v_{j+1}^{n} + v_{j-1}^{n}) + \theta \mu (v_{j+1}^{n+1} + v_{j-1}^{n+1})
+    \]
+    若满足 $1-2(1-\theta) \mu \ge 0$，利用系数非负性放缩可得
+    \begin{align*}
+        (1 + 2 \theta \mu) v_j^{n+1}
+        ={}   & \left[1-2(1-\theta) \mu \right] v_j^n + (1-\theta) \mu (v_{j+1}^{n} + v_{j-1}^{n}) + \theta \mu (v_{j+1}^{n+1} + v_{j-1}^{n+1}) \\
+        \le{} & \left[1-2(1-\theta) \mu \right] \|v^n \|_{\infty} + 2 (1-\theta) \mu \|v^n \|_{\infty}
+        + 2 \theta \mu \|v^{n+1}\|_{\infty}                                                                                                     \\
+        ={}   & \|v^n\|_{\infty} + 2 \theta \mu \|v^{n+1}\|_{\infty}
+    \end{align*}
+    对左侧取最大值可得
+    \begin{align*}
+        (1 + 2 \theta \mu)\|v^{n+1}\|_{\infty} \le{} & \|v^n\|_{\infty} + 2 \theta \mu \|v^{n+1}\|_{\infty} \\
+        \|v^{n+1}\|_{\infty} \le{}                   & \|v^n\|_{\infty}
+    \end{align*}
+    此时格式是最大模稳定的。
+
+    因此格式是最大模稳定性结论为：
+    在 $\theta=1$ 时无条件最大模稳定，
+    在 $\theta \in [0,1)$ 时有条件最大模稳定的，稳定性要求 $\mu = \frac{b \Delta t}{\Delta x^2} \le \frac{1}{2(1-\theta)}$。
+\end{solution*}
+
+\begin{remark}
+    例~\ref{eg:theta-1} 和 例~\ref{eg:theta-2} 表明在不同的模意义下分析同一个数值格式，也可能得到不同的稳定性结论。
+    （张强《偏微分方程的有限差分方法》P45）
+\end{remark}
+
+从常系数问题变为变系数问题，最大模稳定性的分析过程也非常类似，只是放缩过程中的处理略有不同。
+
+\begin{example}
+    考虑偏微分方程 $u_t=(b(x)\, u_x)_x$（其中光滑函数 $C_1 \ge b(x) \ge C_2 > 0$），考虑如下的 $\theta$ 格式，分析其最大模稳定性。
+    \[
+        v^{n+1}_j - v^n_j = \Delta t\,(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j)
+    \]
+    其中算子 $Q$ 定义为
+    \[
+        Q w^n_j=\frac{1}{\Delta x}\left(b_{j+\frac12}\frac{w_{j+1}-w_{j}}{\Delta x} - b_{j-\frac12}\frac{w_j-w_{j-1}}{\Delta x}\right)
+    \]
+\end{example}
+
+\begin{solution*}
+    记 $\mu = \frac{\Delta t}{\Delta x^2}$，将格式整理为：
+    \begin{align*}
+        [1+\theta \mu (b_{j+\frac12} + b_{j-\frac12})] v^{n+1}_j
+        ={} & [1- (1-\theta) \mu (b_{j+\frac12}+b_{j-\frac12})] v^{n}_j                \\
+            & + (1-\theta) \mu (b_{j+\frac12} v^n_{j+1} + b_{j-\frac12} v^n_{j-1})     \\
+            & + \theta \mu (b_{j+\frac12} v^{n+1}_{j+1} + b_{j-\frac12} v^{n+1}_{j-1})
+    \end{align*}
+    假设$1-2\,(1-\theta)\,\mu \max|b(x,t)|\ge0$，记$\|v^n\|_\infty = \max_j|v_j^n|$，两边同取绝对值可得
+    \begin{align*}
+        [1+\theta \mu (b_{j+\frac12} + b_{j-\frac12})] |v^{n+1}_j|
+        ={}   & [1- (1-\theta) \mu (b_{j+\frac12}+b_{j-\frac12})] |v^{n}_j|                \\
+              & + (1-\theta) \mu (b_{j+\frac12} |v^n_{j+1}| + b_{j-\frac12} |v^n_{j-1})|   \\
+              & + \theta \mu (b_{j+\frac12} v^{n+1}_{j+1} + b_{j-\frac12} |v^{n+1}_{j-1})| \\
+        \le{} & \|v^n\|_\infty
+        + \theta \mu (b_{j+\frac12}  + b_{j-\frac12}) \|v^{n+1}\|_\infty
+    \end{align*}
+    不妨设 $j_0$ 使得 $\|v^{n+1}\|_\infty = |v_{j_0}^{n+1}|$，对上式取 $j = j_0$ 可得
+    \begin{align*}
+        [1 + \theta \mu (b^{n+1}_{j_0+1/2}+b^{n+1}_{j_0-1/2})]\|v^{n+1}\|_\infty
+        \le{}                                        & \|v^{n}\|_\infty + \theta \mu (b^{n+1}_{j_0+1/2}+b^{n+1}_{j_0-1/2})\|v^{n+1}\|_\infty \\
+        \Rightarrow \quad   \|v^{n+1}\|_\infty \le{} & \|v^{n}\|_\infty
+    \end{align*}
+    此时格式是最大模稳定的。
+
+    因此格式是最大模稳定性结论为：
+    在 $\theta=1$ 时无条件最大模稳定，
+    在 $\theta \in [0,1)$ 时有条件最大模稳定的，稳定性要求 $\mu \max|b(x,t)| = \frac{\Delta t}{\Delta x^2} \max|b(x,t)| \le \frac{1}{2(1-\theta)}$。
+\end{solution*}
+
+
+\begin{example}
+    考虑 $u_t + a u_{x} = 0$ 的 Lax-Wendroff 格式
+    \[
+        \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+    \]
+    分析其最大模稳定性。
+\end{example}
+
+\begin{solution*}
+    记 $r = \frac{a \Delta t}{\Delta x}$，将格式整理为：
+    \begin{align*}
+        v_{j}^{n+1}
+        ={} & v_j^n - \frac{r}2(v_{j+1}^n- v_{j-1}^n) + \frac{r^2}2
+        (v_{j+1}^n-2v_{j}^n+v_{j-1}^n)                                          \\
+        ={} & (1-r^2) v_j^n + \frac{r^2-r}2 v_{j+1}^n + \frac{r+r^2}2 v_{j-1}^n
+    \end{align*}
+    当且仅当 $|r|=1$ 时，才能保证三个系数全部非负。
+    因此仅在 $|r| = 1$ 时，
+    \[
+        |v_{j}^{n+1}| \le{} (1-r^2) |v_j^n| + \frac{r^2-r}2 |v_{j+1}^n| + \frac{r+r^2}2 |v_{j-1}^n| \le \|v^n\|_\infty
+    \]
+    格式具有最大模稳定性。
+\end{solution*}
+
+\begin{remark}
+    理论和数值实验都表明：Lax-Wendroff 格式仅在 $|r|=1$ 时具有最大模稳定性。
+    对于 Lax-Wendroff 格式，在 $L^2$ 模和最大模意义下分析得到的稳定性结论具有非常明显的差异：
+    $L^2$ 模稳定性要求为 $|r| \le 1$；最大模稳定性要求为 $|r|=1$。
+\end{remark}
+
+
+\subsection{能量方法}
+
+构造一个新范数 $\|\cdot\|_*$，要求 $\| v^{n+1}\|_* \le e^{\alpha \Delta t} \| v^{n}\|_*$，
+再利用范数等价得到 $L^2$ 模的稳定性（充要条件），过程如下：
+\begin{enumerate}
+    \item 选取适当的检验函数，建立能量范数的递推关系；
+    \item 指出能量范数同离散 $L^2$ 模的等价关系；
+    \item 导出差分格式的 $L^2$ 模稳定性，给出相应的充分条件。
+\end{enumerate}
+在推导过程中需要利用一些不等式和求和技巧，下面是一些例子，这里假定全部都是实值，因此不需要在 $\|\cdot\|_{\Delta x}$ 的定义中取共轭。
+
+
+\subsubsection{对流方程}
+
+首先分析对流方程，对于 $u_t + a u_x = 0$ 易得
+\[
+    \frac12 \frac{d}{dt} \|u\|^2 = \int_{0}^{2\pi} u u_t \,dx = - a \int_0^{2\pi} u u_x\,dx
+    = - a \left. \frac{u^2}2 \right|_0^{2\pi} = 0
+\]
+因此
+\[
+    \| u(x,t) \|^2 = \| u(x,0) \|^2
+\]
+对于变系数对流方程 $u_t + a(x) u_x = 0$（其中 $a(x)$ 是连续可微的周期函数），易得
+\begin{align*}
+    \frac12 \frac{d}{dt} \|u\|^2 ={} & \int_{0}^{2\pi} u u_t \,dx = - \int_0^{2\pi} a(x) u u_x\,dx                         \\
+    ={}                              & - \frac12 \left. a(x) u^2 \right|_0^{2\pi} + \frac12\int_{0}^{2\pi} a_x(x) u^2 \,dx
+    \le{}  \frac{M}2 \| u \|^2
+\end{align*}
+因此
+\[
+    e^{- M t} \| u(x,t) \|^2 \le \| u(x,0) \|^2
+\]
+我们希望数值格式也具有类似的稳定性结论。
+
+\begin{example}
+    考虑 $u_t + a(x) u_x = 0$（其中 $a(x)$ 是Lipschitz 连续的周期函数）的 Crank–Nicolson 格式，分析 $L^2$ 模稳定性。
+    \[
+        v_j^{n+1}-v_j^n = - \frac{\Delta t}{2} a_j D_0(v_j^n + v_j^{n+1}) = 0,\quad
+        D_0 := \frac1{2\Delta x}(E^1-E^{-1}).
+    \]
+\end{example}
+
+\begin{solution*}
+    在格式两侧乘以 $v_j^{n+1} + v_j^n$ 可得
+    \[
+        (v_j^{n+1})^2 - (v_j^n)^2 = - \frac{\Delta t}{2} a_j D_0(v_j^n + v_j^{n+1})(v_j^{n+1} + v_j^n)
+    \]
+    对 $j$ 求和并乘以 $\Delta x$ 可得
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2 ={}
+            & - \frac{\Delta t \Delta x}{2} \sum_j a_j D_0(v_j^n + v_j^{n+1})(v_j^{n+1} + v_j^n)      \\
+        ={} & - \frac{\Delta t \Delta x}{2} \sum_j a_j D_0(w_j) w_j. \quad (w_j := v_j^{n+1} + v_j^n)
+    \end{align*}
+    注意到
+    \begin{align*}
+        \Delta x \left| \sum_j a_j D_0(w_j) w_j \right|
+        ={}   &
+        \frac1{2} \left|
+        \sum_j a_j w_{j+1} w_j - \sum_j a_j w_{j-1} w_j
+        \right| =
+        \frac1{2} \left|
+        \sum_j (a_j-a_{j+1}) w_{j+1} w_j
+        \right|
+        \\
+        \le{} & \frac{\Delta x}2 M
+        \sum_j \left|w_{j+1} w_j\right|
+        \le  \frac{\Delta x}4 M
+        \sum_j \left(|w_{j+1}|^2 + |w_j|^2 \right)
+        = \frac{M}{2} \|w\|_{\Delta x}^2
+    \end{align*}
+    其中 $M$ 是 $a(x)$ 的 Lipschitz 常数。
+    因此
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2
+        \le \frac{1}{4} M \Delta t \|v^{n+1} + v^n\|_{\Delta x}^2
+        \le \frac{1}{2} M \Delta t \left( \|v^{n+1} \|_{\Delta x}^2 +  \|v^{n} \|_{\Delta x}^2\right)
+    \]
+    在 $M \Delta t \ll 1$ 时，存在 $\varepsilon > 0$ 使得
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 \le
+        \frac{1+\frac{1}{2} M \Delta t}{1-\frac{1}{2} M \Delta t} \|v^{n}\|_{\Delta x}^2
+        \le (1 + (M+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2,
+    \]
+    因此
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + (M+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
+        \le{}                          & \cdots \le (1 + (M+\varepsilon) \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
+        \le{}                          & e^{(M+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+    \end{align*}
+    格式是无条件 $L^2$ 模稳定的。
+\end{solution*}
+
+\begin{remark}
+    对于常系数对流方程 $u_t + a u_x = 0$ 以及对应的 Crank–Nicolson 格式，
+    上述解答过程中的交错项部分严格为零
+    \[
+        \left| \sum_j a D_0(w_j) w_j \right|
+        ={}
+        \frac1{2\Delta x} \left|
+        \sum_j a  w_{j+1} w_j - \sum_j a  w_{j-1} w_j
+        \right| = 0
+    \]
+    此时有
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 = \|v^{n}\|_{\Delta x}^2 = \dots = \|v^{0}\|_{\Delta x}^2
+    \]
+\end{remark}
+
+
+\begin{example}
+    考虑 $u_t+a(x)u_x=0$（其中 $a(x)$ 是连续可微的周期函数，并且$a(x),a_x(x)$有界）的 Lax 格式，分析 $L^2$ 模稳定性。
+    \[
+        \frac{v^{n+1}_j - \frac12(v_{j-1}^n + v_{j+1}^n)}{\Delta t} +  a_j\frac{v^n_{j+1} - v^n_{j-1}}{2\Delta x} = 0
+    \]
+\end{example}
+
+\begin{solution*}
+    记 $r = \frac{\Delta t}{\Delta x}$，将 Lax 格式整理为
+    \[
+        v^{n+1}_j=\left(\frac{1}{2}-\frac{r}{2}a_j\right)v^n_{j+1}+\left(\frac{1}{2}+\frac{r}{2}a_j\right)v^n_{j-1},\quad
+    \]
+    当 $r\,\max{|a(x)|}\le 1$ 时
+    \[
+        \frac{1}{2} - \frac{r}{2} a_j \ge 0, \quad \frac{1}{2} + \frac{r}{2} a_j \ge 0
+    \]
+    考虑凸函数 $x^2$ 满足的 Jenson 不等式，可以得到（或者平方后利用基本不等式放缩）
+    \[
+        (v^{n+1}_j)^2\le \left(\frac{1}{2}-\frac{r}{2}a_j\right)(v^n_{j+1})^2+\left(\frac{1}{2}+\frac{r}{2}a_j\right)(v^n_{j-1})^2
+    \]
+    关于 $j$ 求和可得（记 $M = \max|a_x(x)|$）
+    \[
+        \sum_{j}(v^{n+1}_j)^2\le \sum_{j}(1+\frac{r}{2}(a_{j+1}-a_{j-1}))(v^n_{j})^2
+        \le \sum_{j}(1+ M r \Delta x)(v^n_{j})^2 = \sum_{j}(1 + M \Delta t)(v^n_{j})^2
+    \]
+    因此
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + M \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
+        \le{}                          & \cdots \le (1 + M \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
+        \le{}                          & e^{M (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+    \end{align*}
+    在 $r\,\max{|a(x)|}\le 1$ 时，格式是关于 $L^2$ 模稳定的。
+\end{solution*}
+
+\begin{remark}
+    与上一个例子类似，对于常系数对流方程 $u_t + a u_x = 0$ 以及对应的 Lax 格式，在满足如下条件时
+    \[
+        \frac{1}{2} - \frac{r}{2} a \ge 0,\quad \frac{1}{2} + \frac{r}{2} a \ge 0
+    \]
+    亦即 $\left|\frac{a \Delta t}{\Delta x}\right| \le 1$，
+    可以直接得到
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 = \|v^{n}\|_{\Delta x}^2 = \dots = \|v^{0}\|_{\Delta x}^2
+    \]
+\end{remark}
+
+\subsubsection{扩散方程}
+
+分析扩散方程，对于 $u_t = b u_{xx}$（$b > 0$）易得
+\[
+    \frac12 \frac{d}{dt} \| u \|^2 = \int_{0}^{2\pi} u u_t \,dx = b \int_0^{2\pi} u u_{xx}\,dx
+    = b u u_x \big|_0^{2\pi} - b \int_{0}^{2\pi} (u_x)^2\,dx = - b \int_{0}^{2\pi} (u_x)^2\,dx \le 0
+\]
+因此
+\[
+    \| u(x,t) \|^2 \le \| u(x,0) \|^2
+\]
+对于变系数扩散方程 $u_t = (b(x) u_x)_x$（其中 $C_1 \ge b(x) \ge C_2 > 0$），易得
+\begin{align*}
+    \frac12 \frac{d}{dt} \|u\|^2 ={} & \int_{0}^{2\pi} u u_t \,dx
+    = \int_0^{2\pi} (b(x) u_x)_x u\,dx                                      \\
+    ={}                              & \left. b(x) u u_x \right|_{0}^{2\pi}
+    - \int_{0}^{2\pi} b(x) (u_x)^2\,dx \le 0
+\end{align*}
+因此
+\[
+    \| u(x,t) \|^2 \le \| u(x,0) \|^2
+\]
+我们希望数值格式也具有类似的稳定性结论。
+
+\begin{example}
+    考虑 $u_t = b u_{xx}$ （$b > 0$）的 FTCS 格式，分析 $L^2$ 模稳定性。
+    \[
+        v_j^{n+1} - v_j^n = \mu (v_{j+1}^n - 2v_j^n + v_{j-1}^n),\quad \mu := \frac{b \Delta t}{\Delta x^2}.
+    \]
+\end{example}
+
+\begin{solution*}
+    将格式整理为
+    \[
+        v_j^{n+1} = \mu v_{j-1}^n + (1-2\mu) v_j^n + \mu v_{j+1}^n
+    \]
+    要求 $1-2\mu \ge 0$，利用 Jensen 不等式可得（或者平方后利用基本不等式放缩）
+    \[
+        (v_j^{n+1})^2 \le \mu (v_{j-1}^n)^2 + (1-2\mu) (v_j^n)^2 + \mu (v_{j+1}^n)^2
+    \]
+    对 $j$ 求和并乘以 $\Delta x$ 可得
+    \[
+        \| v^{n+1} \|_{\Delta x}^2 \le \| v^{n} \|_{\Delta x}^2 \qedhere
+    \]
+    因此格式在 $\mu = \frac{b \Delta t}{\Delta x^2} \le \frac12$ 时具有 $L^2$ 模稳定性。
+\end{solution*}
+
+\begin{example}
+    考虑 $u_t = (b(x) u_x)_x$（其中 $C_1 \ge b(x) \ge C_2 > 0$）的如下格式，分析 $L^2$ 模稳定性。
+    \[
+        v_j^{n+1}-v_j^n =
+        \mu \left[ b_{j+\frac12} (v_{j+1}^n - v_j^{n})
+        - b_{j-\frac12} (v_{j}^n - v_{j-1}^{n})\right]
+        ,\quad \mu := \frac{\Delta t}{\Delta x^2}.
+    \]
+\end{example}
+
+\begin{solution*}
+    在格式两侧乘以 $v_j^{n+1} + v_j^n$ 可得
+    \[
+        (v_j^{n+1})^2 - (v_j^n)^2 = \mu \left[ b_{j+\frac12} (v_{j+1}^n - v_j^{n})
+        - b_{j-\frac12} (v_{j}^n - v_{j-1}^{n})\right](v_j^{n+1} + v_j^n)
+    \]
+    对 $j$ 求和并乘以 $\Delta x$ 可得
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2
+        ={}                & \mu \Delta x \sum_j \left[ b_{j+\frac12} (v_{j+1}^n - v_j^{n})
+        - b_{j-\frac12} (v_{j}^n - v_{j-1}^{n})\right](v_j^{n+1} + v_j^n)
+        \\
+        ={}                & \mu \Delta x \sum_j b_{j+\frac12} (v_{j+1}^n - v_j^{n})
+        \left[(v_j^{n+1} + v_j^n) - (v_{j+1}^{n+1} + v_{j+1}^n)\right]
+        \\
+        ={}                & - \mu \Delta x \sum_j b_{j+\frac12} \Delta_+ v_j^n \Delta_+(v_j^{n+1}+v_j^n)
+        \\
+        \overset{(*)}{=}{} & - \mu \Delta x \sum_j b_{j+\frac12}
+        \left\{
+        {\color{red}\frac12 \left[\Delta_+(v_j^{n+1}+v_j^n)\right]^2}
+        + \frac12  (\Delta_+ v_j^n)^2  - \frac12  (\Delta_+ v_j^{n+1})^2
+        \right\}
+        \\
+        \le{}              & - \mu \Delta x \sum_j b_{j+\frac12}
+        \left(
+        \frac12  (\Delta_+ v_j^n)^2  - \frac12  (\Delta_+ v_j^{n+1})^2
+        \right)
+    \end{align*}
+    其中 $(*)$ 利用了如下恒等式
+    \[
+        p(p+q) = \frac12(p+q)^2 + \frac12(p^2-q^2)
+    \]
+    因此
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 - \frac{\mu \Delta x}2 \sum_j b_{j+\frac12}
+        (\Delta_+ v_j^{n+1})^2
+        \le
+        \|v^{n}\|_{\Delta x}^2 - \frac{\mu \Delta x}2 \sum_j b_{j+\frac12}
+        (\Delta_+ v_j^{n})^2
+    \]
+    定义能量为
+    \[
+        E(v^n) := \|v^{n}\|_{\Delta x}^2 - \frac{\mu \Delta x}2 \sum_j b_{j+\frac12}
+        (\Delta_+ v_j^{n})^2
+    \]
+    则有
+    \[
+        E(v^{n+1}) \le E(v^n) \le \cdots \le E(v^0)
+    \]
+
+    我们还需要说明的是： $E(v^n)$ 在一定条件下确实是一个和离散 $L^2$ 模等价的能量，由于
+    \begin{align*}
+        \|v^{n}\|_{\Delta x}^2 \ge{}
+        E(v^n) ={} & \|v^{n}\|_{\Delta x}^2 - \frac{\mu \Delta x}2 \sum_j b_{j+\frac12}
+        (\Delta_+ v_j^{n})^2                                                            \\
+        \ge{}      & \|v^{n}\|_{\Delta x}^2 -  \mu \Delta x  \sum_j b_{j+\frac12}
+        ((v_{j+1}^{n})^2 + (v_{j}^{n})^2)                                               \\
+        \ge{}      & \|v^{n}\|_{\Delta x}^2 -  2\mu C_1
+        \|v^{n}\|_{\Delta x}^2
+    \end{align*}
+    因此若满足稳定性条件
+    \[
+        \mu\, C_1 = \frac{\Delta t}{\Delta x^2} \max | b(x)| < \frac12
+    \]
+    两者等价，此时
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 \le \frac{1}{1-2\mu C_1} E(v^{n+1}) \le \cdots \le \frac{1}{1-2\mu C_1}E(v^{0})
+        \le \frac{1}{1-2\mu C_1} \|v^{0}\|_{\Delta x}^2
+    \]
+    格式是 $L^2$ 模稳定的。
+\end{solution*}
+
+\begin{remark}
+    上述例题取自张强《偏微分方程的有限差分方法》4.1节的论题4.5，
+    分析得到的结论 $\frac{\Delta t}{\Delta x^2} \max | b(x)| < \frac12$ 是严格小于关系，而常系数情况下的结果是 $\frac{b \Delta t}{\Delta x^2} \le \frac12$，在临界情况下，变系数问题的稳定性结论是不明确的。
+\end{remark}
+
+
+\begin{example}
+    考虑偏微分方程 $u_t=(b(x)\, u_x)_x$（其中光滑函数 $C_1 \ge b(x) \ge C_2 > 0$），考虑如下的 $\theta$ 格式，分析 $L^2$ 模稳定性。
+    \[
+        v^{n+1}_j - v^n_j = \Delta t\,(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j)
+    \]
+    其中算子 $Q$ 定义为
+    \[
+        Q w^n_j=\frac{1}{\Delta x}\left(b_{j+\frac12} \frac{w_{j+1}-w_{j}}{\Delta x} - b_{j-\frac12}\frac{w_j-w_{j-1}}{\Delta x}\right)
+    \]
+\end{example}
+
+\begin{solution*}
+    首先分析 $Q$ 的性质，定义记号 $B(v,w)$
+    \begin{align*}
+        B(v,w):= - (Q v,w)_{\Delta x}
+        ={} & - \frac{1}{\Delta x} \sum_j \left(b_{j+\frac12}\frac{v_{j+1}-v_{j}}{\Delta x}-b_{j-\frac12}\frac{v_j - v_{j-1}}{\Delta x}\right)w_j \Delta x \\
+        ={} & \sum_j \frac{b_{j+\frac12}}{\Delta x}(v_{j+1}-v_{j})(w_{j+1}-w_{j})
+        ={}  \sum_j \frac{b_{j+\frac12}}{\Delta x} \Delta_+ v_{j} \Delta_+ w_{j}
+    \end{align*}
+    显然 $B(v,w)$ 有非负性 $B(v,v) ={} - (Q v,v)_{\Delta x} \ge 0$，以及对称性 $B(v,w) = B(w,v)$。
+
+    在格式两侧乘以 $(v_j^{n+1} + v_j^n)\Delta x$ 并对 $j$ 求和，可得
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2
+        ={}   &
+        \Delta t \theta (Q v^{n+1}, v^{n+1} + v^n)_\Delta x
+        + \Delta t (1-\theta) (Q v^{n}, v^{n+1} + v^n)_\Delta x
+        \\
+        ={}   &
+        - \Delta t \theta B(v^{n+1}, v^{n+1}) - \Delta t (1-\theta) B(v^{n}, v^n)
+        - \Delta t B(v^{n+1},v^n)
+        \\
+        ={}   &
+        - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+        \\
+              & - \frac{\Delta t}2 \left[
+        B(v^{n+1},v^{n+1}) + B(v^{n},v^n) + 2 B(v^{n+1},v^n)
+        \right]                                                                                                                 \\
+        ={}   &
+        - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+        \\
+              & {\color{red}-\frac{\Delta t}2 B(v^{n+1}+ v^n,v^{n+1} + v^n)}
+        \\
+        \le{} & - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+    \end{align*}
+    移项整理可得
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1})
+        \le{} \|v^{n}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+    \]
+    定义能量为
+    \[
+        E(v^n) := \|v^{n}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+    \]
+    则有
+    \[
+        E(v^{n+1}) \le E(v^n) \le \cdots \le E(v^0)
+    \]
+
+    我们还需要说明的是： $E(v^n)$ 在一定条件下确实是一个和离散 $L^2$ 模等价的能量，由于
+    \[
+        B(v^{n}, v^n) ={} \sum_j \frac{b_{j+\frac12}}{\Delta x}(v_{j+1}^n-v_{j}^n)(v_{j+1}^n-v_{j}^n)
+        \le{} \sum_j \frac{2\,b_{j+\frac12}}{\Delta x}\left(|v_{j+1}^n|^2 + |v_{j}^n|^2\right)
+        \le \frac{4 C_1}{\Delta x^2} \| v^n \|_{\Delta x}^2.
+    \]
+    因此，
+    \begin{itemize}
+        \item 在 $\theta = \frac12$ 时，显然 $E(v^n) = \|v^{n}\|_{\Delta x}^2$，因此
+              \[
+                  \|v^{n}\|_{\Delta x}^2 \le \|v^{n-1}\|_{\Delta x}^2 \le  \cdots \le \|v^{0}\|_{\Delta x}^2
+              \]
+              格式无条件 $L^2$ 模稳定；
+
+        \item 在 $\theta > \frac12$ 时（隐式的权重更大），放缩可得
+              \[
+                  \|v^{n}\|_{\Delta x}^2  \le E(v^n) \le  \|v^{n}\|_{\Delta x}^2  +  2 \mu C_1(2\theta-1) \|v^{n}\|_{\Delta x}^2 \qedhere
+              \]
+              因此
+              \[
+                  \|v^{n}\|_{\Delta x}^2 \le E(v^n) \le \cdots \le E(v^0)
+                  \le \Big[ 1 +  2 \mu C_1(2\theta-1)\Big] \|v^{0}\|_{\Delta x}^2
+              \]
+              格式无条件 $L^2$ 模稳定；
+
+        \item 在 $\theta < \frac12$ 时（显式的权重更大），放缩可得
+              \[
+                  \|v^{n}\|_{\Delta x}^2  -  2 \mu C_1(1-2\theta) \|v^{n}\|_{\Delta x}^2 \le E(v^n) \le   \| v^n \|_{\Delta x}^2
+              \]
+              因此在满足 $1 - 2 \mu C_1(1-2\theta) > 0$ 时，可以得到
+              {\small\[
+                  \|v^{n}\|_{\Delta x}^2 \le \frac{1}{1 - 2 \mu C_1(1-2\theta)} E(v^n)
+                  \le \cdots
+                  \le \frac{1}{1 - 2 \mu C_1(1-2\theta)} E(v^0)
+                  \le \frac{1}{1 - 2 \mu C_1(1-2\theta)} \|v^{0}\|_{\Delta x}^2
+              \]}
+              格式有条件 $L^2$ 模稳定，稳定性条件为 $\mu C_1 = \frac{\Delta t}{\Delta x^2} \max|b(x)| < \frac{1}{2(1-2\theta)}$。
+    \end{itemize}
+\end{solution*}
+
+\begin{remark}
+    对于 $\theta = \frac12$ 对应的变系数问题的 Crank-Nicolson 格式，放缩的过程会更加简单直接，不需要定义新的能量。
+    在格式两侧乘以 $(v_j^{n+1} + v_j^n)\Delta x$ 并对 $j$ 求和可得
+    \begin{align*}
+        \| v^{n+1}\|_{\Delta x}^2 - \| v^{n}\|_{\Delta x}^2
+        ={} &
+        \frac{\Delta x}2\mu \sum_j \left[ b_{j+\frac12} \Delta_+ v_{j}^n
+            - b_{j-\frac12} \Delta_+ v_{j-1}^{n} \right](v_j^{n+1} + v_j^n)
+        \\
+            &
+        + \frac{\Delta x}2\mu \sum_j \left[ b_{j+\frac12} \Delta_+ v_j^{n+1}
+        - b_{j-\frac12} \Delta_+ v_{j-1}^{n+1} \right](v_j^{n+1} + v_j^n)
+        \\
+        ={} & \frac{\Delta x^2}2\mu \sum_j \left( b_{j+\frac12} \Delta_+ v_{j}^n \right)
+        (v_j^{n+1} + v_j^n - v_{j+1}^{n+1} - v_{j+1}^n)
+        \\
+            &
+        + \frac{\Delta x}2\mu \sum_j  \left( b_{j+\frac12} \Delta_+ v_{j}^{n+1} \right)
+        (v_j^{n+1} + v_j^n - v_{j+1}^{n+1} - v_{j+1}^n)
+        \\
+        ={} & - \frac{\Delta x}2\mu \sum_j   b_{j+\frac12} \Delta_+ (v_{j}^n + v_{j}^{n+1})
+        \Delta_+ (v_{j}^n + v_{j}^{n+1}) \le 0
+    \end{align*}
+    因此直接得到 $\| v^{n+1}\|_{\Delta x} \le \| v^{n}\|_{\Delta x}$。
+\end{remark}
+
+
+\begin{remark}
+    对于 $b(x) = b > 0$ 对应的常系数问题的 $\theta$ 格式，
+    这里得到 $L^2$ 模稳定性结论与例~\ref{eg:theta-1} 使用 Fourier方法得到的结论一致。
+\end{remark}
+
+\subsection{半有界离散算子与稳定性}
+
+\begin{definition}
+    空间离散算子Q被称为半有界的，如果存在常数 $\alpha > 0$，使得对所有的周期格点函数 $v$，都有
+    \[
+        (v,Q v)_{\Delta x} + (Q v,v)_{\Delta x} \le 2 \alpha \| v \|_{\Delta x}^2
+    \]
+\end{definition}
+
+半有界离散算子可以用于证明半离散格式（仅对空间离散）的稳定性，就像半有界算子直接推出方程的适定性一样。
+\begin{theorem}
+    考虑半离散格式
+    \[
+        \left\{
+        \begin{aligned}
+             & \frac{d v_j}{d t} = Q v_j, j=0,1,\cdots,N+1 \\
+             & v_j(0) = f_j
+        \end{aligned}
+        \right.
+    \]
+    如果空间离散算子算子Q是半有界的，则解满足稳定性
+    \[
+        \| u(x,t) \|_{\Delta x} \le
+        K e^{\alpha(t-t_0)} \| u(x,t_0) \|_{\Delta x}
+    \]
+\end{theorem}
+
+\begin{proof}
+    证明过程完全类似定理~\ref{thm:well-posed-6}。
+\end{proof}
+
+利用半有界离散算子的性质可以很方便地证明差分格式的稳定性，在证明过程中可以完全忽略空间离散的细节处理，只关注时间离散即可。
+
+\begin{example}
+    考虑如下时间向后欧拉格式
+    \[
+        v_j^{n+1} - v_j^n = \Delta t \,Q(v_j^{n+1})
+    \]
+    其中对应空间离散的 $Q$ 是半有界算子，分析格式的稳定性。
+\end{example}
+
+\begin{solution*}
+    在格式两侧乘以 $v_j^{n+1}$ 可得（假定都是实值）
+    \[
+        (v_j^{n+1})^2 - v_j^{n+1} v_j^n = \Delta t \,Q(v_j^{n+1}) v_j^{n+1}
+    \]
+    对 $j$ 求和并乘以 $\Delta x$
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 - (v^{n+1},v^{n})_{\Delta x} = \Delta t\, (Q(v^{n+1}),v^{n+1})_{\Delta x}
+    \]
+    整理并进行放缩
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 \le{} & \|v^{n+1}\|_{\Delta x} \|v^{n}\|_{\Delta x} + \alpha \Delta t \|v^{n+1}\|_{\Delta x}^2 \\
+        \|v^{n+1}\|_{\Delta x} \le{}   & \|v^{n}\|_{\Delta x} + \alpha \Delta t \|v^{n+1}\|_{\Delta x}
+    \end{align*}
+    因此
+    \[
+        (1-\alpha \Delta t) \|v^{n+1}\|_{\Delta x} \le  \|v^{n}\|_{\Delta x}  \qedhere
+    \]
+    在 $\alpha \Delta t \ll 1$ 时，存在 $\varepsilon > 0$ 使得
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 \le
+        \frac{1}{1-\alpha \, \Delta t} \|v^{n}\|_{\Delta x}^2
+        \le (1 + (\alpha +\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2,
+    \]
+    因此
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + (\alpha+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
+        \le{}                          & \cdots \le (1 + (\alpha+\varepsilon) \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
+        \le{}                          & e^{(\alpha+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+    \end{align*}
+    格式是 $L^2$ 模稳定的。
+\end{solution*}
+
+\begin{example}
+    考虑如下 Crank–Nicolson 格式
+    \[
+        v_j^{n+1} - v_j^n = \frac{\Delta t}2 \,Q(v_j^{n+1} + v_j^n)
+    \]
+    其中对应空间离散的 $Q$ 是半有界算子，分析格式的稳定性。
+\end{example}
+
+
+\begin{solution*}
+    在格式两侧乘以 $v_j^{n+1} + v_j^{n}$ 可得（假定都是实值）
+    \[
+        (v_j^{n+1})^2 - (v_j^{n})^2 = \frac{\Delta t}2 Q(v_j^{n+1} + v_j^n)(v_j^{n+1} + v_j^{n})
+    \]
+    对 $j$ 求和并乘以 $\Delta x$
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2
+        ={}
+        \frac{\Delta t}{2} \sum_j Q(v_j^{n+1} + v_j^n)(v_j^{n+1} + v_j^{n}) \Delta x
+        \le{}  \frac{\alpha \,\Delta t}{2} \|v^{n+1} + v^n\|_{\Delta x}^2
+    \]
+    因此
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2 \le
+        \frac{\alpha \,\Delta t}{2} \|v^{n+1} + v^n\|_{\Delta x}^2
+        \le \alpha \,\Delta t \left(\|v^{n+1}\|_{\Delta x}^2 + \|v^{n}\|_{\Delta x}^2\right)
+    \]
+    得到
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 \le \frac{1+ \alpha \,\Delta t}{1-\alpha \, \Delta t} \|v^{n}\|_{\Delta x}^2
+    \]
+    在 $\alpha \Delta t \ll 1$ 时，存在 $\varepsilon > 0$ 使得
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 \le
+        \frac{1+ \alpha \,\Delta t}{1-\alpha \, \Delta t} \|v^{n}\|_{\Delta x}^2
+        \le (1 + (2\alpha +\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2,
+    \]
+    因此
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + (2\alpha+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
+        \le{}                          & \cdots \le (1 + (2\alpha+\varepsilon) \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
+        \le{}                          & e^{(2\alpha+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+    \end{align*}
+    格式是 $L^2$ 模稳定的。
+\end{solution*}
+
+
+\section{耗散性和色散性}
+
+需要区分如下三组概念：
+\begin{itemize}
+    \item \textbf{方程的耗散性/色散性：} 满足方程的简谐波传播规律；
+    \item \textbf{差分格式的耗散性/色散性：} 满足差分格式的简谐波传播规律；
+    \item \textbf{差分格式的数值耗散/数值色散：}体现的是方程和差分格式之间的耗散性/色散性比较。
+\end{itemize}
+
+\subsection{方程的耗散性/色散性}
+
+考虑如下常系数线性方程
+\[
+    u_t = \sum_{j=1}^N a_j \frac{\partial^j u}{\partial x^j},\quad a_j \in \mathbb{C}
+\]
+取简谐波 $u(x,t) = e^{i(k t+\omega x)}$，其中$k$ 是相位速度，对应时间周期性；$\omega$ 是波数，对应空间周期性。
+
+\begin{remark}
+    这里我们仍然省略常系数 $\frac{1}{\sqrt{2\pi}}$，有的资料中使用 $k$ 表示波数，使用 $\omega$ 表示相位速度，与这里的记号完全相反，此时的简谐波为 $u(x,t) = e^{i(\omega t+k x)}$。
+\end{remark}
+
+直接将 $u(x,t) = e^{i(k t+\omega x)}$ 代入方程可以得到 $k$ 和 $\omega$ 需要满足的广义色散关系 $k=k(\omega)$：
+\[
+    k = k(\omega) =  - i \sum_{j=1}^N a_j (i \omega)^j
+\]
+把 $k = k(\omega)$ 拆分为实部和虚部代入可得谐波解
+\[
+    u(x,t) = e^{-\Im k(\omega) t} e^{i(\Re k(\omega) t + \omega x)} = e^{-\Im k(\omega) t} e^{i \omega(x + \frac{\Re k(\omega)}\omega t)}
+\]
+定义方程的放大因子 $\lambda = \lambda(\omega)$ 以体现谐波解随时间的变化（包括振幅和相位变化）
+\[
+    \lambda(\omega) = \frac{u(x,t+\Delta t)}{u(x,t)} = \frac{e^{i(k(\omega) (t+\Delta t)+\omega x)}}{e^{i(k(\omega) t+\omega x)}} = e^{i k(\omega) \Delta t}
+    = e^{-\Im k(\omega) \Delta t} e^{i \Re k(\omega) \Delta t}
+\]
+易得方程的放大因子和 $k(\omega)$ 满足如下关系
+\[
+    \Re k(\omega) = \frac{\arg \lambda(\omega)}{\Delta t},\quad
+    \Im k(\omega) = - \frac{\ln |\lambda(\omega)|}{\Delta t}.
+\]
+
+\begin{remark}
+    在笔记的色散耗散部分，我们使用 $\lambda(\omega)$ 而非前文中的 $\widehat{Q}(\omega)$ 表示方程/格式的放大因子。
+\end{remark}
+
+假设方程所对应的广义色散关系为 $k=k(\omega)$，关注 $\Im k(\omega)$ 所代表的振幅变化：
+\begin{itemize}
+    \item 如果 $\Im k(\omega) = 0$，表明解的振幅不会随着时间变化；
+    \item 如果 $\Im k(\omega) > 0$，表明解的振幅会随着时间衰减；
+    \item 如果 $\Im k(\omega) < 0$，表明解的振幅会迅速增长。
+\end{itemize}
+
+\begin{definition}[方程的耗散性]
+    考虑对于所有波数 $\omega$ 对应的谐波解的行为：
+    \begin{itemize}
+        \item 称PDE是（正）耗散的，其解是稳定的，如果所有的谐波解的振幅不随时间增长，并且至少一个谐波解的振幅随时间衰减；
+        \item 称PDE是无耗散的，其解是稳定的，如果所有的谐波解的振幅不随时间变化；
+        \item 其它情况下，称PDE是逆耗散的，其解不稳定。
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    如果存在一个 $\omega$ 使得 $\Im k(\omega) < 0$ 逆耗散，那么问题本身就是不适定的，
+    只有 $\Im k(\omega) \ge 0$ 对于所有的 $\omega$ 始终成立，问题才是适定的。
+\end{remark}
+
+假设方程所对应的广义色散关系为 $k=k(\omega)$，定义波速 $c = c(\omega) = - \Re k(\omega) / \omega$，
+若 $c > 0$，则波向右传播，若 $c < 0$ 则波向左传播。
+对于不同波数 $\omega$ 的波：
+\begin{itemize}
+    \item 如果波速 $c(\omega)$ 与波数 $\omega$ 无关，这表明不同波数 $\omega$ 的波传播速度相同；
+    \item 如果波速 $c(\omega)$ 与波数 $\omega$ 有关，这表明不同波数 $\omega$ 的波传播速度不同。
+\end{itemize}
+
+
+\begin{definition}[方程的色散性]
+    考虑波速 $c = c(\omega) = - \Re k(\omega) / \omega$ 与波数 $\omega$ 的关系：
+    \begin{itemize}
+        \item 称PDE具有色散性，其解是色散的，如果波速 $c(\omega)$ 与波数 $\omega$ 有关；
+        \item 称PDE无色散，其解是无色散的，如果波速 $c(\omega)$ 与波数 $\omega$ 无关。
+    \end{itemize}
+\end{definition}
+
+
+\begin{example}
+    讨论 $u_t + a u_x = 0$ 的耗散性和色散性，其中 $a \neq 0$ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    将 $u(x,t) = e^{i(k t+\omega x)}$ 代入方程可得
+    \[
+        i k e^{i(k t+\omega x)} + a i \omega e^{i(k t+\omega x)} = 0,
+        \quad \Rightarrow \quad
+        k(\omega) = - a \omega
+    \]
+    基于色散关系 $k(\omega) = - a \omega$ 继续分析：
+    \begin{itemize}
+        \item 耗散性：$\Im k(\omega) = 0$，方程无耗散；
+        \item 色散性：波速 $c(\omega) = - \Re k(\omega) / \omega = a$ 与波数 $\omega$ 无关，方程无色散。
+    \end{itemize}
+\end{solution*}
+
+
+\begin{example}
+    讨论 $u_t + a u_{xx} = 0$ 的耗散性和色散性，其中 $a \neq 0$ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    将 $u(x,t) = e^{i(k t+\omega x)}$ 代入方程可得
+    \[
+        i k e^{i(k t+\omega x)} + a (i \omega)^2 e^{i(k t+\omega x)} = 0,
+        \quad \Rightarrow \quad
+        k(\omega) = - a i \omega^2
+    \]
+    基于色散关系 $k(\omega) = -a i \omega^2$ 继续分析：
+    \begin{itemize}
+        \item 耗散性：$\Im k(\omega) = -a \omega^2$
+              \begin{itemize}
+                  \item[(1)] $a>0$ 时 $\Im k(\omega) <0$ 逆耗散；（不稳定）
+                  \item[(2)] $a<0$ 时 $\Im k(\omega) >0$ 耗散。
+              \end{itemize}
+        \item 色散性：波速 $c(\omega) = - \Re k(\omega) / \omega = 0$ 与波数 $\omega$ 无关，
+              方程无色散。
+    \end{itemize}
+    这里 $a < 0$ 就是常系数的热方程，$a > 0$则是典型的不适定问题。
+\end{solution*}
+
+
+\begin{example}
+    讨论 $u_t + a u_{xxx} = 0$ 的耗散性和色散性，其中 $a \neq 0 $ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    将 $u(x,t) = e^{i(k t+\omega x)}$ 代入方程可得
+    \[
+        i k e^{i(k t+\omega x)} + a (i \omega)^3 e^{i(k t+\omega x)} = 0,
+        \quad \Rightarrow \quad
+        k(\omega) = a \omega^3
+    \]
+    基于色散关系 $k(\omega) = a \omega^3$ 继续分析：
+    \begin{itemize}
+        \item 耗散性：$\Im k(\omega) = 0$，方程无耗散；
+        \item 色散性：波速 $c(\omega) = - \Re k(\omega) / \omega = - a \omega^2$ 与波数 $\omega$ 有关，方程有色散。
+    \end{itemize}
+\end{solution*}
+
+对于一般的实系数线性方程
+\[
+    u_t = \sum_{j=1}^N a_j \frac{\partial^j u}{\partial x^j},\quad a_j \in \mathbb{R}
+\]
+有如下结论：
+\begin{enumerate}
+    \item 偶数阶空间导数项对应耗散关系，无色散关系；
+    \item 奇数阶空间导数项无耗散关系，空间导次数大于1的项对应色散关系。
+\end{enumerate}
+但是如果存在复系数，就需要拆分为实部虚部进行单独的分析，结论显然不一样。
+
+\begin{example}
+    讨论 $u_t + i a u_{xx} = 0$ 的耗散性和色散性，其中 $a \neq 0$ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    将 $u(x,t) = e^{i(k t+\omega x)}$ 代入方程可得
+    \[
+        i k e^{i(k t+\omega x)} + i a (i \omega)^2 e^{i(k t+\omega x)} = 0,
+        \quad \Rightarrow \quad
+        k(\omega) = a \omega^2
+    \]
+    基于色散关系 $ k(\omega) = a \omega^2$ 继续分析：
+    \begin{itemize}
+        \item 耗散性：$\beta(\omega) = \Im k(\omega) = 0$，方程无耗散。
+        \item 色散性：波速 $c(\omega) = - \Re k(\omega) / \omega = - a \omega$ 与波数 $\omega$ 有关，方程有色散。
+    \end{itemize}
+\end{solution*}
+
+
+\subsection{差分格式的耗散性/色散性}
+
+对于差分格式的耗散性/色散性分析包括如下两个方法：
+\begin{enumerate}
+    \item 通过直接计算差分格式的放大因子，色散关系来分析；
+    \item Modified PDE 方法（MPDE），需要利用与差分格式等价的偏微分方程不断进行变换，消去除 $u_t$ 之外的含时间的低阶导数项。
+\end{enumerate}
+
+\begin{remark}
+    MPDE方法的计算非常繁琐，具体参考 J.W.Thomas《Numerical Partial Differential Equations: Finite Difference Methods》7.7 节。
+\end{remark}
+
+直接将 $v_j^n = e^{i(k t_n+\omega x_j)}$ 代入差分格式，可以得到离散的广义色散关系 $k=k(\omega)$，同样拆分为实部和虚部
+\[
+    v_j^n = e^{-\Im k(\omega) t_n} e^{i(\Re k(\omega) t_n + \omega x_j)}
+\]
+定义差分格式的放大因子 $\lambda = \lambda(\omega)$
+\[
+    \lambda(\omega) = \frac{v_j^{n+1}}{v_j^n} = e^{-\Im k(\omega) \Delta t} e^{ i \Re k(\omega) \Delta t},
+\]
+易得放大因子和 $k(\omega)$ 满足如下关系
+\[
+    \Re k(\omega) = \frac{\arg \lambda(\omega)}{\Delta t},\quad \Im k(\omega) = - \frac{\ln |\lambda(\omega)|}{\Delta t}.
+\]
+差分格式的耗散色散性同样可以通过 $\Re k(\omega)$ 和 $\Im k(\omega)$ 来定义。
+假设差分格式所对应的广义色散关系为 $k=k(\omega)$，关注 $\Im k(\omega)$ 所代表的振幅变化：
+\begin{itemize}
+    \item 如果 $\Im k(\omega) = 0$，表明数值解的振幅不会随着时间变化；
+    \item 如果 $\Im k(\omega) > 0$，表明数值解的振幅会随着时间衰减；
+    \item 如果 $\Im k(\omega) < 0$，表明数值解的振幅会迅速增长。
+\end{itemize}
+
+\begin{definition}[差分格式的耗散性]
+    考虑对于所有波数 $\omega$ 对应的谐波解的行为：
+    \begin{itemize}
+        \item 称差分格式是（正）耗散的，其数值解是稳定的，如果所有的谐波解的振幅不随时间增长，并且至少一个谐波解的振幅随时间衰减；
+        \item 称差分格式是无耗散的，其数值解是稳定的，如果所有的谐波解的振幅不随时间变化；
+        \item 其它情况下，称差分格式是逆耗散的，其解不稳定。
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    如果存在一个 $\omega$ 使得 $\Im k(\omega) < 0$ 逆耗散，那么差分格式本身是不稳定的，
+    只有 $\Im k(\omega) \ge 0$ 对于所有的 $\omega$ 始终成立，格式才是稳定的。
+\end{remark}
+
+\begin{definition}[差分格式的色散性]
+    考虑波速 $c = c(\omega) = - \Re k(\omega) / \omega$ 与波数 $\omega$ 的关系：
+    \begin{itemize}
+        \item 称差分格式具有色散性，如果波速 $c(\omega)$ 与波数 $\omega$ 有关；
+        \item 称差分格式无色散，如果波速 $c(\omega)$ 与波数 $\omega$ 无关。
+    \end{itemize}
+\end{definition}
+
+对于差分格式的分析，放大因子的计算比较容易，$\Im k(\omega)$ 的正负判断直接等价于对 $|\lambda(\omega)|$ 与 1 的大小判断，
+但是计算波速时涉及到的放大因子的辐角并不容易
+\[
+    \arg \lambda(\omega) = \arctan \left(\frac{\Im \lambda(\omega)}{\Re \lambda(\omega)}\right)
+\]
+具体表达式可能比较复杂，记 $\xi = \omega \Delta x$，对上式在 $\xi = 0$ 附近泰勒展开，只关注 $\xi = 0$ 附近的表现。
+可能涉及到如下泰勒展开
+\begin{align*}
+    \sin(x) ={}    & x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots, \quad \forall\, x \in \mathbb{R}  \\
+    \cos(x) ={}    & 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \cdots, \quad \forall\, x  \in \mathbb{R} \\
+    \arctan(x) ={} & x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots, \quad \forall\, |x| \le 1
+\end{align*}
+
+\subsection{差分格式的数值耗散/数值色散}
+
+将方程和差分格式的耗散性/色散性进行比较，这里使用下标$e$强调方程的相关概念（广义色散关系$k_e(\omega)$，放大因子$\lambda_e(\omega)$，波速 $c_e(\omega)$），引入如下的概念：
+
+\begin{definition}[数值耗散]
+    对于方程以及对应的差分格式：
+    \begin{itemize}
+        \item 称差分格式是数值（正）耗散的，如果放大因子的模长之比满足 $|\lambda| / |\lambda_e| < 1$；（表明数值解的耗散比精确解更强）
+        \item 称差分格式无数值耗散，如果放大因子的模长之比满足 $|\lambda| / |\lambda_e| = 1$；
+        \item 其它情况下，称差分格式是数值逆耗散。
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[数值色散]
+    对于方程以及对应的差分格式：
+    \begin{itemize}
+        \item 称差分格式是数值负色散的，如果波速之比满足 $c(\omega) / c_e(\omega) = \arg \lambda(\omega) / \arg \lambda_e(\omega) < 1$；
+              （表明数值解的相位滞后于精确解）
+        \item 称差分格式无数值色散，如果波速之比满足 $c(\omega) / c_e(\omega) = \arg \lambda(\omega) / \arg \lambda_e(\omega) = 1$；
+        \item 其它情况下，称差分格式是数值正色散的。
+    \end{itemize}
+\end{definition}
+
+
+\subsection{一些例子}
+
+\begin{example}
+    讨论 $u_t + a u_x = 0$ 的迎风格式的耗散性/色散性，数值耗散性/数值色散性，其中 $a > 0$ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    迎风格式为 FTBS 格式
+    \[
+        v_j^{n+1} = v_j^n - r (v_j^n - v_{j-1}^{n}),\quad r = \frac{a \Delta t}{\Delta x}.
+    \]
+    差分格式的放大因子为
+    \begin{align*}
+        \lambda(\omega)   & = 1 - r (1 - e^{-i \omega \Delta x})                        \\
+                          & = 1 - r + r \cos(\omega\Delta x) - i r \sin(\omega\Delta x) \\
+        |\lambda(\omega)| & =
+        1 - \frac12 r(1-r) \xi^2 + O(\xi^4),\quad (\xi = \omega \Delta x)
+    \end{align*}
+    显然在 $ 0< r \le 1$ 时，$|\lambda(\omega)| \le 1$，差分格式具有稳定性。关于格式的耗散性分析：
+    \begin{itemize}
+        \item $r=1$对应 $|\lambda(\omega)| = 1$，此时 $\Im k(\omega) = 0$，差分格式无耗散；
+        \item $0<r<1$对应 $|\lambda(\omega)| < 1$，此时 $\Im k(\omega) > 0$，差分格式有耗散；
+    \end{itemize}
+    计算放大因子的幅角
+    \begin{align*}
+        \text{arg} \lambda(\omega) & =
+        \arctan \left(\frac{
+                - r \sin(\xi)
+            }{
+                1 - r + r \cos(\xi)
+            }     \right)
+        \\
+                                   & =
+        \arctan \left(\frac{
+                -r (\xi - \frac{\xi^3}{3!} + \mathcal{O}(\xi^5))
+            }{
+                1 - r + r\left(
+                1 - \frac{\xi^2}2 + \frac{\xi^4}{4!} + \mathcal{O}(\xi^6)
+                \right)
+        }     \right)                                                   \\
+                                   & =
+        - r \xi + \frac16 (r - 3r^2 + 2r^3) \xi^3 +  \mathcal{O}(\xi^5) \\
+                                   & = - r\xi \left[
+            1 - \frac16 (1-r)(1-2r)\xi^2 +  \mathcal{O}(\xi^4)
+            \right]
+    \end{align*}
+    计算波速
+    \[
+        c = -\frac{\Re k(\omega)}{\omega} = - \frac{\arg \lambda(\omega)}{ \omega\Delta t} = a  \left[
+            1 - \frac16 (1-r)(1-2r)\xi^2 +  \mathcal{O}(\xi^4)
+            \right]
+    \]
+    关于格式的色散性分析：
+    \begin{itemize}
+        \item $r=1$时， $c = a$ 波速与 $\omega$ 无关，差分格式无色散；
+        \item $0<r<1$时，$c = c(\omega)$与 $\omega$ 有关，差分格式有色散。
+    \end{itemize}
+    对于方程本身：放大因子满足 $|\lambda_e| = 1$ 无耗散，波速 $c_e = a$ 无色散。将差分格式和方程进行比较可得：
+    \begin{itemize}
+        \item 当 $0 < r < 1$ 时，$|\lambda| / |\lambda_e|  < 1$，差分格式具有数值（正）耗散；当 $r=1$ 时，$|\lambda| / |\lambda_e| = 1$，差分格式无数值耗散；
+        \item 当 $r \in (0,\frac12)$，$c(\omega) / c_e(\omega) < 1$，差分格式具有数值负色散；当 $r \in (\frac12,1)$，$c(\omega) / c_e(\omega) > 1$，差分格式具有数值正色散；当 $r=1$ 或 $r = \frac12$ 时，$c(\omega) / c_e(\omega) = 1$，差分格式无数值色散。
+    \end{itemize}
+\end{solution*}
+
+
+\begin{example}
+    讨论 $u_t + a u_x = 0$ 的 Lax–Friedrichs 格式的耗散性/色散性，数值耗散性/数值色散性，其中 $a \neq 0$ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    Lax–Friedrichs 格式如下
+    \[
+        v_{j}^{n+1} = \frac{v_{j+1}^n+v_{j-1}^n}{2} - \frac{r}2 (v_{j+1}^n-v_{j-1}^n),\quad r = \frac{a \Delta t}{\Delta x}.
+    \]
+    差分格式的放大因子为
+    \begin{align*}
+        \lambda(\omega)   & = \frac{1}2(e^{i \omega \Delta x} + e^{- i \omega \Delta x})
+        - \frac{1}2 (e^{i \omega \Delta x} - e^{- i \omega \Delta x})                            \\
+                          & =
+        \cos(\omega \Delta x) - i r \sin(\omega \Delta x),                                       \\
+        |\lambda(\omega)| & = 1 - \frac12 (1-r^2) \xi^2 + O(\xi^4),\quad (\xi = \omega \Delta x)
+    \end{align*}
+    显然在 $ 0< r \le 1$ 时，$|\lambda(\omega)| \le 1$，差分格式具有稳定性。关于格式的耗散性分析：
+    \begin{itemize}
+        \item $r=1$对应 $|\lambda(\omega)| = 1$，此时 $\Im k(\omega) = 0$，差分格式无耗散；
+        \item $0<r<1$对应 $|\lambda(\omega)| < 1$，此时 $\Im k(\omega) > 0$，差分格式有耗散；
+    \end{itemize}
+    计算放大因子的幅角
+    \begin{align*}
+        \text{arg} \lambda(\omega) & =
+        \arctan \left(\frac{
+                - r \sin(\xi)
+            }{
+                \cos(\xi)
+            }     \right)
+        \\
+                                   & =
+        \arctan \left(\frac{
+                -r (\xi - \frac{\xi^3}{3!} + \mathcal{O}(\xi^5))
+            }{
+                1 - \frac{\xi^2}2 + \frac{\xi^4}{4!} + \mathcal{O}(\xi^6)
+        }     \right)                                           \\
+                                   & =
+        - r \xi - \frac13 (r - r^3) \xi^3 +  \mathcal{O}(\xi^5) \\
+                                   & = - r\xi \left[
+            1 + \frac13 (1-r^2)\xi^2 +  \mathcal{O}(\xi^4)
+            \right]
+    \end{align*}
+    计算波速
+    \[
+        c = -\frac{\Re k(\omega)}{\omega} = - \frac{\arg \lambda(\omega)}{ \omega\Delta t} = a  \left[
+            1 + \frac13 (1-r^2)\xi^2 +  \mathcal{O}(\xi^4)
+            \right]
+    \]
+    关于格式的色散性分析：
+    \begin{itemize}
+        \item $r=1$时， $c = a$ 波速与 $\omega$ 无关，差分格式无色散；
+        \item $0<r<1$时，$c = c(\omega)$与 $\omega$ 有关，差分格式有色散。
+    \end{itemize}
+    对于方程本身：放大因子满足 $|\lambda_e| = 1$ 无耗散，波速 $c_e = a$ 无色散。将差分格式和方程进行比较可得：
+    \begin{itemize}
+        \item 当 $0 < r < 1$ 时，$|\lambda| / |\lambda_e|  < 1$，差分格式具有数值（正）耗散；当 $r=1$ 时，$|\lambda| / |\lambda_e| = 1$，差分格式无数值耗散；
+        \item 当 $0 < r < 1$ 时，$c(\omega) / c_e(\omega) > 1$，差分格式具有数值正色散；当 $r=1$ 时，$c(\omega) / c_e(\omega) = 1$，差分格式无数值色散。
+    \end{itemize}
+\end{solution*}
+
+\begin{example}
+    讨论 $u_t + a u_x = 0$ 的 Lax-Wendroff 格式的耗散性/色散性，数值耗散性/数值色散性，其中 $a \neq 0$ 是固定的实数。
+\end{example}
+
+\begin{solution*}
+    Lax-Wendroff 格式如下
+    \[
+        v_{j}^{n+1}
+        = v_j^n - \frac{r}2(v_{j+1}^n- v_{j-1}^n) + \frac{r^2}2
+        (v_{j+1}^n-2v_{j}^n+v_{j-1}^n),
+        \quad r = \frac{a \Delta t}{\Delta x}.
+    \]
+    差分格式的放大因子为
+    \begin{align*}
+        \lambda(\omega)
+                          & = 1 - \frac{r}2(e^{i \omega \Delta x} - e^{- i \omega \Delta x})
+        + \frac{r^2}2 (e^{i \omega \Delta x} - 2 + e^{- i \omega \Delta x})
+        \\
+                          & =
+        1 - i r \sin(\omega \Delta x)+ \frac{r^2}2 (-4 \sin^2(\frac{\omega\Delta x}2))
+        \\
+                          & = 1 - 2r^2 \sin^2(\frac{\omega\Delta x}2)
+        - i r \sin(\omega \Delta x)                                                          \\
+        |\lambda(\omega)| & =
+        1 - \frac18 r^2(1 - r^2) \xi^4 + O(\xi^6),\quad (\xi = \omega \Delta x)
+    \end{align*}
+    显然在 $ 0< r \le 1$ 时，$|\lambda(\omega)| \le 1$，差分格式具有稳定性。关于格式的耗散性分析：
+    \begin{itemize}
+        \item $r=1$对应 $|\lambda(\omega)| = 1$，此时 $\Im k(\omega) = 0$，差分格式无耗散；
+        \item $0<r<1$对应 $|\lambda(\omega)| < 1$，此时 $\Im k(\omega) > 0$，差分格式有耗散；
+    \end{itemize}
+    计算放大因子的幅角
+    \begin{align*}
+        \text{arg} \lambda(\omega)
+         & =
+        \arctan \left(\frac{
+                -r \sin(\xi)
+            }{
+                1 - 2r^2 \sin^2(\frac{\xi}2)
+        }     \right)                                            \\
+         & =
+        \arctan \left(\frac{
+                -r (\xi - \frac{\xi^3}{3!} + \mathcal{O}(\xi^5))
+            }{
+                1 - r^2 \left(
+                \frac{\xi^2}2 - \frac{\xi^4}{4!} + \mathcal{O}(\xi^6)
+                \right)
+        }     \right)                                            \\
+         & =
+        - r \xi + \frac16 (r -  r^3) \xi^3 +  \mathcal{O}(\xi^5) \\
+         & = - r\xi \left[
+            1 - \frac16 (1-r^2) \xi^2 +  \mathcal{O}(\xi^4)
+            \right]
+    \end{align*}
+    计算波速
+    \[
+        c = -\frac{\Re k(\omega)}{\omega} = - \frac{\arg \lambda(\omega)}{ \omega\Delta t} = a  \left[
+            1 - \frac16 (1-r^2)\xi^2 +  \mathcal{O}(\xi^4)
+            \right]
+    \]
+    关于格式的色散性分析：
+    \begin{itemize}
+        \item $r=1$时， $c = a$ 波速与 $\omega$ 无关，差分格式无色散；
+        \item $0<r<1$时，$c = c(\omega)$与 $\omega$ 有关，差分格式有色散。
+    \end{itemize}
+    对于方程本身：放大因子满足 $|\lambda_e| = 1$ 无耗散，波速 $c_e = a$ 无色散。将差分格式和方程进行比较可得：
+    \begin{itemize}
+        \item 当 $0 < r < 1$ 时，$|\lambda| / |\lambda_e|  < 1$，差分格式具有数值（正）耗散；当 $r=1$ 时，$|\lambda| / |\lambda_e|  = 1$，差分格式无数值耗散。
+        \item 当 $0 < r < 1$ 时，$c(\omega) / c_e(\omega) < 1$，差分格式具有数值负色散; 当 $r=1$ 时，$c(\omega) / c_e(\omega) = 1$，差分格式无数值色散;
+    \end{itemize}
+\end{solution*}
+
+\begin{remark}
+    以上三种格式可以整理为如下统一的形式
+    \[
+        v_j^{n+1} = v_j^n - \frac{r}2 (v_{j+1}^n - v_{j-1}^{n}) + \varepsilon (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n})
+    \]
+    其中：
+    \begin{itemize}
+        \item 取 $\varepsilon = \frac{r^2}2$ 可以得到 Lax-Wendroff 格式；
+        \item 取 $\varepsilon = \frac{|r|}2$ 可以得到迎风格式；
+        \item 取 $\varepsilon = \frac12$ 可以得到 Lax–Friedrichs 格式。
+    \end{itemize}
+    三种格式的耗散性强弱为：
+    \[
+        \text{Lax-Wendroff 格式} < \text{迎风格式} < \text{Lax–Friedrichs 格式}
+    \]
+    迎风格式和 Lax–Friedrichs 格式具有强耗散性，在数值实验中无法观察到因为色散性表现出的数值振荡。
+    （也可以从单调格式的角度解释，迎风格式和 Lax–Friedrichs 格式是单调格式，因此不会产生数值振荡）
+\end{remark}
+
+
+\section{多层差分格式的分析——以蛙跳格式为例}\label{sec:multi-layer-format}
+
+前面主要讨论的都是双层差分格式的分析，这里以蛙跳格式（CTCS 格式）为例进行多层差分格式的分析。
+考虑对流方程 $u_t + a u_x = 0$，蛙跳格式如下
+\[
+    \frac{v_j^{n+1} - v_j^{n-1}}{2\Delta t} + a \frac{v_{j+1}^{n} - v_{j-1}^{n}}{2\Delta x} = 0
+\]
+易得局部截断误差为 $\mathcal{O}(\Delta x^2 + \Delta t^2)$。将格式整理为
+\[
+    v_j^{n+1} = v_j^{n-1} - r (v_{j+1}^n - v_{j-1}^n),\quad r = \frac{a \Delta t}{\Delta x}
+\]
+考虑周期边界情况，由于蛙跳格式为三层格式，代入谐波解会得到如下方程
+\[
+    \hat{v}^{n+1}(\omega) = \hat{v}^{n-1}(\omega) - 2 r i \sin(\xi) \hat{v}^{n}(\omega),\quad (\xi = \omega \Delta x)
+\]
+令$\hat{v}^n(\omega)=z^n$，可以得到如下一元二次方程
+\[
+    z^2 = 1 - 2 r i \sin(\xi) z, \quad \Rightarrow \quad z_{1,2} = - i r \sin(\xi) \pm \sqrt{1 - r^2 \sin^2(\xi)}
+\]
+在 $|r| \le 1$ 时，始终有 $|z_1| = |z_2| = 1$，但是还需要分类讨论：
+\begin{itemize}
+    \item 若 $|r| = 1$，则可能在 $\sin(\xi) = 1$ 时出现重根；
+    \item 若 $|r| < 1$，则两根必然互异。
+\end{itemize}
+根据差分方程的相关理论：
+\begin{itemize}
+    \item 在有重根时的解形如 $\hat{v}^n(\omega) = (c_1 + c_2 n) z_1^n$；
+    \item 在无重根时的解形如 $\hat{v}^n(\omega) = c_1 z_1^n + c_2 z_2^n$。
+\end{itemize}
+其中的系数 $c_1, c_2$ 由初值和启动步决定，因此当且仅当 $|r| < 1$ 时，蛙跳格式具有稳定性。
+
+\begin{remark}
+    对于蛙跳格式，CFL 条件是 $|r| \le 1$，但是上述分析表明：蛙跳格式稳定的充要条件是 $|r|$ 严格小于1。
+\end{remark}
+
+
+
+下面讨论一下蛙跳格式的色散耗散性质，易知格式有两个放大因子（其中一个是“真实”的，另一个则是“虚假”的）
+\[
+    \lambda_{\pm}(\omega) ={} - i r \sin(\xi) \pm \sqrt{1 - r^2 \sin^2(\xi)}
+    ={}  - i r \xi \pm \left(
+    1 - \frac12 r^2 \xi^2 + \mathcal{O}(\xi^4)
+    \right), \quad (\xi = \omega \Delta x)
+\]
+关于耗散性：由于在 $|r| < 1$时始终有 $|\lambda_\pm| = 1$，因此格式无耗散，无数值耗散。
+计算放大因子的幅角
+\[
+    \text{arg}\, \lambda_\pm(\omega)
+        ={}
+    \arctan \left( \pm \frac{
+        - r \sin(\xi)
+    }{
+        \sqrt{1 - r^2 \sin^2(\xi)}
+    }     \right)
+    = - r \xi \left[
+        \pm 1 \mp \frac16 (1-r^2) \xi^2 + \mathcal{O}(\xi^4)
+        \right]
+\]
+对应的波速为
+\begin{align*}
+    c_+ ={} & - \frac{\arg \lambda_+(\omega)}{ \omega\Delta t} = a  \left[
+        1 - \frac16 (1-r^2) \xi^2 +  \mathcal{O}(\xi^4)
+    \right]                                                                  \\
+    c_- ={} & - \frac{\arg \lambda_-(\omega)}{ \omega\Delta t} = - a  \left[
+        1 + \frac16 (1-r^2) \xi^2 +  \mathcal{O}(\xi^4)
+        \right]
+\end{align*}
+这表明：
+\begin{itemize}
+    \item $\lambda_+(\omega)$ 所对应的波是真实波的近似，波速 $c_+ \approx a$，传播方向与真实解相同；
+    \item $\lambda_-(\omega)$ 所对应的波是虚假的数值衍生波，波速 $c_- \approx -a$，传播方向与真实解相反。
+\end{itemize}
+关注 $\lambda_+$ 所对应的色散性和数值色散性：
+\begin{itemize}
+    \item $r=1$时， $c_+(\omega) = a$ 波速与 $\omega$ 无关，格式无色散；因为 $c_+(\omega) / c_e(\omega) = 1$，格式无数值色散。
+    \item $0<r<1$时，$c_+(\omega)$与 $\omega$ 有关，格式有色散；因为 $c_+(\omega) / c_e(\omega) < 1$，格式具有数值负色散。
+\end{itemize}
+
+\begin{remark}
+    多层差分格式普遍具有衍生波现象（又称为寄生解）：只有一个放大因子是真实解的有效近似，其它的放大因子都是虚假的。
+    多层差分格式必须有效地排除衍生波的干扰，例如引入更强的耗散。
+\end{remark}
+
+最后给出蛙跳格式的能量稳定性分析，针对多层差分格式的离散能量定义涉及到多个时间层。
+\begin{example}
+    考虑 $u_t + a u_x = 0$ 的蛙跳格式，分析其能量稳定性。
+    \[
+        v_j^{n+1}-v_j^{n-1} =
+        - r (v_{j+1}^n - v_{j-1}^{n}),\quad r := \frac{a \Delta t}{\Delta x}.
+    \]
+\end{example}
+
+\begin{solution*}
+    在格式两侧乘以 $v_j^{n+1} + v_j^{n-1}$ 可得
+    \[
+        (v_j^{n+1})^2 - (v_j^{n-1})^2 = - r
+        (v_{j+1}^n - v_{j-1}^{n})(v_j^{n+1} + v_j^{n-1})
+    \]
+    对 $j$ 求和并乘以 $\Delta x$ 可得
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 - \|v^{n-1}\|_{\Delta x}^2
+        ={} & -r \Delta x \sum_j
+        (v_{j+1}^n - v_{j-1}^{n})(v_j^{n+1} + v_j^{n-1})     \\
+        ={} & - 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
+        - 2 r \Delta x \sum_j v_j^{n-1} \Delta_0 v_j^n       \\
+        ={} &
+        - 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
+        + 2 r \Delta x \sum_j v_j^n \Delta_0 v_j^{n-1}
+    \end{align*}
+    最后一步利用了如下等式
+    \[
+        2 \sum_j v_j^{n-1} \Delta_0 v_j^n
+        = \sum_j v_j^{n-1} (v_{j+1}^n - v_{j-1}^n)
+        = \sum_j v_j^n(v_{j-1}^{n-1}-v_{j+1}^{n-1})
+        = -2 \sum_j v_j^n \Delta_0 v_j^{n-1}
+    \]
+    整理可得
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
+        =
+        \|v^{n}\|_{\Delta x}^2 +\|v^{n-1}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n} \Delta_0 v_j^{n-1}
+    \]
+    定义双层能量 $E(v^{n+1},v^{n})$ 为
+    \[
+        E(v^{n+1},v^{n}) := \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
+    \]
+    可以得到
+    \[
+        E(v^{n+1},v^{n}) = E(v^{n},v^{n-1}) = \cdots = E(v^1,v^0)
+    \]
+
+    我们还需要说明的是： $E(v^{n+1},v^{n})$ 在一定条件下确实是一个和离散 $L^2$ 模等价的能量，由于
+    \begin{align*}
+        2 \Delta x \left|\sum_j v_j^{n+1} \Delta_0 v_j^n\right|
+        \le{} &
+        \Delta x\left|\sum_j v_j^{n+1} v_{j+1}^n \right|
+        + \Delta x\left|\sum_j v_j^{n+1} v_{j-1}^n \right|
+        \\
+        \le{} & 2 \|v^{n+1}\|_{\Delta x} \|v^{n}\|_{\Delta x}
+        \le \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2
+    \end{align*}
+    因此
+    \[
+        (1-|r|)\left(\|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2\right) \le
+        E(v^{n+1},v^{n}) \le (1+|r|)\left(\|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2\right)
+    \]
+    这说明在 $|r| < 1$ 时，两者等价。
+    因此
+    \[
+        \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2
+        \le \frac{1}{1-|r|} E(v^{n+1},v^n) \le \cdots \le \frac{1}{1-|r|} E(v^{1},v^0)
+        \le \frac{1+|r|}{1-|r|}\left(\|v^{1}\|_{\Delta x}^2 +\|v^{0}\|_{\Delta x}^2\right)
+    \]
+    蛙跳格式在 $|r| < 1$ 时是 $L^2$ 模稳定的。（这与 Fourier 方法得到的结论一致）
+\end{solution*}
+
+\begin{remark}
+    不能直接使用下面的不等式放缩，
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 \le{} &
+        C \left(\|v^{n}\|_{\Delta x}^2 +\|v^{n-1}\|_{\Delta x}^2\right),\quad C:= \frac{1+|r|}{1-|r|} \\
+        \le{}                                                  & \cdots \le{}
+        C^n \left(\|v^{1}\|_{\Delta x}^2 +\|v^{0}\|_{\Delta x}^2\right)
+    \end{align*}
+    因为系数 $C^n = e^{n \ln C}$ 不是稳定性所要求的 $e^{\beta n \Delta t} = e^{\beta T}$ 形式，它会随着网格加密的 $n \to \infty$ 无限增长。
+\end{remark}

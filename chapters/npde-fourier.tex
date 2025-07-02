@@ -1,0 +1,261 @@
+\chapter{Fourier基础}
+
+\section{Fourier级数}
+
+\begin{theorem}
+    对于以 $2\pi$ 为周期的函数 $f \in C^1(\mathbb{R})$，对应的Fourier级数为
+    \[
+        S(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{f}(\omega) e^{i \omega x}
+    \]
+    其中 Fourier 系数为
+    \[
+        \hat{f}(\omega) = \frac{1}{\sqrt{2\pi}} \int_{0}^{2\pi} f(x)e^{-i \omega x} \,dx
+    \]
+    那么，Fourier级数 $S(x)$ 一致收敛于 $f(x)$。
+\end{theorem}
+
+
+\begin{theorem}
+    对于 $2\pi$ 周期的分片 $C^1$ 函数 $f$，
+    若 $f \in C^1((a,b))$，则在任意连续闭区间 $[\alpha,\beta] \subset (a,b)$，
+    都有Fourier级数一致收敛于 $f(x)$。
+    对于间断点 $x_0$，Fourier 级数收敛于 $\frac12(f(x_0^+) + f(x_0^-))$。
+\end{theorem}
+
+
+
+\begin{theorem}
+    对于 $2\pi$ 周期的分片 $C^1$ 函数 $g(x)$，
+    假设 $g$ 的 $p-1$ 阶导数连续，$p$ 阶导数是分片 $C^1$ 的，那么存在常数 $C$，使 $g$ 的Fourier系数满足
+    \[
+        |\hat{g}(\omega)| \le \frac{C}{|\omega|^{p+1}+1}
+    \]
+\end{theorem}
+
+考虑内积和对应的 $L^2$ 范数
+\[
+    (f,g) := \int_0^{2\pi} \overline{f(x)}g(x)\,dx,\,\|f\| := \sqrt{(f,f)}
+\]
+
+
+\begin{lemma}
+    指数函数 $\frac{1}{\sqrt{2\pi}} e^{i n x},n=0,\pm 1,\pm 2,\cdots$
+    在 $L^2$ 内积下是标准正交的
+    \[
+        \left(\frac{1}{\sqrt{2\pi}} e^{i m x},\frac{1}{\sqrt{2\pi}} e^{i n x}\right)
+        =\, \delta_{mn} =  \left\{
+        \begin{aligned}
+            0, m \neq n \\
+            1, m = n
+        \end{aligned}
+        \right.\]
+\end{lemma}
+
+
+\begin{theorem}[Parseval 关系]
+    对于 $2\pi$ 周期函数 $f,g \in L^2$
+    \[
+        f(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{f}(\omega) e^{i \omega x},\quad
+        g(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{g}(\omega) e^{i \omega x}
+    \]
+    那么，
+    \[
+        (f,g) = \sum_{\omega = -\infty}^\infty \overline{\hat{f}(\omega)} \hat{g}(\omega),\quad
+        \|f\|^2 = \sum_{\omega = -\infty}^\infty |\hat{f}(\omega)|^2
+    \]
+\end{theorem}
+
+
+
+
+\begin{theorem}
+    对于任意 $2\pi$ 周期函数 $f(x) \in L^2$，Fourier级数部分和在 $L^2$ 意义下收敛到 $f$，即
+    \[
+        \lim_{N \to \infty} \|f - S_N\| = 0.
+    \]
+    其中
+    \[
+        S_N(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N}^N \hat{f}(\omega) e^{i \omega x},\quad
+        \hat{f}(\omega) = \frac{1}{\sqrt{2\pi}} \int_0^{2\pi} e^{-i \omega x}f(x)\,dx.
+    \]
+\end{theorem}
+
+
+\section{三角插值}
+
+ {\color{blue}为了记号的方便，只讨论 $N$ 为偶数的情形。} 将 $[0,2\pi]$ 等分为 $N+1$ 个小区间，对应 $N+1$ 个节点：$x_j$, $j = 0,\cdots,N$，记空间步长 $\Delta x = \frac{2\pi}{N+1}$。
+对于 $2\pi$ 周期的函数 $u(x)$，记 $u_j = u(x_j)$，
+存在唯一的“三角函数”
+\[
+    \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+\]
+满足 $\text{Int}_N\,u(x)$ 在 $\{x_j\}_{j=0,\dots,N}$ 插值 $u$，即
+\[
+    \text{Int}_N\,u(x_j) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x_j} = u(x_j),\quad
+    j=0,\cdots,N.
+\]
+下面默认 $u,v$ 均为 $2\pi$ 周期的函数。
+
+\begin{lemma}
+    指数函数 $\frac{1}{\sqrt{2\pi}} e^{i n x},n=0,\pm 1,\pm 2,\cdots$
+    关于离散 $L^2$ 内积是标准正交的
+    \[
+        \left(\frac{1}{\sqrt{2\pi}} e^{i m x},\frac{1}{\sqrt{2\pi}} e^{i n x}\right)_{\Delta x}
+        =\, \delta_{mn} =
+        \begin{cases}
+            0, & 0 < |m-n| \le N \\
+            1, & m = n
+        \end{cases}
+    \]
+\end{lemma}
+
+
+\begin{theorem}
+    三角插值 $\text{Int}_N\,u(x)$ 存在且唯一，具体表达式为
+    \[
+        \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+    \]
+    其中的系数为
+    \[
+        \widetilde{u}(\omega) = \frac{1}{\sqrt{2\pi}}(e^{i \omega x},u)_{\Delta x},\quad
+        |\omega| \le \frac{N}{2}
+    \]
+\end{theorem}
+
+
+\begin{theorem}
+    考虑对于 $u$ 和 $v$ 的三角插值 $\text{Int}_N\,u(x)$ 和 $\text{Int}_N\,v(x)$
+    \[
+        \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x},\quad
+        \text{Int}_N\,v(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{v}(\omega) e^{i \omega x}.
+    \]
+    那么
+    \[
+        (u,v)_{\Delta x} = \sum_{\omega = -N/2}^{N/2} \overline{\widetilde{u}(\omega)} \widetilde{v}(\omega) = (\text{Int}_N\,u,\text{Int}_N\,v) = (\text{Int}_N\,u,\text{Int}_N\,v)_{\Delta x}.
+    \]
+    以及
+    \[
+        \|u\|_{\Delta x}^2 = \sum_{\omega = -N/2}^{N/2} |\widetilde{u}(\omega)|^2 = \|\text{Int}_N\,u\|^2 = \|\text{Int}_N\,u\|_{\Delta x}^2.
+    \]
+\end{theorem}
+
+
+\begin{theorem}
+    对于 $u(x)$ 和它的三角插值 $\text{Int}_N\,u(x)$，有如下不等式成立
+    \[
+        \| D^\ell_+\,u\|_{\Delta x}^2 \le
+        \left\| \frac{d^\ell}{dx^\ell}\,\text{Int}_N \,u\right\|^2 \le
+        \left(\frac{\pi}2\right)^{2\ell} \|D^\ell_+\,u\|_{\Delta x}^2,\quad \ell=1,2,\cdots
+    \]
+\end{theorem}
+
+考虑 $u$ 的 Fourier 级数和三角插值 $\text{Int}_N\,u$
+\[
+    u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \widehat{u}(\omega) e^{i \omega x},\quad
+    \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+\]
+显然 Fourier 系数 $\widehat{u}(\omega)$ 和三角插值系数 $\widetilde{u}(\omega)$ 存在一定的联系。
+
+\begin{lemma}
+    Fourier 系数 $\widehat{u}(\omega)$ 和三角插值系数 $\widetilde{u}(\omega)$ 满足如下关系
+    \[
+        \widetilde{u}(\omega) = \sum_{\ell = -\infty}^\infty \widehat{u}(\omega + \ell(N+1)),\quad |\omega| \le \frac{N}2
+    \]
+\end{lemma}
+
+特别地，如果对于 $|\omega| > \frac{N}2$ 都有 $\widehat{u}(\omega) = 0$，这表明 $u$ 不含高频部分，三角插值严格等于原函数：$\text{Int}_N\,u(x) = u(x)$，此时 $\widetilde{u}(\omega) = \widehat{u}(\omega)$，$|\omega| \le \frac{N}2$。
+
+\begin{theorem}
+    如果 $u$ 的 Fourier 系数满足
+    \[
+        |\widehat{u}(\omega)| \le \frac{C}{|\omega|^m+1},\quad m > 1
+    \]
+    那么
+    \[
+        \|u - \text{Int}_N\,u\|_{\Delta x} \le \frac{2C}{\sqrt{2\pi}}
+        \left(\frac{N}2\right)^{1-m}
+        \left(
+        \frac{1}{m-1} + \frac{2(N+1)}N B_m
+        \right)
+    \]
+    其中 $B_m$ 定义为 $B_m = \sum_{j = 1}^\infty \frac{1}{(2j-1)^m}$。
+\end{theorem}
+
+\begin{corollary}
+    存在常数 $C_\ell > 0$，使得
+    \[
+        \left\|
+        \frac{d^\ell \,u}{dx^\ell} - \frac{d^\ell \,\text{Int}_N\,u}{d x^\ell}
+        \right\|_{\infty}
+        \le C_\ell \left(\frac{N}2\right)^{1+\ell-m},\quad 1+\ell < m
+    \]
+\end{corollary}
+
+
+\section{基于三角插值的收敛性定理的证明}
+
+
+
+\begin{proof}[\normalfont\bfseries Proof of Theorem~\ref{thm:big-thm}]
+    % Gustafsson, Bertil《Time Dependent Problems and Difference Methods》 。
+
+    对于固定时刻 $t^n$，我们可以基于数值解 $\{v_j^n\}$ 获取对应时刻的三角插值多项式 $\text{Int}_N\,(v_j^n)$，具体表达式为
+    \[
+        \text{Int}_N\,(v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
+    \]
+    在 $t^n$ 时刻的精确解 $u(x,t^n)$ 可以表示为
+    \[
+        u(x,t^n) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^{\infty} e^{i \omega (x+t^n)} \hat{f}(\omega )
+    \]
+    取一个固定的整数 $M$ 使得 $0 < M < N/2$，那么
+    {\small
+    \begin{align*}
+        \| u(\cdot,t^n) - \text{Int}_N\,(v_j^n) \|^2 ={} & \sum_{\omega = -N/2}^{N/2}
+        \left| e^{i \omega t^n} \hat{f}(\omega ) - \widehat{Q}^n(\xi) \tilde{f}(\omega ) \right|^2
+        + \sum_{|\omega| > N/2} |\hat{f}(\omega)|^2                                                                                                                          \\
+        \le{}                                            & \sum_{\omega = -M}^{M} \left| e^{i \omega t^n} \hat{f}(\omega ) - \widehat{Q}^n(\xi) \tilde{f}(\omega ) \right|^2
+        + 2 \sum_{|\omega| > M} |\hat{f}(\omega)|^2
+        + 2 \sum_{|\omega| > M} |\widehat{Q}^n(\xi)|^2 |\tilde{f}(\omega)|^2
+        \\
+        =:{}                                             & I + I\!I + I\!I\!I
+    \end{align*}}
+    验证随着 $M,N \to \infty$，这三项的极限全部为 $0$，即可完成证明。
+
+    $I\!I$ 最容易估计，由条件 (a) 可得
+    \[
+        \sum_{\omega = -\infty}^{\infty} |\hat{f}(\omega )|^2 < \infty
+    \]
+    因此
+    \[
+        \lim_{M \to \infty} I\!I = 2 \lim_{M \to \infty} \sum_{|\omega| > M} |\hat{f}(\omega)|^2 = 0
+    \]
+
+    $I\!I\!I$ 的估计依赖于条件 (a) 和 (b)：由于
+    \[
+        \lim_{N \to \infty} \| \text{Int}_N\,f  - f \| = 0,
+    \]
+    以及
+    \[
+        \sup_{0 \le t_n \le T} |\widehat{Q}^n| \le K_s,
+    \]
+    因此
+    \[
+        \lim_{M \to \infty} I\!I\!I
+        = 2 \lim_{M \to \infty} \sum_{|\omega| > M} |\widehat{Q}^n(\xi)|^2 |\tilde{f}(\omega)|^2
+        \le
+        4 K_s^2  \lim_{M \to \infty} \sum_{|\omega| > M}
+        \Big(|\tilde{f}(\omega) - \hat{f}(\omega)|^2 + |\hat{f}(\omega)|^2 \Big) = 0.
+    \]
+
+    最后是 $I$ 的估计：对于固定的 $M$，利用条件 (a)，(b) 和 (c) 可以得到
+    \begin{align*}
+        \lim_{N \to \infty} I ={} & \lim_{N \to \infty} \sum_{\omega = -M}^{M} \left| e^{i \omega t^n} \hat{f}(\omega ) - \widehat{Q}^n(\xi) \tilde{f}(\omega ) \right|^2 \\
+        \le{}                     & 2 \lim_{N \to \infty} \sum_{\omega = -M}^{M}
+        \left\{
+        \left| \widehat{Q}^n(\xi) \left(\tilde{f}(\omega) - \hat{f}(\omega) \right) \right|^2
+        + \left| \left(e^{i \omega t^n}  - \widehat{Q}^n(\xi)\right) \hat{f}(\omega ) \right|^2
+        \right\} = 0
+    \end{align*}
+
+    因此，对于任意 $\varepsilon > 0$，可以选取足够大的 $M$ 使得 $I\!I + I\!I\!I < \varepsilon/2$，然后选取足够大的 $N$ 使得 $I < \varepsilon/2$，收敛性证毕。
+\end{proof}

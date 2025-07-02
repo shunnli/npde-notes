@@ -1,0 +1,159 @@
+\chapter{绪论与预备知识}
+
+
+\section{绪论}
+
+
+对于控制方程——偏微分方程（组）进行初步分类：
+\begin{itemize}
+    \item 线性PDE：在方程中关于所有未知函数及其偏导数都是线性的，例如 $u_t + a(x,t) u_x = 0$；
+    \item 非线性PDE：除了线性PDE之外的PDE，例如 $u_t + u u_x = 0$；
+          拟线性PDE：在方程中关于所有未知函数的最高阶偏导数是线性的，例如 $u_t + u u_x = u_{xx}$。
+\end{itemize}
+常见模型方程：
+\begin{itemize}
+    \item 对流方程（双曲型方程）
+    \item 波动方程（双曲型方程）
+    \item 热方程（扩散方程）（抛物型方程）
+    \item 泊松方程（抛物型方程）
+    \item 对流扩散方程
+    \item Euler 方程组
+    \item N-S 方程组
+    \item \dots
+\end{itemize}
+
+
+控制方程（组）不足以给出实际问题的唯一特解，需要加入一些条件来确定特解，这些条件称为定解条件，
+常见的定解条件包括：边界条件、初值条件以及其它条件。
+边界条件可以简单分为：
+\begin{itemize}
+    \item 周期性边界条件
+    \item 非周期性边界条件
+          \begin{itemize}
+              \item[(a)] Dirichlet 边界条件
+              \item[(b)] Neumann 边界条件
+              \item[(c)] Robin 边界条件
+          \end{itemize}
+\end{itemize}
+控制方程（组）加上适当的定解条件就得到了定解问题，常见的定解问题包括：
+\begin{itemize}
+    \item 初值问题（Cauchy问题）：PDE(s) + 初值条件；
+    \item 边值问题：PDE(s) + 边界条件;
+    \item 初边值问题：PDE(s) + 初值条件 + 边界条件。
+\end{itemize}
+
+
+\begin{definition}
+    称函数 $u$ 是定解问题的（经典）解，如果满足：
+    \begin{itemize}
+        \item 在区域 $\Omega$ 内部，$u$ 具有足够的光滑性以使得 PDE(s) 要求的各阶导数存在且连续，
+              将 $u$ 和它的各阶导数代入PDE(s)中，可以使PDE(s)成为恒等式；
+        \item 当 $\Omega$ 内部的点趋于边界 $\partial \Omega$ 时，
+              定解条件所要求的 $u$ 以及它的各阶导数的极限处处存在，且使定解条件成立。
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    称定解问题的解是稳定的，如果定解条件发生微小变化时，相应问题的解也只会发生微小变化，
+    即：解对于定解条件存在连续依赖关系。
+\end{definition}
+
+\begin{definition}
+    称定解问题是适定的，如果解存在唯一，并且关于定解条件是稳定的。
+\end{definition}
+
+
+
+我们只考虑针对适定问题的数值求解，求解偏微分方程数值解的主要步骤包括
+\begin{enumerate}
+    \item 时空区域剖分（离散）
+    \item 偏微分方程（组）离散
+    \item 定解条件（初值，边界条件）离散
+    \item 求解离散方程组
+\end{enumerate}
+根据离散方式的不同，常见的数值方法可以简单分为如下几类：
+\begin{itemize}
+    \item 有限差分法
+    \item 有限元方法
+    \item 谱方法
+    \item 其它方法
+\end{itemize}
+这里主要讨论有限差分法。
+
+
+
+\section{预备知识}
+
+\subsection*{差分算子}
+
+考虑格点序列 $\{x_j\}_{j \in \mathbb{Z}}$，其中 $x_j = j \, \Delta x,\,(\Delta x > 0)$，对于定义在格点上的序列 $\{v_j\}_{j \in \mathbb{Z}}$，平移算子 $E^p$（$p \in \mathbb{Z}$）定义为：
+\[
+    (E^p\,v)_j = v_{j+p}
+\]
+例如 $(E^{1}\,v)_j = v_{j+1}$， $(E^{0}\,v)_j = v_j$，$(E^{-1}\,v)_j = v_{j-1}$。
+基于平移算子可以定义几种基本的差分算子：
+\begin{itemize}
+    \item 前差算子 $D_+ := \frac1{\Delta x}(E^1 - E^{0})$；
+    \item 后差算子 $D_- := \frac1{\Delta x}(E^0 - E^{-1})$；
+    \item 中心差算子 $D_0 := \frac1{2\Delta x}(E^1 - E^{-1})$。
+\end{itemize}
+它们都是对 $\frac{\partial}{\partial x}$ 的一阶或二阶近似：
+\begin{align*}
+    D_+\,e^{i \omega x_j} & = \frac1{\Delta x} (e^{i \omega \Delta x} -  1)\, e^{i \omega x_j} = (i \omega + \mathcal{O}(\omega^2 \Delta x)) \,e^{i \omega x_j}                        \\
+    D_-\,e^{i \omega x_j} & = \frac1{\Delta x} (1 - e^{-i \omega \Delta x})\, e^{i \omega x_j} = (i \omega + \mathcal{O}(\omega^2 \Delta x)) \,e^{i \omega x_j}                        \\
+    D_0\,e^{i \omega x_j} & = \frac1{2\Delta x} (e^{i \omega \Delta x} - e^{-i \omega \Delta x})\, e^{i \omega x_j} = (i \omega + \mathcal{O}(\omega^3 \Delta x^2))\, e^{i \omega x_j}
+\end{align*}
+高阶求导可以通过上述算子的乘积近似，例如定义 $D_+\,D_-$
+\[
+    (D_+\,D_- \,v)_j = (D_-\,D_+ \,v)_j =
+    \frac{1}{\Delta x^2}(E^2\,v - 2E^1\,v + E^{-1}\,v)_j
+    = \frac{1}{\Delta x^2}(v_{j+1} - 2v_{j} + v_{j-1})
+\]
+它是$\frac{\partial^2}{\partial x^2}$的二阶近似
+\[
+    D_+\,D_- \,e^{i \omega x_j}
+    = \frac{1}{\Delta x^2}(e^{i \omega \Delta x}-2+e^{-i \omega \Delta x})\,e^{i \omega x_j}
+    = (-\omega^2 + \mathcal{O}(\omega^4 \Delta x^2))\,e^{i \omega x_j}
+\]
+某些情况下还会使用不含 $\Delta x$ 的算子，例如
+\begin{align*}
+    \Delta_+ :={} & E^1 - E^{0}           \\
+    \Delta_- :={} & E^0 - E^{-1}          \\
+    \Delta_0 :={} & E^1 - E^{-1}          \\
+    \delta :={}   & E^{1/2} - E^{-1/2}    \\
+    \delta^2 :={} & E^1  - 2 E^0 + E^{-1}
+\end{align*}
+在二维和高维情况下会标记差分算子对应的维度以便于区分，例如
+\begin{align*}
+    \delta_x^2 \, v_{i,j} ={} & v_{i+1,j} - 2 v_{i,j} + v_{i-1,j} \\
+    \delta_y^2 \, v_{i,j} ={} & v_{i,j+1} - 2 v_{i,j} + v_{i,j-1}
+\end{align*}
+
+\subsection*{有限维空间的内积和范数}
+
+考虑 $m$ 维空间 $\mathbb{C}^m$，对应的内积和范数为
+\[
+    (u,v) = \sum_{j=1}^m \overline{u}_j v_j,\quad \|u\| = \sqrt{(u,u)}.
+\]
+
+\subsection*{周期性格点函数的内积和范数}
+
+将$[a,b]$区间均分成$N+1$个等距子区间，对应$N+1$个节点，空间步长 $\Delta x = (b-a)/(N+1)$。
+对于固定的 $N$ 或 $\Delta x$，在这些节点处的函数值属于 $\mathbb{C}^{N+1}$，
+如果直接定义内积为
+\[
+    (u,v) = \sum_{j=0}^N \overline{u}_j v_j,
+\]
+在 $\Delta x \to 0$（$N \to \infty$）时上式趋于无穷，无法有效刻画格点函数空间。
+需要对内积的定义进行调整，定义离散的内积以及对应的范数为
+\[
+    (u,v)_{\Delta x} := \sum_{j=0}^N \overline{u}_j v_j \,\Delta x,
+    \quad \|u\|_{\Delta x} := \sqrt{(u,u)_{\Delta x}}\,.
+\]
+显然有
+\[
+    (u,v)_{\Delta x} = \sum_{j=0}^N \overline{u}_j v_j \Delta x
+    \quad \xrightarrow{N \to \infty} \quad
+    \int_a^b \overline{u}(x) v(x)\,dx = (u,v)
+\]
+在下文中，很多情况下我们默认只讨论实值函数，因此可能会省略共轭记号。

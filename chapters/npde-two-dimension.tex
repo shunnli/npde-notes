@@ -1,0 +1,291 @@
+\chapter{二维问题}
+
+现在将前面的一维方程和格式推广到二维情形。
+
+
+\section{二维常系数对流问题}
+
+对于二维常系数对流问题（纯初值问题，周期边界条件）
+\[
+    \left\{
+    \begin{aligned}
+         & u_t + a u_x + b u_y = 0 \\
+         & u(x,y,0) = u_0(x,y)
+    \end{aligned}
+    \right.
+\]
+其中 $a,b$ 为常值，初值 $u_0(x,y)$ 在每一个方向都具有 $2\pi$ 周期性。
+易知二维常系数对流方程的适定性条件为：$a,b$ 都是实数。特征线方程为：
+\[
+    \left\{
+    \begin{aligned}
+        x'(t) = a \\
+        y'(t) = b
+    \end{aligned}
+    \right.
+    \quad \Rightarrow \quad
+    \left\{
+    \begin{aligned}
+        x(t) = x_0 + a t \\
+        y(t) = y_0 + b t
+    \end{aligned}
+    \right.
+\]
+解沿着特征线保持不变
+\[
+    \frac{d}{dt}u(x(t),y(t),t) = u_x x'(t) + u_y y'(t) + u_t = a u_x + b u_y + u_t = 0
+\]
+精确解为$u(x,y,t) = u_0(x - a t, y - b t)$。
+
+对时空进行均匀网格剖分后，可以直接构造迎风格式，FTBS，Crank–Nicolson 格式，Lax–Friedrichs 格式，Lax-Wendroff 格式等，
+也可以通过积分方法构造差分格式，这些与一维常系数对流方程相比没有区别。
+对于二维对流方程考虑 CFL 条件时，可以简单地认为数值依赖区是各个分量的数值依赖区的笛卡儿积
+\[
+    D_p \subset  N_p = [x_1,x_2] \times [y_1,y_2]
+\]
+
+例如 FTBS 格式为
+\[
+    \frac{v_{j,k}^{n+1} - v_{j,k}^n}{\Delta t}
+    + a \left(\frac{v_{j,k}^n - v_{j-1,k}^n}{\Delta x}\right)
+    + b \left(\frac{v_{j,k}^n - v_{j,k-1}^n}{\Delta y}\right) = 0
+\]
+使用 Fourier 方法分析稳定性，放大因子为
+\[
+    \widehat{Q} = 1
+    - a \frac{\Delta t}{\Delta x}(1 - e^{- i \omega_x \Delta x})
+    - b \frac{\Delta t}{\Delta y}(1 - e^{- i \omega_y \Delta y})
+    = 1
+    - r_x(1 - e^{- i \omega_x \Delta x})
+    - r_y(1 - e^{- i \omega_y \Delta y})
+\]
+若 $r_x > 0,\,\, r_y > 0,\,\, 0 < r_x + r_y \le 1$，则有 $|\widehat{Q}| \le 1$。
+取 $P = (x_j,y_k,t^{n+1})$ 分析 CFL 条件，计算可得
+\[
+    D_p = \{(x_j - a t^{n+1},y_k - b t^{n+1})\} \subset N_p
+    = [x_{j-n-1},x_j] \times [y_{k-n-1},y_k]
+\]
+可以推出 $0 \le r_x \le 1$ 和 $0 \le r_y \le 1$。注意 CFL 条件只是必要条件，不是充分的。
+
+\begin{remark}
+    如果取数值依赖区为三角形区域而非矩形区域，也可以得到 $0 < r_x + r_y \le 1$。
+\end{remark}
+
+\section{二维变系数对流问题}
+
+
+对于二维变系数对流问题
+\[
+    \left\{
+    \begin{aligned}
+         & u_t + a(x,y,t) u_x + b(x,y,t) u_y = 0 \\
+         & u(x,y,0) = u_0(x,y)
+    \end{aligned}
+    \right.
+\]
+对应的特征线方程为
+\[
+    \left\{
+    \begin{aligned}
+        x'(t) = a(x,y,t) \\
+        y'(t) = b(x,y,t)
+    \end{aligned}
+    \right.
+\]
+特征线是一族互不相交的曲线，解沿着特征线保持不变
+\[
+    \frac{d}{dt}u(x(t),y(t),t) = u_x x'(t) + u_y y'(t) + u_t = a(x,y,t) u_x + b(x,y,t) u_y + u_t = 0
+\]
+
+可以用冻结系数等处理将常系数对流方程的有限差分格式直接推广到变系数问题中。
+
+
+\section{二维常系数扩散问题}
+
+对于二维常系数扩散问题（纯初值问题，周期边界条件）
+\[
+    \left\{
+    \begin{aligned}
+         & u_t = a u_{xx} + b u_{yy} \\
+         & u(x,y,0) = u_0(x,y)
+    \end{aligned}
+    \right.
+\]
+其中 $a,b$ 为常值，初值 $u_0(x,y)$ 在每一个方向都具有 $2\pi$ 周期性。
+易知二维常系数扩散方程的适定性条件为：$a,b > 0$。
+
+对时空进行均匀网格剖分后，可以直接构造 FTCS，Crank–Nicolson 格式等，也可以通过积分方法构造差分格式，这些与一维常系数扩散方程的处理都是类似的。
+
+除此之外，还有一些针对二维扩散问题特有的方法，通过将二维差分格式近似转换为一组“具有一维求解属性”的二维差分格式来求解，显著提升计算效率。
+例如交替方向隐式方法（alternative direction implicit，ADI）：引入中间过渡层，在两个方向交替使用显式隐式。
+
+\begin{remark}
+    注意当前考虑的是纯初值或者周期边界问题，此时 $\delta_x^2 \delta_y^2 = \delta_y^2 \delta_x^2$ 算子可交换。
+\end{remark}
+
+
+ADI 方法的代表格式有 Peaceman-Rachford 格式：
+在二维 Crank–Nicolson 格式的基础上加上最后的高阶修正项（记 $\mu_x =  a \frac{\Delta t}{\Delta x^2}$，$\mu_y =  b \frac{\Delta t}{\Delta y^2}$）
+\[
+    v_{j,k}^{n+1} = v_{j,k}^n
+    + \frac12 \mu_x \delta_x^2(v_{j,k}^n + v_{j,k}^{n+1})
+    + \frac12 \mu_y \delta_y^2(v_{j,k}^n + v_{j,k}^{n+1})
+    \,+\, \frac14 \mu_x \mu_y \delta_x^2 \delta_y^2(v_{j,k}^n - v_{j,k}^{n+1})
+\]
+得到的差分格式保持了 Crank–Nicolson 格式的局部截断误差，并且可以对算子进行因式分解
+\begin{align*}
+    \left(1-\frac12 \mu_x \delta_x^2 \right) \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+1}
+    =\left(1+\frac12 \mu_x \delta_x^2\right) \left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n}
+\end{align*}
+引入中间层，可以分裂为两个实际的计算步骤
+\begin{align*}
+    \left(1-\frac12  \mu_x \delta_x^2 \right) v_{j,k}^{n+\frac12} & =\left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n}         \\
+    \left(1-\frac12  \mu_y \delta_y^2 \right) v_{j,k}^{n+1}       & =\left(1+\frac12 \mu_x \delta_x^2\right) v_{j,k}^{n+\frac12}
+\end{align*}
+这两个计算步骤可以解释为：
+\begin{itemize}
+    \item Step 1: $t^n \to t^{n+\frac12}$，在x方向使用隐式，在y方向使用显式：
+    \item Step 2: $t^{n+\frac12} \to t^{n+1}$，在x方向使用显式，在y方向使用隐式：
+\end{itemize}
+也可以以另一种方式分裂：
+\begin{align*}
+    \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+\frac12} & =\left(1+\frac12 \mu_x \delta_x^2\right) v_{j,k}^{n}         \\
+    \left(1-\frac12 \mu_x \delta_x^2 \right) v_{j,k}^{n+1}       & =\left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n+\frac12}
+\end{align*}
+对应的解释为：
+\begin{itemize}
+    \item Step 1: $t^n \to t^{n+\frac12}$，在x方向使用显式，在y方向使用隐式：
+    \item Step 2: $t^{n+\frac12} \to t^{n+1}$，在x方向使用隐式，在y方向使用显式：
+\end{itemize}
+Fourier 分析可得，Peaceman-Rachford 格式是无条件 $L^2$ 模稳定的。
+\[
+    \widehat{Q} =
+    \frac{(1-2\mu_x \sin^2(\omega_x \Delta x/2))\,(1-2\mu_y \sin^2(\omega_y \Delta y/2))}{(1+2\mu_x \sin^2(\omega_x \Delta x/2))\,(1+2\mu_y \sin^2(\omega_y \Delta y/2))},\qquad
+    |\widehat{Q}| \le 1
+\]
+
+\begin{remark}
+    与之类似的，还可以拆分为不太对称的 D'Yakonov 格式
+    \begin{align*}
+        \left(1-\frac12 \mu_x \delta_x^2 \right) v_{j,k}^{*}   & =\left(1+\frac12 \mu_x \delta_x^2\right) \left(1+\frac12  \mu_y \delta_y^2\right)v_{j,k}^{n} \\
+        \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+1} & = v_{j,k}^{*}
+    \end{align*}
+\end{remark}
+
+
+还有 Douglas-Rachford 格式：在二维BTCS格式的基础上加上最后的高阶修正项
+\[
+    v_{j,k}^{n+1} = v_{j,k}^n
+    + \mu_x \delta_x^2 v_{j,k}^{n+1}
+    + \mu_y \delta_y^2 v_{j,k}^{n+1}
+    \,+\, \mu_x \mu_y \delta_x^2 \delta_y^2(v_{j,k}^{n} - v_{j,k}^{n+1}),\quad (\mu_x = \frac{a \Delta t}{\Delta x^2},\,\mu_y = \frac{b \Delta t}{\Delta y^2})
+\]
+得到的差分格式保持了 BTCS 格式的局部截断误差，并且可以对算子进行因式分解
+\[
+    \left(1- \mu_x \delta_x^2 \right)\left(1- \mu_y \delta_y^2 \right) v_{j,k}^{n+1}=
+    \left(1+ \mu_x \mu_y \delta_x^2 \delta_y^2\right) v_{j,k}^n
+\]
+可以分裂为两个实际的计算步骤
+\begin{align*}
+    \left(1- \mu_x \delta_x^2 \right) v_{j,k}^{*}   & =\left(1+ \mu_y \delta_y^2\right) v_{j,k}^{n} \\
+    \left(1- \mu_y \delta_y^2 \right) v_{j,k}^{n+1} & = v_{j,k}^{*} - \mu_y \delta_y^2 v_{j,k}^n
+\end{align*}
+Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
+\[
+    \widehat{Q} =
+    \frac{1 + 4 \mu_x \sin^2(\omega_x \Delta x/2)\,\cdot\,4 \mu_y \sin^2(\omega_y \Delta y/2)}{(1 + 4 \mu_x \sin^2(\omega_x \Delta x/2))(1 + 4 \mu_y \sin^2(\omega_y \Delta y/2))},\qquad
+    |\widehat{Q}| \le 1
+\]
+
+
+\section{一般的算子分裂方法}
+
+考虑如下问题
+\[
+    u_t = A u = A_1 u + A_2 u.
+\]
+其中 $A = A(t) = A_1(t) + A_2(t)$。
+不妨设$Q_1,Q_2$是对应于$A_1,A_2$的离散算子，分别对应如下的方程和数值格式
+\[
+    u_t = A_i(t) u ,\quad \Rightarrow\quad v^{n+1} = Q_i(\Delta t,t^n) v^n
+\]
+
+对方程继续求导可得
+\begin{align*}
+    u_{tt} ={}  & A u_t + A_{t} u = (A^2 + A_{t}) u       \\
+    u_{ttt} ={} & (A^2 + A_{t}) u_t + (2A A_t + A_{tt}) u \\
+    ={}         & (A^3 + 3A A_t + A_{tt}) u
+\end{align*}
+
+
+考虑如下分裂格式：
+\[
+    v^{n+1} =  Q_2(\Delta t,t^n)\, Q_1(\Delta t,t^n) v^n.
+\]
+假设 $Q_i$ 是时间上至少一阶，空间 $p$ 阶的离散算子，那么上述格式为时间一阶分裂格式，局部截断误差为 $\mathcal{O}(\Delta x^p + \Delta t)$。
+验证一下：
+\begin{align*}
+    Q_i(\Delta t,t^n)v^n
+    ={} & v^n  + \Delta t \frac{\partial}{\partial t}v^n  + \mathcal{O}(\Delta t^2 + \Delta t \Delta x^p) \\
+    ={} & v^n  + \Delta t A_i(t^n)v^n  + \mathcal{O}(\Delta t^2 + \Delta t \Delta x^p)
+\end{align*}
+代入可得
+\begin{align*}
+    Q_2(\Delta t,t^n)\, Q_1(\Delta t,t^n) v^n
+     & = (I + \Delta t A_2(t^n)) (I + \Delta t A_1(t^n)) v^n + \Delta t\, \mathcal{O}(\Delta x^p + \Delta t^q) \\
+     & = (I + \Delta t A(t^n)) v^n + \Delta t\, \mathcal{O}(\Delta x^p + \Delta t^q) + \mathcal{O}(\Delta t^2)
+\end{align*}
+
+
+考虑如下分裂格式：
+\[
+    v^{n+1} = Q_1(\frac{\Delta t}2,t^{n+\frac12}) Q_2(\Delta t,t^n) Q_1(\frac{\Delta t}2,t^n) v^n
+\]
+假设 $Q_i$ 是时间上至少二阶，空间 $p$ 阶的离散算子，那么上述格式为时间二阶分裂格式，局部截断误差为 $\mathcal{O}(\Delta x^p + \Delta t^2)$。
+验证一下
+\begin{align*}
+    Q_i(\Delta t,t^n)v^n
+    ={} & v^n
+    + \Delta t \frac{\partial}{\partial t}v^n
+    + \frac{\Delta t^2}2 \frac{\partial^2}{\partial t^2}v^n
+    + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p) \\
+    ={} & v^n
+    + \Delta t A_i(t^n) v^n
+    + \frac{\Delta t^2}2 \left(A_i(t^n)^2+ A_{i,t}(t^n) \right)v^n
+    + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p)
+\end{align*}
+代入可得
+\begin{align*}
+        & Q_1(\frac{\Delta t}2,t^{n+\frac12}) Q_2(\Delta t,t^n) Q_1(\frac{\Delta t}2,t^n) v^n                                                                              \\
+    ={} &
+    \left[I
+    + \frac{\Delta t}2 A_1(t^{n+\frac12})
+    + \frac{\Delta t^2}8 \left(A_1(t^{n+\frac12})^2+A_{1,t}(t^{n+\frac12})\right)
+    \right]                                                                                                                                                                \\
+        & \left[I
+    + \Delta t  A_2(t^{n})
+    + \frac{\Delta t^2}2 \left(A_2(t^{n})^2+A_{2,t}(t^{n})\right)
+    \right] \left[I
+        + \frac{\Delta t}2 A_1(t^{n})
+        + \frac{\Delta t^2}8 \left(A_1(t^{n})^2+ A_{1,t}(t^{n}) \right)
+    \right] v^n                                                                                                                                                            \\
+        & + \Delta t \,\mathcal{O}(\Delta x^p + \Delta t^q)
+    \\
+    ={} & \left(I+\Delta t M_1 + \frac{\Delta t^2}2 M_2 + \frac{\Delta t^3}{3!} M_3 + \frac{\Delta t^4}{4!} M_4\right) v^n + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p)
+\end{align*}
+化简一下算子 $M_i$ 的内容：
+\begin{align*}
+    M_1 ={} & \frac12 A_1(t^{n+\frac12}) + A_2(t^n) + \frac12 A_1(t^n) = A(t^n) + \frac{\Delta t}2 A_{1,t}(t^{n}) + \mathcal{O}(\Delta t^2) \\
+    M_2 ={} &
+    A_1(t^{n+\frac12}) A_2(t^{n}) + \frac12 A_1(t^{n+\frac12}) A_1(t^{n})
+    + A_1(t^{n}) A_2(t^{n})                                                                                                                 \\
+            & + \frac14 \left(A_1(t^{n+\frac12})^2+A_{1,t}(t^{n+\frac12})\right) +
+    \left(A_2(t^{n})^2+A_{2,t}(t^{n})\right) +
+    \frac14 \left(A_1(t^{n})^2+A_{1,t}(t^{n})\right)                                                                                        \\
+    ={}     & A(t^n)^2 + \frac12 A_{1,t}(t^n) + A_{2,t}(t^n) + \mathcal{O}(\Delta t)
+\end{align*}
+代入可得
+\begin{align*}
+        & Q_1(\frac{\Delta t}2,t^{n+\frac12}) Q_2(\Delta t,t^n) Q_1(\frac{\Delta t}2,t^n) v^n                                      \\
+    ={} & v^n + \Delta t A(t^n) v^n + \frac{\Delta t^2}2 (A(t^n)^2 + A_t(t^n)) v^n + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p)
+\end{align*}

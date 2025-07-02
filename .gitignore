@@ -1,0 +1,13 @@
+.backup/
+.aux/
+
+*.pdf
+*.synctex.gz
+*.synctex.gz.sum.synctex
+
+*.zip
+*.tar.gz
+
+indent.log
+
+!figures/**/*.pdf

@@ -1,0 +1,112 @@
+\chapter{补充}
+
+\section{数值格式整理}
+
+\subsection*{一维常系数线性对流方程}
+
+考虑方程 $u_t + a u_x = 0$，其中 $a \neq 0$ 为常数，常见的数值格式如下：
+\begin{itemize}
+    \item 迎风格式（FTFS / FTBS）
+          \[
+              \frac{v_j^{n+1} - v_j^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^{n}}{2\Delta x} = \frac{|a|}{2\Delta x} (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n})
+          \]
+    \item FTCS（反面示例，无条件不稳定）
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^n}{2\Delta x} = 0
+          \]
+    \item Lax-Friedrichs 格式
+          \begin{gather*}
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} ={} \left(\frac{\Delta x^2}{2\Delta t}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}     \\
+              \frac{v_j^{n+1}-\frac12(v_{j-1}^n+v_{j+1}^n)}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} ={} 0
+          \end{gather*}
+    \item Lax-Wendroff 格式
+          \begin{gather*}
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2} \\
+              v_{j}^{n+1} = v_j^n + \Delta t \,(-a)\,\left(\frac{v_{j+1}^n- v_{j-1}^n}{2\Delta x}\right)
+              + \frac{\Delta t^2}2\,a^2\,\left(\frac{v_{j+1}^n-2v_{j}^n+v_{j-1}^n}{\Delta x^2}\right)
+          \end{gather*}
+    \item 蛙跳格式（CTCS）
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^{n-1}}{2\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^n}{2\Delta x} = 0
+          \]
+    \item 盒子格式（Wendroff）
+          \begin{gather*}
+              \frac{\frac12(v_j^{n+1} + v_{j+1}^{n+1}) - \frac12(v_j^n + v_{j+1}^n)}{\Delta t} + a \frac{\frac12(v_{j+1}^n + v_{j+1}^{n+1})-\frac12(v_j^n + v_j^{n+1})}{\Delta x} = 0 \\
+              \left(1 - \frac{a \Delta t}{\Delta x}\right)v_j^{n+1} + \left(1 + \frac{a \Delta t}{\Delta x}\right)v_{j+1}^{n+1} =
+              \left(1 + \frac{a \Delta t}{\Delta x}\right)v_j^{n} + \left(1 - \frac{a \Delta t}{\Delta x}\right)v_{j+1}^{n}
+          \end{gather*}
+\end{itemize}
+
+
+\subsection*{一维常系数线性扩散方程}
+
+考虑方程 $u_t = b u_{xx}$，其中 $b > 0$ 为常数，常见的数值格式如下：
+\begin{itemize}
+    \item FTCS
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} = b \frac{v_{j+1}^n - 2v_{j}^n + v_{j-1}^n}{\Delta x^2}
+          \]
+    \item BTCS
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} = b \frac{v_{j+1}^{n+1} - 2v_{j}^{n+1} + v_{j-1}^{n+1}}{\Delta x^2}
+          \]
+    \item Richardson 格式（CTCS，反面示例，无条件不稳定）
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^{n-1}}{2\Delta t} = b \frac{v_{j+1}^{n} - 2v_{j}^{n} + v_{j-1}^{n}}{\Delta x^2}
+          \]
+    \item Du Fort-Frankel 格式
+          \[
+              \frac{v_j^{n+1}-v_{j-1}^n}{2\Delta t} = b \frac{v_{j+1}^n - (v_{j}^{n-1}+v_j^{n+1}) + v_{j-1}^n}{\Delta x^2}
+          \]
+    \item $\theta$ 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t}
+              =
+              b \left[
+                  \theta \frac{v_{j+1}^{n+1} - 2v_{j}^{n+1} + v_{j-1}^{n+1}}{\Delta x^2}
+                  + (1-\theta) \frac{v_{j+1}^n - 2v_{j}^n + v_{j-1}^n}{\Delta x^2}
+                  \right]
+          \]
+    \item Crank-Nicolson 格式：$\theta$ 格式取 $\theta = \frac12$
+    \item Douglas 格式：$\theta$ 格式取 $\theta$ 满足
+          \[
+              \frac{b \Delta t}{\Delta x^2} = \frac{1}{6(1-2\theta)}
+          \]
+    \item BDF 格式
+          \[
+              (1+\theta)\frac{v_{j}^{n+1} - v_{j}^{n}}{\Delta t}
+              - \theta \frac{v_j^n - v_j^{n-1}}{\Delta t}
+              = b \frac{v_{j+1}^{n} - 2v_{j}^{n} + v_{j-1}^{n}}{\Delta x^2}
+          \]
+    \item Richtmyer 格式：BDF 格式取 $\theta = \frac12$
+\end{itemize}
+
+\subsection*{一维常系数线性对流方程的稳定性结论}
+
+在纯初值或周期边界条件下，使用Fourier方法分析 $u_t+au_x=0$ 的几类经典格式的稳定性，结论如下（记 $r = \frac{a\Delta t}{\Delta x} \neq 0$）:
+按照格式分类：
+\begin{itemize}
+    \item FTFS：$r(1+r) \le 0$
+    \item FTBS：$r(1-r) \ge 0$
+    \item BTFS：$r(1-r) \le 0$
+    \item BTBS：$r(1+r) \ge 0$
+    \item FTCS：无条件不稳定（$r^2 \le 0$ 无法成立）
+    \item BTCS：无条件稳定（$r^2 \ge 0$ 始终成立）
+\end{itemize}
+按照 $a$ 的正负分类：（只讨论单侧差商格式）
+\begin{enumerate}
+    \item $a>0$：风向从左往右
+          \begin{itemize}
+              \item 迎风格式 FTBS 有条件稳定（$0< r \le 1$）
+              \item 逆风格式 FTFS 不稳定
+              \item “隐式迎风格式” BTFS 有条件稳定（$r \ge 1$）
+              \item “隐式逆风格式” BTBS 无条件稳定
+          \end{itemize}
+    \item $a<0$：风向从右往左
+          \begin{itemize}
+              \item 迎风格式 FTFS 有条件稳定（$-1 \le r < 0$）
+              \item 逆风格式 FTBS 不稳定
+              \item “隐式迎风格式” BTBS 有条件稳定（$r \le -1$）
+              \item “隐式逆风格式” BTFS 无条件稳定
+          \end{itemize}
+\end{enumerate}

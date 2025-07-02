@@ -1,0 +1,1009 @@
+\chapter{模型方程：一维常系数线性对流/扩散方程}
+
+\section{一维常系数线性对流/扩散方程的谐波解}
+
+目前只考虑一维问题，采用周期性边界条件。考虑常系数线性对流方程
+\[
+    \left\{
+    \begin{aligned}
+         & u_t + a u_x = 0, \quad (x,t) \in \mathbb{R} \times \mathbb{R}^+, \\
+         & u(x,0) = f(x), \quad x \in \mathbb{R},
+    \end{aligned}
+    \right.
+\]
+取初值 $f(x)$ 为 $2\pi$ 周期的，空间波数为 $\omega$ 的谐波（为了简化描述，在下文中我们均忽略谐波的常系数 $\frac{1}{\sqrt{2\pi}}$）
+\[
+    f(x) = e^{i \omega x} \hat{f}(\omega)
+\]
+记精确解为
+\[
+    u(x,t) = e^{i \omega x} \hat{u}(\omega,t)
+\]
+代入可得 $\hat{u}$ 满足的方程
+\[
+    \left\{
+    \begin{aligned}
+         & \hat{u}_t(\omega,t) = -i \omega a \hat{u}(\omega,t), \\
+         & \hat{u}(\omega,0) = \hat{f}(\omega),
+    \end{aligned}
+    \right.
+\]
+解得
+\[
+    \hat{u}(\omega,t) = e^{- i \omega a t} \hat{f}(\omega),
+    \quad \Rightarrow \quad
+    u(x,t) = e^{i \omega a t} e^{- i \omega x} \hat{f}(\omega)
+\]
+对于一般的初值
+\[
+    f(x) = \sum_{\omega = -\infty}^{\infty} e^{i \omega x} \hat{f}(\omega)
+\]
+易得对应的精确解为
+\[
+    u(x,t) = \sum_{\omega = -\infty}^{\infty} e^{- i \omega a t} e^{i \omega x} \hat{f}(\omega),
+    \quad
+    \| u(x,t) \|^2 = \|u(x,0)\|^2
+\]
+
+考虑常系数线性扩散方程（$b > 0$）
+\[
+    \left\{
+    \begin{aligned}
+         & u_t = b u_{xx}, \quad (x,t) \in \mathbb{R} \times \mathbb{R}^+, \\
+         & u(x,0) = f(x), \quad x \in \mathbb{R},
+    \end{aligned}
+    \right.
+\]
+类似推导可得，对于一般的初值
+\[
+    f(x) = \sum_{\omega = -\infty}^{\infty} e^{i \omega x} \hat{f}(\omega)
+\]
+对应的精确解为
+\[
+    u(x,t) = \sum_{\omega = -\infty}^{\infty} e^{- \omega^2 b t} e^{i \omega x} \hat{f}(\omega),
+    \quad
+    \| u(x,t) \|^2 \le \|u(x,0)\|^2
+\]
+
+
+\section{经典格式及其分类}
+
+直接对 PDE 中的时间导和空间导利用差商近似（前差，后差，中心差），
+就可以得到很多经典格式。
+例如考虑对流方程 $u_t + a u_x = 0$，可以直接得到很多经典格式：（默认 $t^n$ 为已知时间层，$t^{n+1}$ 为未知时间层）
+\begin{enumerate}
+    \item FTFS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j}^n}{\Delta x} = 0
+          \]
+    \item FTBS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j}^n - v_{j-1}^n}{\Delta x} = 0
+          \]
+    \item FTCS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^n}{2\Delta x} = 0
+          \]
+    \item BTFS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j+1}^{n+1} - v_{j}^{n+1}}{\Delta x} = 0
+          \]
+    \item BTBS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j}^{n+1} - v_{j-1}^{n+1}}{\Delta x} = 0
+          \]
+    \item BTCS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} + a \frac{v_{j+1}^{n+1} - v_{j-1}^{n+1}}{2\Delta x} = 0
+          \]
+    \item CTCS 格式（蛙跳格式）
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^{n-1}}{2\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^n}{2\Delta x} = 0
+          \]
+\end{enumerate}
+对于扩散方程 $u_t = b u_{xx}$（$b>0$），类似可得
+\begin{enumerate}
+    \item FTCS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} = b \frac{v_{j+1}^n - 2v_{j}^n + v_{j-1}^n}{\Delta x^2}
+          \]
+    \item BTCS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t} = b \frac{v_{j+1}^{n+1} - 2v_{j}^{n+1} + v_{j-1}^{n+1}}{\Delta x^2}
+          \]
+    \item CTCS 格式
+          \[
+              \frac{v_{j}^{n+1} - v_{j}^{n-1}}{2\Delta t} = b \frac{v_{j+1}^{n} - 2v_{j}^{n} + v_{j-1}^{n}}{\Delta x^2}
+          \]
+\end{enumerate}
+
+将已知时间层和未知时间层加权组合起来，就可以得到 $\theta$ 格式，例如对于扩散方程 $u_t = b u_{xx}$（$b>0$）的 $\theta$ 格式为
+\[
+    \frac{v_{j}^{n+1} - v_{j}^n}{\Delta t}
+    =
+    b \left[
+        \theta \frac{v_{j+1}^{n+1} - 2v_{j}^{n+1} + v_{j-1}^{n+1}}{\Delta x^2}
+        + (1-\theta) \frac{v_{j+1}^n - 2v_{j}^n + v_{j-1}^n}{\Delta x^2}
+        \right]
+\]
+其中 $0 \le \theta \le 1$ 对应 $t^{n+1}$ 层和 $t^n$ 层的权重。
+取 $\theta = \frac12$ 得到的格式称为 Crank–Nicolson 格式。
+考虑 $\theta$ 的临界值：取 $\theta = 0$ 得到 FTCS 格式，取 $\theta = 1$ 得到 BTCS 格式。
+
+
+对这些差分格式有很多种分类方式：
+\begin{itemize}
+    \item 可以按照能否直接计算来分类：显格式，隐格式。
+          显格式可以直接计算，而隐格式通常需要联列求解方程组，单步的计算成本通常更大。
+          大部分显格式是条件稳定的，时间步长受到严格限制；大部分全隐格式是无条件稳定的，可以选取更大的时间步长。
+    \item 可以按照涉及的时间层来分类：双层格式（单步格式），多层格式（多步格式）等。多层格式在启动时需要通过其它双层格式的辅助，例如CTCS格式可以使用FTCS格式来启动。
+\end{itemize}
+
+通过差商近似设计这些经典格式看起来非常自然，但是得到的这些格式是否未必满足我们的期望是不清楚的，
+需要进一步分析差分格式的性质，包括相容性，稳定性和收敛性等。
+
+\section{基于三角插值的收敛性定理}
+
+考虑更一般的单步格式
+\[
+    v_j^{n+1} = Q\,v_j^n, \quad v_j^0 = f_j,\quad Q := \sum_{\mu = -r}^s A_\mu(\Delta t,\Delta x) E^\mu,
+\]
+我们可以在加上一些条件（相容，稳定等）之后，利用Fourier级数和三角插值证明双层格式的收敛性，证明需要如下几个条件：
+\begin{enumerate}
+    \item[(a)] 初值 $f$ 是分片连续的，可以展开为Fourier级数，
+          \[
+              f(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^{\infty} e^{i \omega  x} \hat{f}(\omega ),\quad \sum_{\omega = -\infty}^{\infty} |\hat{f}(\omega )|^2 < \infty
+          \]
+          并且它的三角插值 $\text{Int}_N\,f$ 收敛于 $f$；
+          \[
+              \text{Int}_N\,f (x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \tilde{f}(\omega ),
+              \quad \lim_{N \to \infty} \| \text{Int}_N\,f  - f \| = 0
+          \]
+    \item[(b)] 差分近似是稳定的，即存在常数 $K_s$ 使得对所有的 $\Delta t$ 和 $\Delta x$ 有：
+          \[
+              \sup_{0 \le t_n \le T} |\widehat{Q}^n| \le K_s
+          \]
+    \item[(c)] 差分近似是相容的，即对于每一个固定的 $\omega $，都有：（$\xi = \omega \Delta x$）
+          \[
+              \lim_{\Delta t,\Delta x \to 0} \sup_{0 \le t^n \le T} |\widehat{Q}^n(\xi) - e^{i \omega  t_n}| = 0
+          \]
+\end{enumerate}
+
+\begin{theorem}\label{thm:big-thm}
+    对于有限时间区域 $0 \le t \le T$，考虑 $\Delta t,\Delta x \to 0$ 时，对于差分近似：
+    \[
+        v_j^{n+1} = Q\,v_j^n,\quad v_j^0 = f_j,\quad Q := \sum_{\mu = -r}^s A_\mu(\Delta t, \Delta x) E^\mu,
+    \]
+    若上述三个条件均成立，则差分近似解的三角插值 $\text{Int}_N\,(v_j^n)$ 收敛于偏微分方程的解 $u$，即：
+    \[
+        \lim_{\Delta t, \Delta x \to 0} \sup_{0 \le t^n \le T} \| u(\cdot,t^n) - \text{Int}_N\,(v_j^n)(\cdot) \| = 0
+    \]
+    其中 $\text{Int}_N\,(v_j^n)$ 定义为
+    \[
+        \text{Int}_N\,(v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
+    \]
+\end{theorem}
+
+\begin{proof}
+    % Gustafsson, Bertil《Time Dependent Problems and Difference Methods》 。
+    证明见附录。
+\end{proof}
+
+\section{相容性与局部截断误差}
+
+为了刻画差分格式对偏微分方程的逼近程度，引入相容性的概念，相容性主要通过局部截断误差来体现。
+将满足偏微分方程 $\mathcal{L} u = g$ 的充分光滑精确解 $u$ 代入差分格式 $L v_j^n = g_j^n$ 的两侧，
+显然等号不再成立，记两侧的差值为局部截断误差：
+\[
+    \tau_j^n := L u_j^n - g_j^n
+\]
+我们希望局部截断误差是一个与时空网格相关的无穷小量，随着时空网格加密，局部截断误差收敛到 $0$。
+
+注意在计算局部截断误差时，差分格式在形式上需要和偏微分方程的量纲保持对应，不要给差分格式两侧同时乘以 $\Delta t$ 或 $\Delta x$。例如
+\[
+    u_t + a u_x = g(x)
+    \quad \sim \quad
+    \frac{v_j^{n+1}-v_j^{n+1}}{2\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = g_j^n
+\]
+此时的局部截断误差为
+\[
+    \tau_j^n = \frac{u_j^{n+1}-u_j^{n+1}}{2\Delta t} + a \frac{u_{j+1}^n-u_{j-1}^n}{2\Delta x} - g_j^n
+\]
+
+
+对局部截断误差的计算主要使用泰勒展开即可，
+常见的泰勒展开公式如下：时间一阶导近似
+\begin{align*}
+    \frac{u_j^{n+1}-u_j^n}{\Delta t} ={}      & (u_t)_j^n + \frac{\Delta t}2 (u_{tt})_j^n
+    + \frac{\Delta t^2}6 (u_{ttt})_j^n + \mathcal{O}(\Delta t^3)                                                                              \\
+    \frac{u_j^{n+1}-u_j^n}{\Delta t} ={}      & (u_t)_j^{n+1} - \frac{\Delta t}2 (u_{tt})_j^{n+1}
+    + \frac{\Delta t^2}6 (u_{ttt})_j^{n+1} + \mathcal{O}(\Delta t^3)                                                                          \\
+    \frac{u_j^{n+1}-u_j^n}{\Delta t} ={}      & (u_t)_j^{n+\frac12} + \frac{\Delta t^2}{24} (u_{ttt})_j^{n+\frac12} + \mathcal{O}(\Delta t^4) \\
+    \frac{u_j^{n+1}-u_j^{n-1}}{2\Delta t} ={} & (u_t)_j^{n} + \frac{\Delta t^2}{6} (u_{ttt})_j^{n} + \mathcal{O}(\Delta t^4)
+\end{align*}
+空间一阶导近似
+\begin{align*}
+    \frac{u_{j+1}^{n}-u_j^n}{\Delta x} ={}        & (u_x)_j^n + \frac{\Delta x}2 (u_{xx})_j^n
+    + \frac{\Delta x^2}6 (u_{xxx})_j^n + \mathcal{O}(\Delta x^3)                                                                                    \\
+    \frac{u_{j}^{n}-u_{j-1}^n}{\Delta x} ={}      & (u_x)_j^{n} - \frac{\Delta x}2 (u_{xx})_j^{n}
+    + \frac{\Delta x^2}6 (u_{xxx})_j^{n} + \mathcal{O}(\Delta x^3)                                                                                  \\
+    \frac{u_{j+1}^{n}-u_j^n}{\Delta x} ={}        & (u_x)_{j+\frac12}^{n} + \frac{\Delta x^2}{24} (u_{xxx})_{j+\frac12}^n + \mathcal{O}(\Delta x^4) \\
+    \frac{u_{j+1}^{n}-u_{j-1}^{n}}{2\Delta x} ={} & (u_x)_j^{n} + \frac{\Delta x^2}{6} (u_{xxx})_j^{n} + \mathcal{O}(\Delta x^4)
+\end{align*}
+空间二阶导近似
+\[
+    \frac{u_{j+1}^{n} - 2 u_j^n + u_{j-1}^n}{\Delta x^2} ={}
+    (u_{xx})_{j}^n + \frac{\Delta x^2}{12} (u_{xxxx})_j^n + \mathcal{O}(\Delta x^4)
+\]
+平均值
+\begin{align*}
+    \frac{u_{j-1}^{n} + u_{j+1}^n}{2} ={} & u_j^n + \frac{\Delta x^2}2 (u_{xx})_j^n + \mathcal{O}(\Delta x^4)                     \\
+    \frac{u_{j}^{n} + u_{j+1}^n}{2} ={}   & u_{j+\frac12}^n + \frac{\Delta x^2}8 (u_{xx})_{j+\frac12}^n + \mathcal{O}(\Delta x^4)
+\end{align*}
+
+通常在 $(x_j,t^n)$ 处泰勒展开得到的局部截断误差形如
+\[
+    \tau_j^n =  \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+\]
+随着 $\Delta t,\Delta x \to 0$，显然有局部截断误差 $\tau_j^n \to 0$，此时称格式是无条件相容的。
+但是也可能存在其它形式的结果，
+如果必须假定 $\Delta x$ 和 $\Delta t$ 在趋于 $0$ 时满足一定约束，则称格式是有条件相容的。
+例如 Lax–Friedrichs 格式是有条件相容的：需要固定 $r = \Delta t/\Delta x$，随着 $\Delta t \to 0$，
+才有
+\[
+    \tau_j^n =  \mathcal{O}(\Delta t + \frac{\Delta x^2}{\Delta t}) =  \mathcal{O}(\Delta x)\to 0
+\]
+
+\begin{remark}
+    泰勒展开的具体位置不会影响局部截断误差的主项，在不同位置展开的差异只是一个高阶小量。
+\end{remark}
+
+\begin{example}
+    对于对流方程 $u_t + a u_x = 0$ 的 FTFS 格式，计算局部截断误差。
+\end{example}
+
+\begin{solution*}
+    对于 FTFS 格式，将精确解 $u$ 代入格式两侧，在 $(x_j,t^n)$ 处展开即可
+    \begin{align*}
+        \tau_j^n ={} & \frac{u_j^{n+1}-u_j^n}{\Delta t} + a \frac{u_{j+1}^n - u_j^n}{\Delta x} \\
+        ={}          & (u_t)_j^n + \frac{\Delta t}2 (u_{tt})_j^n + \mathcal{O}(\Delta t^3)
+        + a \left[
+            (u_x)_j^n + \frac{\Delta x}2 (u_{xx})_j^n + \mathcal{O}(\Delta x^3)
+        \right]                                                                                \\
+        ={}          & \mathcal{O}(\Delta x + \Delta t) \qedhere
+    \end{align*}
+\end{solution*}
+
+\begin{example}
+    对于扩散方程 $u_t = b u_{xx}$（$b>0$）的 FTCS 格式，计算局部截断误差。
+\end{example}
+
+\begin{solution*}
+    对于 FTCS 格式，将精确解 $u$ 代入格式两侧，在 $(x_j,t^n)$ 处展开即可
+    \begin{align*}
+        \tau_j^n ={} & \frac{u_j^{n+1}-u_j^n}{\Delta t} - b \frac{u_{j+1}^n - 2 u_j^n + u_{j-1}^n}{\Delta x^2} \\
+        ={}          & (u_t)_j^n + \frac{\Delta t}2 (u_{tt})_j^n + \mathcal{O}(\Delta t^3)
+        - b \left[
+            (u_{xx})_{j}^n + \frac{\Delta x^2}{12} (u_{xxxx})_j^n + \mathcal{O}(\Delta x^4)
+        \right]                                                                                                \\
+        ={}          & \mathcal{O}(\Delta x^2 + \Delta t)  \qedhere
+    \end{align*}
+\end{solution*}
+
+
+\begin{example}
+    对于扩散方程 $u_t = b u_{xx}$（$b>0$）的 $\theta$ 格式，计算局部截断误差。
+\end{example}
+
+\begin{solution*}
+    对于 $\theta$ 格式，将精确解 $u$ 代入格式两侧，在 $(x_j,t^{n+\frac12})$ 处展开
+    \begin{align*}
+        \tau_j^{n+\frac12} ={} & \frac{u_j^{n+1}-u_j^n}{\Delta t} - b
+        \left[
+        \theta \frac{u_{j+1}^{n+1} - 2 u_j^{n+1} + u_{j-1}^{n+1}}{\Delta x^2}
+        + (1-\theta) \frac{u_{j+1}^n - 2 u_j^n + u_{j-1}^n}{\Delta x^2}
+        \right]                                                                                                                           \\
+        ={}                    & (u_t)_j^{n+\frac12} + \frac{\Delta t^2}{24} (u_{ttt})_j^{n+\frac12} + \mathcal{O}(\Delta t^4)            \\
+                               & - b \theta \left[
+        (u_{xx})_{j}^{n+1} + \frac{\Delta x^2}{12} (u_{xxxx})_j^{n+1} + \mathcal{O}(\Delta x^4)
+        \right]                                                                                                                           \\
+                               & - b (1-\theta) \left[
+        (u_{xx})_{j}^{n} + \frac{\Delta x^2}{12} (u_{xxxx})_j^{n} + \mathcal{O}(\Delta x^4)
+        \right]
+        \\
+        ={}                    & -b \Delta t \left(\theta - \frac12\right) (u_{xxt})_j^{n+\frac12} + \mathcal{O}(\Delta x^2 + \Delta t^2)
+    \end{align*}
+    因此，当 $\theta = \frac12$ 即 Crank–Nicolson 格式时，局部截断误差为 $\mathcal{O}(\Delta x^2 + \Delta t^2)$；在其他情况下，局部截断误差为 $\mathcal{O}(\Delta x^2 + \Delta t)$。
+\end{solution*}
+
+\section{稳定性与放大因子}
+
+稳定性关注满足差分格式的近似解在小扰动下的表现，假设提供一个 $\varepsilon$ 量级的初值小扰动（例如实际数值计算中的舍入误差等），
+对数值解不能产生随时间指数级增长的影响，否则这个格式将不能应用于实际的数值计算中。
+
+考虑双层差分格式
+\[
+    v_j^{n+1} = Q\,v_j^n,\quad v_j^0 = f_j,
+\]
+取谐波解初值为 $f_j = \hat{f}(\omega ) e^{i \omega  x_j}$，
+将 $v_j^n =   \hat{v}^n(\omega ) e^{i \omega  x_j}$ 和 $v_j^{n+1} = \hat{v}^{n+1}(\omega ) e^{i \omega  x_j}$ 代入格式，
+可以得到 $\hat{v}^n(\omega )$ 与 $\hat{v}^{n+1}(\omega )$ 之间的关系，定义放大因子（又称为增长因子）
+\[
+    \widehat{Q} = \widehat{Q}(\omega ) := \frac{\hat{v}^{n+1}(\omega )}{\hat{v}^n(\omega )}
+\]
+那么
+\[
+    \hat{v}^{n+1}(\omega ) = \widehat{Q}\, \hat{v}^n(\omega ) = \dots =  (\widehat{Q})^{n+1}\, \hat{v}^0(\omega ) = (\widehat{Q})^{n+1}\, \hat{f}(\omega )
+\]
+因此 $(\widehat{Q}(\omega))^{n}$ 体现了数值解 $v_j^n$ 随时间的变化，（$L^2$ 模）稳定性主要关注对 $(\widehat{Q}(\omega))^{n}$ 的控制。
+
+\begin{remark}
+    这里从稳定性讨论直接引入放大因子是有点突兀，其实放大因子可以在更完善的理论基础上进行描述，具体可以参考张强《偏微分方程的有限差分方法》2.4节。
+    上述公式与其说的放大因子的定义，不如说是放大因子的一种简便计算方法。
+\end{remark}
+
+\begin{definition}
+    称双层差分格式 $v_j^{n+1} = Q\,v_j^n$ 是（$L^2$ 模）稳定的，如果对应的放大因子 $\widehat{Q}$ 满足：
+    \[
+        \lim_{\Delta t, \Delta x \to 0} \sup_{0 \le t^n \le T} |(\widehat{Q}(\omega ))^n| \le K(T), \quad \forall\,\omega
+    \]
+\end{definition}
+
+如果保证始终有 $|\widehat{Q}| \le 1$（严格的 von Neumann 条件），那么显然格式具有稳定性。
+对于常系数对流方程 $u_t + a u_x = 0$ 的大部分格式，通常需要控制 $r = \frac{a \Delta t}{\Delta x}$ 来获得（$L^2$ 模）稳定性，
+如果一个格式要求 $|r| \le 1$ 才能保证 $|\widehat{Q}| \le 1$，那么称格式是条件稳定的，$|r| \le 1$ 就是稳定性条件。
+如果对任意的 $r$ 均可保证 $|\widehat{Q}| \le 1$，则称格式是无条件稳定的。
+对于常系数扩散方程 $u_t = b u_{xx}$（$b > 0$）的大部分格式，则需要控制 $\mu = \frac{b \Delta t}{\Delta x^2}$ 来获得（$L^2$ 模）稳定性。
+
+\begin{remark}
+    针对多层差分格式的放大因子和稳定性分析比双层差分格式更复杂，在~\ref{sec:multi-layer-format}~节会以蛙跳格式为例，进行专门的讨论。
+\end{remark}
+
+\begin{example}\label{eg:ftfs}
+    对于对流方程 $u_t + a u_x = 0$ 的 FTFS 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 FTFS 格式整理为
+    \[
+        v_j^{n+1} = v_j^n - r \left( v_{j+1}^n - v_{j}^n \right), \quad r := \frac{a \Delta t}{\Delta x}
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \hat{v}^n - r (e^{i \omega \Delta x} - 1) \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{gather*}
+        \widehat{Q} ={}   1 - r (e^{i \xi} - 1)  = (1 + r - r \cos(\xi)) - i r \sin(\xi)     \\
+        |\widehat{Q}|^2 ={} (1 + r - r \cos(\xi))^2 + r^2 \sin^2(\xi) = 1 + r(1+r) \xi^2 + \mathcal{O}(\xi^4)
+    \end{gather*}
+    因此：
+    \begin{enumerate}
+        \item 若 $a > 0$，则 $r > 0$，必然有 $|\widehat{Q}| > 1$，FTFS 格式不稳定；
+        \item 若 $a < 0$，则 $r < 0$，由稳定性要求 $|\widehat{Q}| \le 1$ 可以推出 $-1 \le r < 0$，即 FTFS 格式有条件稳定。
+    \end{enumerate}
+\end{solution*}
+
+\begin{example}\label{eg:btfs}
+    对于对流方程 $u_t + a u_x = 0$ 的 BTFS 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 BTFS 格式整理为
+    \[
+        r v_{j+1}^{n+1} + (1-r) v_j^{n+1} = v_j^n, \quad r := \frac{a \Delta t}{\Delta x}
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \frac{1}{1-r+r e^{i \omega \Delta x}}\hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{gather*}
+        \widehat{Q} ={}  \frac{1}{1 + r (e^{i \xi} - 1)} = \frac{1}{(1 - r + r \cos(\xi)) + i r \sin(\xi)}     \\
+        |\widehat{Q}|^2 ={} \frac{1}{(1 - r + r \cos(\xi))^2 + r^2 \sin^2(\xi)} = 1 + r(1-r) \xi^2 + \mathcal{O}(\xi^4)
+    \end{gather*}
+    分情况讨论：
+    \begin{enumerate}
+        \item 若 $r=1$，则 $|\widehat{Q}| = 1$。
+        \item 若 $r \in (0,1)$，则 $|\widehat{Q}| > 1$。
+        \item 若 $r \in (-\infty,0) \cup (1,+\infty)$，则 $|\widehat{Q}| < 1$。
+    \end{enumerate}
+    因此：
+    \begin{enumerate}
+        \item 若 $a>0$，BTFS格式有条件稳定，稳定性要求为 $r \ge 1$；
+        \item 若 $a<0$，BTFS格式无条件稳定。
+    \end{enumerate}
+\end{solution*}
+
+\begin{example}\label{eg:ftcs}
+    对于对流方程 $u_t + a u_x = 0$ 的 FTCS 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 FTCS 格式整理为
+    \[
+        v_j^{n+1} = v_j^n - \frac{r}2 \left( v_{j+1}^n - v_{j-1}^n \right), \quad r := \frac{a \Delta t}{\Delta x}
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \hat{v}^n - \frac{r}2 (e^{i \omega \Delta x} - e^{-i \omega \Delta x}) \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{gather*}
+        \widehat{Q} ={}  1 - \frac{r}2 (e^{i \xi} - e^{-i \xi}) = 1 -  i r \sin(\xi)            \\
+        |\widehat{Q}|^2 ={} 1 + r^2 \sin^2(\xi) \ge 1
+    \end{gather*}
+    因此 FTCS 格式不稳定。
+\end{solution*}
+
+\begin{example}\label{eg:btcs}
+    对于对流方程 $u_t + a u_x = 0$ 的 BTCS 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 BTCS 格式整理为
+    \[
+        v_j^{n+1} + \frac{r}2 \left( v_{j+1}^{n+1} - v_{j-1}^{n+1} \right) = v_j^n, \quad r := \frac{a \Delta t}{\Delta x}
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \frac{1}{1 + \frac{r}2 (e^{i \omega \Delta x} - e^{-i \omega \Delta x})} \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{gather*}
+        \widehat{Q} ={} \frac{1}{1 + \frac{r}2 (e^{i \xi} - e^{-i \xi})} = \frac{1}{1 + i r \sin(\xi)}            \\
+        |\widehat{Q}|^2  ={} \frac{1}{1 + r^2 \sin^2(\xi)} \le 1
+    \end{gather*}
+    因此 BTCS 格式无条件稳定。
+\end{solution*}
+
+\begin{example}
+    对于扩散方程 $u_t = b u_{xx}$（$b>0$）的 FTCS 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 FTCS 格式整理为
+    \[
+        v_j^{n+1} = v_j^n + \mu \left( v_{j+1}^n - 2 v_j^n + v_{j-1}^n \right), \quad \mu := \frac{b \Delta t}{\Delta x^2}
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \hat{v}^n + \mu (e^{i \omega \Delta x} - 2 + e^{- i \omega \Delta x}) \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{gather*}
+        \widehat{Q} ={} 1 + \mu (e^{i \xi} - 2 + e^{- i \xi}) =  1 - 4 \mu \sin^2(\frac{\xi}2) \\
+        |\widehat{Q}| ={} \left|1 - 4 \mu \sin^2(\frac{\xi}2)\right|
+    \end{gather*}
+    由稳定性要求 $|\widehat{Q}| \le 1$ 可以推出 $0 < \mu \le \frac12$。
+    因此 FTCS 格式有条件稳定，具体的稳定性要求为
+    \[
+        \mu = \frac{b \Delta t}{\Delta x^2} \le \frac12 \qedhere
+    \]
+\end{solution*}
+
+\begin{example}
+    对于扩散方程 $u_t = b u_{xx}$（$b>0$）的 BTCS 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 BTCS 格式整理为
+    \[
+        v_j^{n+1} - \mu \left( v_{j+1}^{n+1} - 2 v_j^{n+1} + v_{j-1}^{n+1} \right) = v_j^n, \quad \mu := \frac{b \Delta t}{\Delta x^2}
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} - \mu (e^{i \omega \Delta x} - 2 + e^{- i \omega \Delta x}) \hat{v}^{n+1} = \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{gather*}
+        \widehat{Q} ={} \frac{1}{1 - \mu (e^{i \xi} - 2 + e^{- i \xi})} =  \frac{1}{1 + 4 \mu \sin^2(\frac{\xi}2)} \\
+        |\widehat{Q}| ={} \frac{1}{1 + 4 \mu \sin^2(\frac{\xi}2)} \le 1
+    \end{gather*}
+    始终满足稳定性要求 $|\widehat{Q}| \le 1$，因此 BTCS 格式无条件稳定。
+\end{solution*}
+
+
+\section{收敛性与整体误差}
+
+我们自然希望随着时空网格的加密，满足差分格式的数值解会收敛到满足偏微分方程的精确解，格式的收敛性主要通过整体误差来刻画。
+定义整体误差为精确解和数值解之差
+\[
+    e_j^n = u(x_j,t^n) - v_j^n,\quad E^n = \max_j(|e_j^n|).
+\]
+收敛性要求随着 $\Delta x,\Delta t \to 0$，有$E^n \to 0$。
+
+\begin{example}
+    对于扩散方程 $u_t = b u_{xx}$（$b>0$）的 FTCS 格式，分析其收敛性。
+\end{example}
+
+\begin{solution*}
+    记 $\mu = \frac{b \Delta t}{\Delta x^2}$，
+    数值解 $v_j^n$ 满足
+    \[
+        v_j^{n+1} = v_j^n + \mu (v_{j+1}^n - 2 v_j^n + v_{j-1}^n),
+    \]
+    精确解 $u_j^n$ 满足（$u_j^n = u(x_j,t^n)$）
+    \[
+        u_j^{n+1} = u_j^n + \mu (u_{j+1}^n - 2 u_j^n + u_{j-1}^n) + \Delta t\, \tau_j^n.
+    \]
+    其中 $\tau_j^n = \mathcal{O}(\Delta x^2 + \Delta t)$。
+    定义误差
+    \[
+        e_j^n = u(x_j,t^n) - v_j^n,\quad E^n = \max_j(|e_j^n|).
+    \]
+    在满足稳定性要求 $\mu \le \frac12$ 时，存在常数 $A>0$，使得误差满足
+    \begin{align*}
+        e_j^{n+1} ={}   & e_j^n + \mu (e_{j+1}^n - 2 e_j^n + e_{j-1}^n) + \Delta t\, \tau_j^n          \\
+        |e_j^{n+1}| ={} & (1-2\mu) |e_j^n| + \mu |e_{j+1}^n| + \mu |e_{j-1}^n| + \Delta t\, |\tau_j^n| \\
+        \le{}           & E^n + \Delta t\, A(\Delta x^2 + \Delta t)                                    \\
+        E^{n+1} \le{}   & E^n + \Delta t\, A(\Delta x^2 + \Delta t)                                    \\
+        \le{}           & \dots \le E^0 + (n+1)\Delta t\, A(\Delta x^2 + \Delta t)
+    \end{align*}
+    其中 $E^0 = 0$。随着 $\Delta x,\Delta t \to 0$，$(n+1) \Delta t \to t^*$，有
+    \[
+        E^{n+1} \le t^* A(\Delta x^2 + \Delta t) \to 0, \quad (\Delta x,\Delta t \to 0)
+    \]
+    得证 FTCS 格式的收敛性。
+\end{solution*}
+
+
+
+
+
+\section{CFL 条件与迎风格式}
+
+对于对流方程，需要考虑数值解依赖区和精确解依赖区的关系，对于对流方程 $u_t + a u_x = 0$，具有特征线，
+特征线满足方程
+\[
+    \frac{d x(t)}{dt} = a, \quad \Rightarrow \quad x - a t = \text{constant}.
+\]
+由于
+\[
+    \frac{d}{dt} u(x(t),t) = u_x(x(t),t) \frac{d x(t)}{dt} + u_t(x(t),t) = a u_x + u_t = 0
+\]
+因此精确解沿着特征线保持不变。
+
+考虑任意点 $P(x,t)$ 处的精确解 $u(x,t)$，根据特征线的性质，$u(x,t)$ 由过该点的特征线与 $t=0$ 交点 $P_0(x_0,0)$ 的初值决定
+\[
+    u(x,t) = u_0(x_0) = u_0(x - a t),\quad (x_0 = x - a t)
+\]
+称 $D_p = \{P_0\} = \{(x_0,0)\} = \{(x - a t,0)\}$ 为精确解 $u(x,t)$ 的依赖区。
+
+对于数值格式，称数值解 $v_j^n$ 的依赖区为计算 $v_j^n$ 的过程中涉及到的空间区域 $N_p$。
+例如考虑 $u_t + a u_x = 0$ 的 FTBS 格式
+\[
+    v_{j}^{n+1} = v_j^n - \frac{a \Delta t}{\Delta x} \left(v_{j}^n - v_{j-1}^n\right)
+\]
+则 $v_j^n$ 的计算涉及到的空间区域为 $N_p = [x_{j-n},\, x_j]$。
+
+\begin{definition}[Courant–Friedrichs–Lewy condition]
+    称保证如下关系成立的条件为 CFL 条件
+    \[
+        \text{精确解依赖区}\,D_p \,\subset\, \text{数值解依赖区}\,N_p
+    \]
+\end{definition}
+
+\begin{remark}
+    通常可以基于上述定义推出更具体的形如 $\Delta t \le C \Delta x$ 的时间步长限制。
+\end{remark}
+
+\begin{theorem}
+    CFL 条件是差分格式收敛的必要条件。
+\end{theorem}
+
+\begin{remark}
+    CFL 条件也适用对变系数和非线性双曲问题的数值格式分析，但只是这些格式收敛的必要条件。
+\end{remark}
+
+\begin{example}\label{eg:upwind}
+    对于方程 $u_t + a u_x = 0$：
+    \begin{itemize}
+        \item 当 $a > 0$ 时，FTBS 格式有条件收敛，CFL 条件是 $a \Delta t \le \Delta x$，FTFS 格式不收敛；
+        \item 当 $a < 0$ 时，FTFS 格式有条件收敛，CFL 条件是 $a \Delta t \le \Delta x$，FTBS 格式不收敛；
+    \end{itemize}
+\end{example}
+
+\begin{solution*}
+    根据对称性，只考虑 $a>0$ 的情形。
+    精确解 $u(x_j,t^n)$ 的依赖区为 $D_p = \{(x_j - a t^n,0)\}$。
+    对于 FTBS 格式，$v_j^n$ 的数值解依赖区为 $N_p = [x_{j-n},\, x_{j}]$，
+    根据 CFL 条件可得
+    \[
+        x_j - a t^n \in [x_{j-n},\, x_{j}],
+        \quad \Rightarrow \quad a \Delta t \le \Delta x.
+    \]
+    对于 FTFS 格式，$v_j^n$ 的数值解依赖区为 $N_p = [x_{j},\, x_{j+n}]$，此时 $D_p$ 不可能被包含在 $N_p$ 中，因此不可能收敛。
+\end{solution*}
+
+
+
+对于对流方程，可以根据特征线的走向（风向）来定义迎风格式：
+\begin{itemize}
+    \item 迎风格式：风向与模板方向一致的差分格式。
+    \item 逆风格式：风向与模板方向不一致的差分格式。
+\end{itemize}
+具体来说，对于 $u_t + a u_x = 0$：
+\begin{itemize}
+    \item 在 $a > 0$ 时，FTBS 格式为迎风格式，FTFS 格式为逆风格式。
+    \item 在 $a < 0$ 时，FTFS 格式为迎风格式，FTBS 格式为逆风格式。
+\end{itemize}
+也可以将迎风格式写为如下形式（记 $r = a \Delta t / \Delta x$）
+\[
+    v_j^{n+1} = v_j^n - \frac{r}2 (v_{j+1}^n - v_{j-1}^{n}) + \frac{|r|}2 (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n})
+    =
+    \begin{cases}
+        v_j^n - r (v_{j}^n - v_{j-1}^{n}), & a > 0 \\
+        v_j^n - r (v_{j+1}^n - v_{j}^{n}), & a < 0
+    \end{cases}
+\]
+由例~\ref{eg:upwind} 可知，迎风格式是条件稳定的，逆风格式则是无条件不稳定的。
+例~\ref{eg:ftfs} 通过计算放大因子得到的（$L^2$ 模）稳定性结论与这里相符。
+
+\begin{remark}
+    这里主要讨论的是显格式，因为显格式通常是局部更新，而隐格式通常是全局联列求解，并不能直接套用上述逻辑。
+    如果把时间变量取负，可以得到显式迎风/逆风格式与“隐式迎风/逆风格式”之间的对称性关系：（推导过程参考例~\ref{eg:btfs}，整理结果见附录）
+    \begin{enumerate}
+        \item 显式迎风格式有条件稳定，显式逆风格式无条件不稳定；
+        \item “隐式迎风格式”有条件稳定，“隐式逆风格式”无条件稳定；
+    \end{enumerate}
+    因此，迎风性质可能对隐格式起到“反作用”。
+\end{remark}
+
+\section{不稳定格式的修正}
+
+对于对流方程 $u_t + a u_x = 0$ 直接设计的 FTCS 格式
+\[
+    \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = 0
+\]
+虽然 FTCS 格式具有局部截断误差 $\mathcal{O}(\Delta x^2 + \Delta t)$，但是例~\ref{eg:ftcs} 的分析表明它是无条件不稳定的。
+
+\begin{remark}
+    差分格式的相容性和稳定性之间没有必然的联系，设计一个好的差分格式不仅要考虑相容性，更要考虑稳定性。
+\end{remark}
+
+考虑给对流方程的右端加入人工黏性项
+\[
+    u_t + a u_x =  \sigma \Delta x\, u_{xx},\quad (\sigma \ge 0)
+\]
+离散得到
+\[
+    \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \sigma \Delta x \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+\]
+取两个特殊的 $\sigma$ 可以得到条件稳定的 Lax–Friedrichs 和 Lax-Wendroff 格式：
+
+\begin{itemize}
+    \item[(a)] Lax–Friedrichs 格式：取$\sigma = \frac{\Delta x}{2\,\Delta t}$，可以得到
+          \[
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{\Delta x^2}{2\Delta t}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+          \]
+          计算可得局部截断误差为$\mathcal{O}(\Delta t + \frac{\Delta x^2}{\Delta t})$，因此是一个有条件相容的格式。
+          整理可得
+          \[
+              \frac{v_j^{n+1}-\frac12(v_{j-1}^n+v_{j+1}^n)}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = 0
+          \]
+          这也可以解释为：将 $v_j^n$ 替换为空间上的平均 $\frac12(v_{j-1}^{n} + v_{j+1}^{n})$。
+
+    \item[(b)] Lax-Wendroff格式：取$\sigma = \frac{a^2 \Delta t}{2\,\Delta x}$，可以得到
+          \[
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+          \]
+          计算可得局部截断误差为$\mathcal{O}(\Delta x^2+\Delta t^2)$。整理可得
+          \[
+              v_{j}^{n+1} = v_j^n + \Delta t \,(-a)\,\left(\frac{v_{j+1}^n- v_{j-1}^n}{2\Delta x}\right)
+              + \frac{\Delta t^2}2\,a^2\,\left(\frac{v_{j+1}^n-2v_{j}^n+v_{j-1}^n}{\Delta x^2}\right)
+          \]
+          这也可以解释为：对精确解 $u$ 关于时间进行二阶泰勒展开的近似
+          \begin{align*}
+              u(x_j,t^{n+1})
+               & \approx u(x_j,t^n) + \Delta t \,u_t(x_j,t^n) + \frac{\Delta t^2}2\,u_{tt}(x_j,t^n)      \\
+               & = u(x_j,t^n) + \Delta t \,(-a)\,u_x(x_j,t^n) + \frac{\Delta t^2}2\,a^2\,u_{xx}(x_j,t^n)
+          \end{align*}
+\end{itemize}
+
+\begin{remark}
+    虽然都可以解释为添加人工黏性项，但是 Lax–Friedrichs 格式和 Lax-Wendroff 格式的各种性质很不相同：局部截断误差，耗散色散，是否产生数值振荡等。
+\end{remark}
+
+对于扩散方程 $u_t = b u_{xx}$ 直接设计的CTCS格式（Richardson格式）
+\[
+    \frac{v_j^{n+1}-v_{j-1}^n}{2\Delta t} = b \frac{v_{j+1}^n - 2 v_j^n + v_{j-1}^n}{\Delta x^2}
+\]
+虽然它具有局部截断误差 $\mathcal{O}(\Delta x^2+\Delta t^2)$，但是它是无条件不稳定的。
+考虑将 $v_j^n$ 替换为时间平均 $\frac12(v_j^{n-1} + v_j^{n+1})$，得到 Du Fort-Frankel 格式
+\[
+    \frac{v_j^{n+1}-v_{j-1}^n}{2\Delta t} = b \frac{v_{j+1}^n - (v_{j}^{n-1}+v_j^{n+1}) + v_{j-1}^n}{\Delta x^2}
+\]
+Du Fort-Frankel 格式的局部截断误差为
+\[
+    \mathcal{O}(\Delta x^2 + \Delta t^2 + \frac{\Delta t^2}{\Delta x^2}).
+\]
+因此是一个有条件相容的格式。虽然DF格式是显格式，却是无条件稳定的。
+
+
+\begin{example}
+    对于对流方程 $u_t + a u_{x} = 0$ 的 Lax-Friedrichs 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 Lax-Friedrichs 格式整理为
+    \[
+        v_{j}^{n+1} = \frac{1}2 (v_{j-1}^n + v_{j+1}^n) - \frac{r}2 (v_{j+1}^n - v_{j-1}^n).
+        \quad r = \frac{a \Delta t}{\Delta x}.
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \left[
+            \frac12 (e^{i \omega \Delta x} + e^{- i \omega \Delta x})
+            - \frac{r}2 (e^{i \omega \Delta x} - e^{- i \omega \Delta x})
+            \right] \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{align*}
+        \widehat{Q}
+                        & = \frac12 (e^{i \xi} + e^{- i \xi})
+        - \frac{r}2 (e^{i \xi} - e^{- i \xi})
+        \\
+                        & = \cos(\xi) - i r \sin(\xi)
+        \\
+        |\widehat{Q}|^2 & =
+        1 - (1-r^2) \sin^2(\xi)
+    \end{align*}
+    因此当且仅当 $0 < r \le 1$ 时，$|\widehat{Q}| \le 1$，Lax-Friedrichs 格式具有稳定性。
+\end{solution*}
+
+\begin{example}
+    对于对流方程 $u_t + a u_{x} = 0$ 的 Lax-Wendroff 格式，计算放大因子并分析稳定性。
+\end{example}
+
+\begin{solution*}
+    将 Lax-Wendroff 格式整理为
+    \[
+        v_{j}^{n+1}
+        = v_j^n - \frac{r}2(v_{j+1}^n- v_{j-1}^n) + \frac{r^2}2
+        (v_{j+1}^n-2v_{j}^n+v_{j-1}^n),
+        \quad r = \frac{a \Delta t}{\Delta x}.
+    \]
+    因此
+    \[
+        \hat{v}^{n+1} = \left[
+            1 - \frac{r}2(e^{i \omega \Delta x} - e^{- i \omega \Delta x})
+            + \frac{r^2}2 (e^{i \omega \Delta x} - 2 + e^{- i \omega \Delta x})
+            \right] \hat{v}^n
+    \]
+    记 $\xi = \omega \Delta x$，得到放大因子
+    \begin{align*}
+        \widehat{Q}
+                        & = 1 - \frac{r}2(e^{i \xi} - e^{- i \xi})
+        + \frac{r^2}2 (e^{i \xi} - 2 + e^{- i \xi})
+        \\
+                        & =
+        1 -  i r \sin(\xi) + \frac{r^2}2 (-4 \sin^2(\frac{\xi}2))
+        \\
+                        & = 1 - 2r^2 \sin^2(\frac{\xi}2)
+        - i r \sin(\xi)                                            \\
+        |\widehat{Q}|^2 & =
+        1 - 4 r^2 (1-r^2) \sin^4(\frac{\xi}2)
+    \end{align*}
+    因此当且仅当 $0 < r \le 1$ 时，$|\widehat{Q}| \le 1$，Lax-Wendroff 格式具有稳定性。
+\end{solution*}
+
+
+\section{其它方法构造差分格式}
+
+可以通过 PDE 的积分形式来构造差分格式，未知量可以是格点处的函数值或函数在单元的平均值，选取合适的控制体进行数值积分即可。
+在构造时使用的数值积分公式精度会直接决定差分格式的精度，常用的数值积分公式包括
+\begin{align*}
+    \int_{a}^{b} f(x)\,dx & = (b-a) f(a) + \frac{(b-a)^2}4 f'(\xi)                     \\
+    \int_{a}^{b} f(x)\,dx & = \frac{(b-a)}{2}(f(a)+f(b)) - \frac{(b-a)^3}{12} f''(\xi) \\
+    \int_{a}^{b} f(x)\,dx & = (b-a) f(\frac{a+b}2) + \frac{(b-a)^3}{24} f''(\xi)
+\end{align*}
+尤其注意在应用时的积分余项形式，例如
+\begin{align*}
+    \int_{x_{j-\frac12}}^{x_{j+\frac12}} u^{n+1} - u^n \,dx
+    ={} & \Delta x (u_j^{n+1} - u_j^n) + \frac{\Delta x^3 }{24} \Big((u_{xx})^{n+1} - (u_{xx})^n\Big)\Big|_{x=\xi}       \\
+    ={} & \Delta x (u_j^{n+1} - u_j^n) +  \mathcal{O}(\Delta x^3 {\color{red}\Delta t})                                  \\
+    \int_{t^n}^{t^{n+1}} (u_{j+1} - u_{j-1})\, dt
+    ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \frac{\Delta t^2 }{4} \Big((u_{t})_{j+1} - (u_{t})_{j-1}\Big)\Big|_{t=\eta} \\
+    ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \mathcal{O}(\Delta t^2 {\color{red}\Delta x}).
+\end{align*}
+
+\begin{example}
+    对于对流方程 $u_t + a u_x = 0$，使用积分方法推导一个差分格式，要求局部截断误差为 $\mathcal{O}(\Delta x^2+\Delta t^2)$。
+\end{example}
+
+\begin{solution*}
+    取时空控制体 $\Omega_j^n = [x_{j-1},x_{j+1}] \times [t^n,t^{n+1}]$，那么
+    \begin{align*}
+        \int_{\Omega_j^n} u_t\,dt\,dx ={}                        & - a \int_{\Omega_j^n} u_x\,dx\,dt \\
+        \int_{x_{j-1}}^{x_{j+1}} u(x,t^{n+1}) - u(x,t^n)\,dx ={} &
+        - a \int_{t^n}^{t^{n+1}} u(x_{j+1},t) - u(x_{j-1},t) \,dt
+    \end{align*}
+    使用数值积分公式可得
+    \begin{align*}
+        \text{LHS} ={} & 2 \Delta x (u_j^{n+1} - u_j^n) +  \mathcal{O}(\Delta x^3 \Delta t) \\
+        \text{RHS} ={} & - a \Delta t
+        \left[
+            \frac12 (u_{j+1}^n - u_{j-1}^n) + \frac12 (u_{j+1}^{n+1} - u_{j-1}^{n+1})
+            \right] + \mathcal{O}(\Delta t^3 \Delta x)
+    \end{align*}
+    整理得到
+    \[
+        \frac{u_{j}^{n+1} - u_j^n}{\Delta t}
+        + a \left[ \frac12 \frac{u_{j+1}^n - u_{j-1}^n}{2\Delta x} + \frac12 \frac{u_{j+1}^{n+1} - u_{j-1}^{n+1}}{2\Delta x} \right]
+        = \mathcal{O}(\Delta x^2 + \Delta t^2)
+    \]
+    对应的差分格式为
+    \[
+        \frac{v_{j}^{n+1} - v_j^n}{\Delta t}
+        + a \left[ \frac12 \frac{v_{j+1}^n - v_{j-1}^n}{2\Delta x} + \frac12 \frac{v_{j+1}^{n+1} - v_{j-1}^{n+1}}{2\Delta x} \right] = 0 \qedhere
+    \]
+\end{solution*}
+
+
+
+还可以直接指定离散模板，通过待定系数法构造数值微分/积分公式，进而构造差分格式。
+
+\begin{example}
+    针对方程 $u_t + a u_x = 0$，构造如下模板的差分格式
+    \[
+        v_j^{n+1} = \alpha v_{j-1}^n + \beta v_j^n + \gamma v_{j+1}^n
+    \]
+    调整系数使其达到最优的局部截断误差阶。
+\end{example}
+
+\begin{solution*}
+    在 $(x_j,t^n)$ 处展开以计算局部截断误差
+    \begin{align*}
+        \Delta t \tau_j^n ={} & u_j^{n+1} - \alpha u_{j-1}^n - \beta u_j^n - \gamma u_{j+1}^n                                \\
+        ={}                   & u_j^n + \Delta t (u_t)_j^n + \frac{\Delta t^2}2 (u_{tt})_j^n + \mathcal{O}(\Delta t^3)
+        - \alpha \left[
+            u_j^n - \Delta x (u_x)_j^n + \frac{\Delta x^2}2 (u_{xx})_j^n + \mathcal{O}(\Delta x^3)
+        \right]                                                                                                              \\
+                              & - \beta u_j^n
+        - \gamma \left[
+            u_j^n + \Delta x (u_x)_j^n + \frac{\Delta x^2}2 (u_{xx})_j^n + \mathcal{O}(\Delta x^3)
+        \right]                                                                                                              \\
+        ={}                   & u_j^n - a \Delta t (u_x)_j^n + a^2 \frac{\Delta t^2}2 (u_{xx})_j^n + \mathcal{O}(\Delta t^3)
+        - \alpha \left[
+            u_j^n - \Delta x (u_x)_j^n + \frac{\Delta x^2}2 (u_{xx})_j^n + \mathcal{O}(\Delta x^3)
+        \right]                                                                                                              \\
+                              & - \beta u_j^n
+        - \gamma \left[
+            u_j^n + \Delta x (u_x)_j^n + \frac{\Delta x^2}2 (u_{xx})_j^n + \mathcal{O}(\Delta x^3)
+        \right]                                                                                                              \\
+        ={}                   & (1-\alpha - \beta - \gamma) u_j^n +
+        (- a \Delta t + \alpha \Delta x - \gamma \Delta x) (u_x)_j^n
+        + \left(a^2 \frac{\Delta t^2}2 - \alpha \frac{\Delta x^2}2 - \gamma \frac{\Delta x^2}2\right) (u_{xx})_j^n           \\
+                              & + \mathcal{O}(\Delta t^3) + (|\alpha| + |\beta| + |\gamma|) \mathcal{O}(\Delta x^3)
+    \end{align*}
+    相容性要求参数满足如下方程组
+    \[
+        \left\{
+        \begin{aligned}
+            1-\alpha - \beta - \gamma ={}                                                      & 0, \\
+            - a \Delta t + \alpha \Delta x - \gamma \Delta x ={}                               & 0, \\
+            a^2 \frac{\Delta t^2}2 - \alpha \frac{\Delta x^2}2 - \gamma \frac{\Delta x^2}2 ={} & 0
+        \end{aligned}
+        \right.
+        \quad \Rightarrow \quad
+        \left\{
+        \begin{aligned}
+            \alpha ={} & \frac12 \left[\left(\frac{a \Delta t}{\Delta x}\right)^2 + \left(\frac{a \Delta t}{\Delta x}\right)\right], \\
+            \beta ={}  & 1 - \left(\frac{a \Delta t}{\Delta x}\right)^2,                                                             \\
+            \gamma ={} & \frac12 \left[\left(\frac{a \Delta t}{\Delta x}\right)^2 - \left(\frac{a \Delta t}{\Delta x}\right)\right]
+        \end{aligned}
+        \right.
+    \]
+    代入可知实际的格式为（记 $r = \frac{a \Delta t}{\Delta x}$）
+    \begin{align*}
+        v_j^{n+1} ={} & \frac12 (r^2 + r) v_{j-1}^n + (1-r^2) v_j^n + \frac12 (r^2 - r) v_{j+1}^n                   \\
+        ={}           & v_j^n - \frac{r}2 (v_{j+1}^n - v_{j-1}^n) + \frac{r^2}2 (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n})
+    \end{align*}
+    这就是 Lax-Wendroff 格式，对应的局部截断误差为 $\mathcal{O}(\Delta x^2 + \Delta t^2)$。
+\end{solution*}
+
+
+\section{变系数对流/扩散方程}
+
+考虑变系数对流方程
+\[
+    u_t + a(x,t) u_x = 0
+\]
+特征线满足
+\[
+    \frac{d x(t)}{d t} = a(x(t),t)
+\]
+特征线为一族互不相交的曲线，解沿着特征线不变。
+
+可以直接将常系数对流方程的格式直接推广到变系数对流方程，例如 Lax–Friedrichs 格式
+\[
+    \frac{v_j^{n+1} - \frac12(v_{j-1}^n + v_{j+1}^n)}{\Delta t} + a(x_j,t^n) \frac{v_{j+1}^n - v_{j-1}^n}{2\Delta x} = 0
+\]
+在分析稳定性时可以采用冻结系数法，将系数冻结为某个常数，视作常系数方程进行分析。
+
+
+考虑变系数扩散方程
+\[
+    u_t = b(x,t) u_{xx},\quad b(x,t) \ge \varepsilon > 0.
+\]
+可以直接将常系数扩散方程的格式直接推广到变系数扩散方程。
+对于守恒型扩散方程
+\[
+    u_t = (b(x,t) u_x)_x
+\]
+可以在格式构造时考虑方程的守恒性质，例如
+\[
+    \frac{v_{j}^{n+1} - v_j^n}{\Delta t} = \frac{1}{\Delta x}
+    \left(
+    b_{j+\frac12}^n \frac{v_{j+1}^n - v_j^n}{\Delta x} - b_{j-\frac12}^n \frac{v_{j}^n - v_{j-1}^n}{\Delta x}
+    \right)
+\]
+
+
+\section{一阶线性偏微分方程组问题}
+
+\subsection*{常系数一阶线性偏微分方程组}
+
+考虑方程组
+\begin{equation}
+    U_t + A\, U_x = 0    \label{eq:1d-pde-system}
+\end{equation}
+其中 $A \in \mathbb{R}^{n \times n}$ 是常系数矩阵，未知函数 $U: \mathbb{R}\times \mathbb{R}^+ \to \mathbb{R}^n$。
+
+可以直接将标量方程的格式推广到方程组，例如 Lax–Friedrichs 格式
+\[
+    V_j^{n+1} = \frac12(V_{j-1}^n + V_{j+1}^n) - \frac{\Delta t}{2\Delta x} A (V_{j+1}^n - V_{j-1}^n)
+\]
+Lax-Wendroff 格式
+\[
+    V_j^{n+1} = V_j^n - \frac{\Delta t}{2\Delta x} A (V_{j+1}^n - V_{j-1}^n)
+    + \frac{\Delta t^2}{2\Delta x^2} A^2(V_{j+1}^n - 2 V_j^n + V_{j-1}^n)
+\]
+
+\begin{definition}
+    称方程组~\eqref{eq:1d-pde-system} 为双曲型方程组，如果 $A$ 可以相似对角化，并且特征值均为实数。
+    \[
+        A = S \Lambda S^{-1},\quad
+        \Lambda = \text{diag}(\lambda_1,\cdots,\lambda_n).\quad (\lambda_i \in \mathbb{R}).
+    \]
+    进一步，称方程组~\eqref{eq:1d-pde-system} 为严格双曲型方程组，如果 $A$ 是双曲型方程组，并且特征值互异。
+\end{definition}
+
+对于双曲型方程组，可以通过换元使得各个分量解耦：记 $W = S^{-1} U$,则 $W$ 满足
+\[
+    W_t + \Lambda W_x = 0
+\]
+记 $|\Lambda| = \text{diag}(|\lambda_1|,\cdots,|\lambda_n|)$，
+可以得到关于 $W$ 的迎风格式
+\[
+    W_j^{n+1} = W_j^n
+    - \frac{\Delta t}{2\Delta x} \Lambda (W_{j+1}^n - W_{j-1}^n)
+    + \frac{\Delta t}{2\Delta x} |\Lambda|(W_{j+1}^n - 2 W_j^n + W_{j-1}^n)
+\]
+如果定义 $|A| = S |\Lambda| S^{-1}$，可以等价地改写为
+\[
+    V_j^{n+1} = V_j^n
+    - \frac{\Delta t}{2\Delta x} A (V_{j+1}^n - V_{j-1}^n)
+    + \frac{\Delta t}{2\Delta x} |A| (V_{j+1}^n - 2 V_j^n + V_{j-1}^n)
+\]
+
+\subsection*{变系数一阶线性偏微分方程组}
+
+考虑方程组
+\begin{equation}
+    U_t + A(x,t) U_x = 0    \label{eq:1d-pde-system-var}
+\end{equation}
+其中 $A(x,t) \in \mathbb{R}^{n \times n}$，未知函数 $U: \mathbb{R}\times \mathbb{R}^+ \to \mathbb{R}^n$。
+
+
+\begin{definition}
+    称方程组~\eqref{eq:1d-pde-system-var} 为双曲型方程组，如果 $A(x,t)$ 可以相似对角化，并且特征值均为实数。
+    \[
+        A(x,t) = S(x,t) \Lambda(x,t) S(x,t)^{-1},\quad
+        \Lambda(x,t) = \text{diag}(\lambda_1(x,t),\cdots,\lambda_n(x,t)).\quad (\lambda_i(x,t) \in \mathbb{R})
+    \]
+    进一步，称方程组~\eqref{eq:1d-pde-system-var} 为严格双曲型方程组，如果 $A(x,t)$ 是双曲型方程组，并且特征值始终互异。
+\end{definition}
+
+可以将常系数方程组的格式推广到变系数问题中。
