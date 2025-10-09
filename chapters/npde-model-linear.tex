@@ -139,8 +139,7 @@
     \item 可以按照涉及的时间层来分类：双层格式（单步格式），多层格式（多步格式）等。多层格式在启动时需要通过其它双层格式的辅助，例如CTCS格式可以使用FTCS格式来启动。
 \end{itemize}
 
-通过差商近似设计这些经典格式看起来非常自然，但是得到的这些格式是否未必满足我们的期望是不清楚的，
-需要进一步分析差分格式的性质，包括相容性，稳定性和收敛性等。
+通过差商近似设计这些经典格式看起来非常自然，但是得到的这些格式是否满足我们的期望？我们需要进一步分析差分格式的性质，包括相容性，稳定性和收敛性等。
 
 \section{基于三角插值的收敛性定理}
 
@@ -675,7 +674,7 @@
 \begin{itemize}
     \item[(a)] Lax–Friedrichs 格式：取$\sigma = \frac{\Delta x}{2\,\Delta t}$，可以得到
           \[
-              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{\Delta x^2}{2\Delta t}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = {\color{blue}\left(\frac{\Delta x^2}{2\Delta t}\right)} \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
           \]
           计算可得局部截断误差为$\mathcal{O}(\Delta t + \frac{\Delta x^2}{\Delta t})$，因此是一个有条件相容的格式。
           整理可得
@@ -686,7 +685,7 @@
 
     \item[(b)] Lax-Wendroff格式：取$\sigma = \frac{a^2 \Delta t}{2\,\Delta x}$，可以得到
           \[
-              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = {\color{blue}\left(\frac{a^2 \Delta t}{2}\right)} \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
           \]
           计算可得局部截断误差为$\mathcal{O}(\Delta x^2+\Delta t^2)$。整理可得
           \[
@@ -702,7 +701,14 @@
 \end{itemize}
 
 \begin{remark}
-    虽然都可以解释为添加人工黏性项，但是 Lax–Friedrichs 格式和 Lax-Wendroff 格式的各种性质很不相同：局部截断误差，耗散色散，是否产生数值振荡等。
+    虽然都可以解释为在 FTCS 的基础上添加人工黏性项，但是 Lax–Friedrichs 格式和 Lax-Wendroff 格式的各种性质很不相同：局部截断误差，耗散色散，是否产生数值振荡等。
+\end{remark}
+
+\begin{remark}
+    迎风格式也可以解释为在 FTCS 的基础上添加人工黏性项
+    \[
+\frac{v_j^{n+1} - v_j^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^{n}}{2\Delta x} = {\color{blue}\left(\frac{|a| \Delta x}2\right)} \frac{v_{j+1}^n - 2 v_j^n + v_{j-1}^{n}}{\Delta x^2}
+    \]
 \end{remark}
 
 对于扩散方程 $u_t = b u_{xx}$ 直接设计的CTCS格式（Richardson格式）

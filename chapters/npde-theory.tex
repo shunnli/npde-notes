@@ -1198,7 +1198,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \end{enumerate}
 
 \begin{remark}
-    MPDE方法的计算非常繁琐，具体参考 J.W.Thomas《Numerical Partial Differential Equations: Finite Difference Methods》7.7 节。
+    下文只考虑基于色散关系的方法，因为 MPDE 方法的计算非常繁琐，具体可以参考 J.W.Thomas《Numerical Partial Differential Equations: Finite Difference Methods》7.7 节，在附录中提供了一段可以简化计算的 Mathematica 代码。
 \end{remark}
 
 直接将 $v_j^n = e^{i(k t_n+\omega x_j)}$ 代入差分格式，可以得到离散的广义色散关系 $k=k(\omega)$，同样拆分为实部和虚部

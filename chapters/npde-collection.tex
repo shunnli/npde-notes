@@ -85,14 +85,18 @@
 
 在纯初值或周期边界条件下，使用Fourier方法分析 $u_t+au_x=0$ 的几类经典格式的稳定性，结论如下（记 $r = \frac{a\Delta t}{\Delta x} \neq 0$）:
 按照格式分类：
-\begin{itemize}
-    \item FTFS：$r(1+r) \le 0$
-    \item FTBS：$r(1-r) \ge 0$
-    \item BTFS：$r(1-r) \le 0$
-    \item BTBS：$r(1+r) \ge 0$
-    \item FTCS：无条件不稳定（$r^2 \le 0$ 无法成立）
-    \item BTCS：无条件稳定（$r^2 \ge 0$ 始终成立）
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        \hline
+        FTFS & $r(1+r) \le 0$           & BTFS & $r(1-r) \le 0$          \\
+        \hline
+        FTBS & $r(1-r) \ge 0$           & BTBS & $r(1+r) \ge 0$          \\
+        \hline
+        FTCS & 无条件不稳定（$r^2 \le 0$ 无法成立） & BTCS & 无条件稳定（$r^2 \ge 0$ 始终成立） \\
+        \hline
+    \end{tabular}
+\end{table}
 按照 $a$ 的正负分类：（只讨论单侧差商格式）
 \begin{enumerate}
     \item $a>0$：风向从左往右
@@ -110,3 +114,212 @@
               \item “隐式逆风格式” BTFS 无条件稳定
           \end{itemize}
 \end{enumerate}
+
+
+\section{数值微分公式的 Mathematica 代码}
+
+对于指定模板的数值微分公式（$a,m,n \ge 0$）
+\[
+    f^{(a)}(x) \approx \sum_{i=-m}^n c_i f(x + i h)
+\]
+具体系数 $\{c_i\}$ 需要通过联列线性方程组进行求解，计算过程非常无聊，可以通过 Mathematica 简化计算，具体代码如下（Mathematica 14.0）
+\begin{lstlisting}
+FDFormula[m_, n_, a_] :=
+ Module[{mat, b, coeff, expr, i, j, jmax, f, x, h}, f = Unique[f];
+  x = Unique[x]; h = Unique[h];
+  mat = Table[If[j == 0, 1, i^j], {j, 0, m + n}, {i, -m, n}];
+  b = Table[If[i == a, a!, 0], {i, 0, n + m}];
+  coeff = LinearSolve[mat, b];
+  expr = Sum[coeff[[m + 1 + i]] f[x + i h]/h^a, {i, -m, n}];
+  For[j = a + 1, j <= m + n + 2, j++,
+   If[Simplify@Sum[coeff[[m + 1 + i]]*i^j, {i, -m, n}] != 0, Break[]]];
+  jmax = j;
+  Module[{fout, xout, hout}, fout = Symbol["f"];
+   xout = Symbol["x"]; hout = Symbol["h"];
+   Print["coeff: ", coeff, "\nexpression: ",
+    Format[expr /. {f -> fout, x -> xout, h -> hout},
+     TraditionalForm], "\nseries: ",
+    Series[expr /. {f -> fout, x -> xout, h -> hout}, {hout, 0,
+      jmax - a}], "\norder: ", jmax - a];
+   Print[Format[expr /. {f -> fout, x -> xout, h -> hout}, TeXForm],
+    " = ", Format[
+     Series[expr /. {f -> fout, x -> xout, h -> hout}, {hout, 0,
+       jmax - a}], TeXForm]];];
+  Return[coeff]]
+\end{lstlisting}
+
+\begin{example}
+    使用 $x-h,x,x+h$ 三个点的中心模板求一阶导：
+    \begin{lstlisting}[numbers=none]
+FDFormula[1, 1, 1]
+
+coeff: {-(1/2),0,1/2}
+expression: f(h+x)/(2 h)-f(x-h)/(2 h)
+series: (f^\[Prime])[x]+1/6 (f^(3))[x] h^2+O[h]^3
+order: 2
+    \end{lstlisting}
+    对应数值微分公式
+    \[
+        \frac{f(h+x)}{2 h}-\frac{f(x-h)}{2 h}=f'(x)+\frac{1}{6} h^2 f^{(3)}(x)+O\left(h^3\right)
+    \]
+\end{example}
+
+
+\begin{example}
+    使用 $x,x+h,x+2h,x+3h$ 四个点的偏心模板求一阶导：
+    \begin{lstlisting}[numbers=none]
+FDFormula[0, 3, 1]
+
+coeff: {-(11/6),3,-(3/2),1/3}
+expression: -((11 f(x))/(6 h))+(3 f(h+x))/h-(3 f(2 h+x))/(2 h)+f(3 h+x)/(3 h)
+series: (f^\[Prime])[x]+1/4 (f^(4))[x] h^3+O[h]^4
+order: 3
+    \end{lstlisting}
+    对应数值微分公式
+    \[
+        -\frac{11 f(x)}{6 h}+\frac{3 f(h+x)}{h}-\frac{3 f(2 h+x)}{2 h}+\frac{f(3 h+x)}{3 h}=f'(x)+\frac{1}{4} h^3 f^{(4)}(x)+O\left(h^4\right)
+    \]
+\end{example}
+
+
+\section{MPDE 方法的 Mathematica 代码}
+
+MPDE 方法是一类用来分析数值格式的耗散色散性质的方法，它的思路为：
+对于 $u_t = \mathcal{L}(u)$ ，我们通过离散设计得到了数值格式，
+现在反过来，找出一个与数值格式最契合的 $u_t = \widetilde{\mathcal{L}}(u)$，通常是在 $u_t = \mathcal{L}(u)$ 的基础上加上一些依赖网格尺度的高阶余项，直接分析 $u_t = \widetilde{\mathcal{L}}(u)$ 的耗散和色散性质，尤其关注它多出来的高阶项，就可以得到数值格式的耗散和色散性质。
+
+从差分格式找到对应的 $u_t = \widetilde{\mathcal{L}}(u)$ 是 MPDE 方法的核心，也是最繁琐的部分，基本做法就是将精确解在差分格式上进行泰勒展开，对其不断求导并与自身运算，消去除了 $u_t$ 之外的低价时间导，将时间导逐步转换为空间导，在分析时舍弃高阶项。
+可以利用 Mathematica 简化符号计算过程，实现思路如下：
+\begin{enumerate}
+    \item 按照如下位置排序将对应项的系数存储为下三角矩阵
+          \[
+              \begin{bmatrix}
+                  u                                              \\
+                  u_t     & u_x                                  \\
+                  u_{tt}  & u_{tx}  & u_{xx}                     \\
+                  u_{ttt} & u_{ttx} & u_{txx} & u_{xxx}          \\
+                  \vdots  & \vdots  & \vdots  & \vdots  & \ddots \\
+              \end{bmatrix}
+          \]
+          实际只使用固定尺寸 $n \times n$ 的矩阵来存储，对于更高阶系数直接忽略。
+          例如初始状态的系数矩阵可以通过对差分格式的时间项部分和空间项部分分别进行泰勒展开得到
+          \[
+              0 =
+              \left(
+              T_1 u_t + T_2 u_{tt} + T_3 u_{ttt} + \cdots
+              \right)
+              +
+              \left(
+              X_1 u_x + X_2 u_{xx} + X_3 u_{xxx} + \cdots
+              \right)
+          \]
+          将系数对应存储得到下三角矩阵
+          \[
+              \begin{bmatrix}
+                  0                                 \\
+                  T_1    & X_1                      \\
+                  T_2    &     & X_2                \\
+                  T_3    &     &     & X_3          \\
+                  \vdots &     &     &     & \ddots \\
+              \end{bmatrix}
+          \]
+          其中 $T_1=1$。
+
+    \item MPDE 方法需要对方程整体关于时间和空间求导，对应系数矩阵的操作为：
+          \begin{enumerate}
+              \item 关于时间求导表现为系数矩阵整体下移一行；
+              \item 关于空间求导表现为系数矩阵整体下移一行再右移一列。
+          \end{enumerate}
+
+    \item MPDE 方法的目标是消去时间高阶项和时空混合项，仅保留 $u_t$ 和空间项，对应系数矩阵的操作为逐行从前到后打洞，最终目标是转换为如下形式
+          \[
+              \begin{bmatrix}
+                  0                               \\
+                  1 & X_1'                        \\
+                    &      & X_2'                 \\
+                    &      &      & X_3'          \\
+                    &      &      &      & \ddots \\
+              \end{bmatrix}
+          \]
+          对应
+          \[
+              0 = u_t + X_1' u_x + X_2' u_{xx} + X_3' u_{xxx} + \cdots
+          \]
+\end{enumerate}
+具体代码如下（Mathematica 14.0）
+\begin{lstlisting}
+Init[n_, tlist_, xlist_] :=
+  Module[{S, i, j}, S = Table[0, {i, 1, n}, {j, 1, n}];
+   For[i = 2, i <= n, i++, S[[i, 1]] = tlist[[i - 1]];
+    S[[i, i]] = xlist[[i - 1]]]; S];
+
+Trans[S_, tn_, xn_, n_] :=
+ Module[{R, i, j}, R = Table[0, {i, 1, n}, {j, 1, n}];
+  For[i = 1, i + tn + xn <= n, i++,
+   For[j = 1, j + xn <= n, j++, R[[i + tn + xn, j + xn]] = S[[i, j]]]];
+  Return[R]]
+
+Main[S_, n_] :=
+ Module[{Cur = S, Tmp},
+  For[i = 3, i <= n, i++,
+   For[j = 1, j <= i - 1, j++, Tmp = Trans[S, i - j - 1, j - 1, n];
+    Cur = Cur - Cur[[i, j]]*Tmp]]; Return[Cur]]
+
+MPDE[n_, tlist_, xlist_] :=
+ Module[{S, R}, S = Init[n, tlist, xlist]; R = Main[S, n];
+  Return[Simplify[Factor[Diagonal[R]]]]]
+\end{lstlisting}
+
+例如考虑对流方程
+\[
+    u_t + \alpha u_x = 0,\quad (\alpha >0)
+\]
+以及迎风格式（FTBS格式）
+\[
+    v_j^{n+1} = v_j^n - \alpha \frac{\Delta t}{\Delta x}(v_j^n - v_j^{n-1})
+\]
+基于如下泰勒展开式
+\[
+    0 =
+    \left(
+    v_t + v_{tt} \frac{\Delta t}{2!} + v_{ttt} \frac{(\Delta t)^2}{3!} + \cdots
+    \right)
+    + \alpha
+    \left(
+    v_x - v_{xx} \frac{\Delta x}{2!} + v_{xxx} \frac{(\Delta x)^2}{3!} + \cdots
+    \right)
+\]
+可以得到两组初始系数
+\[
+    T_j = \frac{(\Delta t)^{j-1}}{j!}, \quad X_j = \alpha \frac{(-\Delta x)^{j-1}}{j!}, \quad j = 1,2,\dots
+\]
+对应的求解代码如下
+\begin{lstlisting}
+(*u_t + a u_x = 0 FTBS*)
+Tlist[n_]:= Table[(dt)^(j-1)/j!,{j,1,n}]
+Xlist[n_]:= A * Table[(-dx)^(j-1)/j!,{j,1,n}]
+n=5;MPDE[n,Tlist[n],Xlist[n]]
+\end{lstlisting}
+计算可得系数矩阵的对角线为（记 $r = \alpha \frac{\Delta t}{\Delta x}$）
+\[
+    0,\quad \alpha,\quad \frac{\alpha \Delta x}2 (r-1), \frac{\alpha (\Delta x)^2}6(r-1)(2r-1),\quad
+    \frac{\alpha (\Delta x)^3}{24}(r-1)(6r^2-6r+1)
+\]
+因此
+\begin{align*}
+    0 ={} & u_t + \alpha u_x + \frac{\alpha \Delta x}2 (r-1) u_{xx}
+    + \frac{\alpha \Delta x^2}6 (r-1)(2r-1) u_{xxx}                   \\
+          & + \frac{\alpha (\Delta x)^3}{24}(r-1)(6r^2-6r+1) u_{xxxx}
+    + \cdots
+\end{align*}
+只需要关注 $u_{xx}$ 和 $u_{xxx}$ 的系数：
+\begin{enumerate}
+    \item 由于 $u_{xx}$ 的系数为负，差分格式存在耗散性；方程本身无耗散，因此存在数值耗散；
+    \item 由于波速为
+          \[
+              c_e(k) = \alpha - \frac{\alpha \Delta x^2}6 (r-1)(2r-1) k^2
+          \]
+          因此差分格式具有色散性。因为方程的波速为 $c(k) = \alpha$，比较可得：
+          若 $r \in (\frac12,1)$，差分格式具有数值正色散；若 $r \in (0,\frac12)$，差分格式具有数值负色散。
+\end{enumerate}
+与前文中通过色散关系推导出的结论一致。
