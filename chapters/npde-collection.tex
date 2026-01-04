@@ -317,9 +317,9 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
     \item 由于 $u_{xx}$ 的系数为负，差分格式存在耗散性；方程本身无耗散，因此存在数值耗散；
     \item 由于波速为
           \[
-              c_e(k) = \alpha - \frac{\alpha \Delta x^2}6 (r-1)(2r-1) k^2
+              c(k) = \alpha - \frac{\alpha \Delta x^2}6 (r-1)(2r-1) k^2
           \]
-          因此差分格式具有色散性。因为方程的波速为 $c(k) = \alpha$，比较可得：
+          因此差分格式具有色散性。因为方程的波速为 $c_e(k) = \alpha$，比较可得：
           若 $r \in (\frac12,1)$，差分格式具有数值正色散；若 $r \in (0,\frac12)$，差分格式具有数值负色散。
 \end{enumerate}
 与前文中通过色散关系推导出的结论一致。
