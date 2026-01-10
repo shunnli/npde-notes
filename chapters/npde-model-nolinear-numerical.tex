@@ -203,7 +203,10 @@
         + (1-\text{sgn}(a_{j+\frac12}^n))(f(v_{j+1}^n)-f(v_{j}^n))
         \right\}
     \]
-    注意到始终有 $f(v_{j}^0)-f(v_{j-1}^0) = 0$，因此同样有 $v_j^n = v_j^{n-1} = \dots = v_j^1 = v_j^0$，
+    注意到始终有 $f(v_{j}^0)-f(v_{j-1}^0) = 0$，因此同样有
+    \[
+        v_j^n = v_j^{n-1} = \dots = v_j^1 = v_j^0
+    \]
     数值格式给出了一个静止不动的解，并且随着网格加密也不会变化。
     这是满足方程的弱解，因为激波速度 $s = 0$ 此时满足 RH 条件，但是这不是熵解，因为不满足熵条件 $f'(u_l) \ge s \ge f'(u_r)$。
 \end{example}
@@ -391,8 +394,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
 守恒律方程的各种数值格式与各种解之间的关系如图~\ref{fig:cv-schemes} 所示。
 
 \begin{example}\label{eg:engquist-osher}
-    对于标量守恒律方程 $u_t + f(u)_x = 0$，其中考虑如下守恒型格式
-    对 Roe 迎风格式进行熵修正可以得到 Engquist-Osher 格式
+    对于标量守恒律方程 $u_t + f(u)_x = 0$，Engquist-Osher 格式定义为
     \[
         v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}\left( \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n \right)
     \]
@@ -405,6 +407,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
         \hat{f}_{j+\frac12}^n = \frac{1+\text{sgn}(f'(v_j^n))}2 f(v_j^n) + \frac{1-\text{sgn}(f'(v_{j+1}^n))}2 f(v_{j+1}^n)
         + \frac{\text{sgn}(f'(v_{j+1}^n)) - \text{sgn}(f'(v_j^n))}2 f(v_s)
     \]
+    这里的最后一项就可以解释为在 Roe 迎风格式基础上添加的熵修正。
 \end{example}
 
 \begin{remark}

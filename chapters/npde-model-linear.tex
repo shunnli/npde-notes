@@ -250,7 +250,7 @@
 例如 Lax–Friedrichs 格式是有条件相容的：需要固定 $r = \Delta t/\Delta x$，随着 $\Delta t \to 0$，
 才有
 \[
-    \tau_j^n =  \mathcal{O}(\Delta t + \frac{\Delta x^2}{\Delta t}) =  \mathcal{O}(\Delta x)\to 0
+    \tau_j^n =  \mathcal{O}\left(\Delta t + \frac{\Delta x^2}{\Delta t}\right) =  \mathcal{O}(\Delta x)\to 0
 \]
 
 \begin{remark}
@@ -674,7 +674,7 @@
 \begin{itemize}
     \item[(a)] Lax–Friedrichs 格式：取$\sigma = \frac{\Delta x}{2\,\Delta t}$，可以得到
           \[
-              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = {\color{blue}\left(\frac{\Delta x^2}{2\Delta t}\right)} \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{\Delta x^2}{2\Delta t}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
           \]
           计算可得局部截断误差为$\mathcal{O}(\Delta t + \frac{\Delta x^2}{\Delta t})$，因此是一个有条件相容的格式。
           整理可得
@@ -685,7 +685,7 @@
 
     \item[(b)] Lax-Wendroff格式：取$\sigma = \frac{a^2 \Delta t}{2\,\Delta x}$，可以得到
           \[
-              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = {\color{blue}\left(\frac{a^2 \Delta t}{2}\right)} \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+              \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
           \]
           计算可得局部截断误差为$\mathcal{O}(\Delta x^2+\Delta t^2)$。整理可得
           \[
@@ -707,7 +707,7 @@
 \begin{remark}
     迎风格式也可以解释为在 FTCS 的基础上添加人工黏性项
     \[
-\frac{v_j^{n+1} - v_j^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^{n}}{2\Delta x} = {\color{blue}\left(\frac{|a| \Delta x}2\right)} \frac{v_{j+1}^n - 2 v_j^n + v_{j-1}^{n}}{\Delta x^2}
+        \frac{v_j^{n+1} - v_j^n}{\Delta t} + a \frac{v_{j+1}^n - v_{j-1}^{n}}{2\Delta x} = \left(\frac{|a| \Delta x}2\right) \frac{v_{j+1}^n - 2 v_j^n + v_{j-1}^{n}}{\Delta x^2}
     \]
 \end{remark}
 
@@ -722,7 +722,7 @@
 \]
 Du Fort-Frankel 格式的局部截断误差为
 \[
-    \mathcal{O}(\Delta x^2 + \Delta t^2 + \frac{\Delta t^2}{\Delta x^2}).
+    \mathcal{O}\left(\Delta x^2 + \Delta t^2 + \frac{\Delta t^2}{\Delta x^2}\right).
 \]
 因此是一个有条件相容的格式。虽然DF格式是显格式，却是无条件稳定的。
 
@@ -808,11 +808,20 @@ Du Fort-Frankel 格式的局部截断误差为
 \begin{align*}
     \int_{x_{j-\frac12}}^{x_{j+\frac12}} u^{n+1} - u^n \,dx
     ={} & \Delta x (u_j^{n+1} - u_j^n) + \frac{\Delta x^3 }{24} \Big((u_{xx})^{n+1} - (u_{xx})^n\Big)\Big|_{x=\xi}       \\
-    ={} & \Delta x (u_j^{n+1} - u_j^n) +  \mathcal{O}(\Delta x^3 {\color{red}\Delta t})                                  \\
+    ={} & \Delta x (u_j^{n+1} - u_j^n) +  \mathcal{O}(\Delta x^3 \Delta t)                                  \\
     \int_{t^n}^{t^{n+1}} (u_{j+1} - u_{j-1})\, dt
     ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \frac{\Delta t^2 }{4} \Big((u_{t})_{j+1} - (u_{t})_{j-1}\Big)\Big|_{t=\eta} \\
-    ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \mathcal{O}(\Delta t^2 {\color{red}\Delta x}).
+    ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \mathcal{O}(\Delta t^2 \Delta x).
 \end{align*}
+余项中多出来的 $\Delta t$ 和 $\Delta x$ 是因为
+\[
+\Big((u_{xx})^{n+1} - (u_{xx})^n\Big)\Big|_{x=\xi} = \mathcal{O}(\Delta t), \quad
+\Big((u_{t})_{j+1} - (u_{t})_{j-1}\Big)\Big|_{t=\eta} = \mathcal{O}(\Delta x).
+\]
+
+\begin{remark}
+    有限差分法考虑的是函数在网格点的取值，如果改成考虑函数在网格中的平均值，对应的方法就是有限体积法，两者的低阶格式是类似的。
+\end{remark}
 
 \begin{example}
     对于对流方程 $u_t + a u_x = 0$，使用积分方法推导一个差分格式，要求局部截断误差为 $\mathcal{O}(\Delta x^2+\Delta t^2)$。

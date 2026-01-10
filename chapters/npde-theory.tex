@@ -703,7 +703,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \\
         \overset{(*)}{=}{} & - \mu \Delta x \sum_j b_{j+\frac12}
         \left\{
-        {\color{red}\frac12 \left[\Delta_+(v_j^{n+1}+v_j^n)\right]^2}
+         \frac12 \left[\Delta_+(v_j^{n+1}+v_j^n)\right]^2
         + \frac12  (\Delta_+ v_j^n)^2  - \frac12  (\Delta_+ v_j^{n+1})^2
         \right\}
         \\
@@ -803,7 +803,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         ={}   &
         - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
         \\
-              & {\color{red}-\frac{\Delta t}2 B(v^{n+1}+ v^n,v^{n+1} + v^n)}
+              & -\frac{\Delta t}2 B(v^{n+1}+ v^n,v^{n+1} + v^n)
         \\
         \le{} & - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
     \end{align*}
@@ -1344,6 +1344,9 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \end{itemize}
 \end{solution*}
 
+\begin{remark}
+    需要说明的是，这里得到的临界状态并不是严格的，因为我们的分析是建立在泰勒展开基础上的，已经舍弃了高阶余项，算出来的临界状态并不准确。
+\end{remark}
 
 \begin{example}
     讨论 $u_t + a u_x = 0$ 的 Lax–Friedrichs 格式的耗散性/色散性，数值耗散性/数值色散性，其中 $a \neq 0$ 是固定的实数。

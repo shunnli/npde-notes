@@ -128,21 +128,6 @@
 
 \begin{remark}
     对于初边值问题，整理为向量形式的差分格式是包括内部离散和边界离散的，尤其注意的是，对于边界附近的点值，实际的计算格式是由内部离散和边界离散耦合得到的。
-\end{remark}
-
-\begin{remark}
-    对于隐格式，通常可以整理为如下形式
-    \[
-        P V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)}
-    \]
-    此时不需要计算 $P^{-1}$ 来整理为定义~\ref{def:ib-norm-consistency} 中的形式，直接将精确解代入格式两侧
-    \[
-        P U^{n+1,(k)} = Q \, U^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)} + \Delta t^{(k)}\, T^{n,(k)}
-    \]
-    模相容性仍然通过 $T^{n,(k)}$ 来体现。
-\end{remark}
-
-\begin{remark}
     这里采用了教材 J.W.Thomas《Numerical Partial Differential Equations: Finite Difference Methods》2.3.2 节中的观点：
     逐点相容性只考虑内部差分格式对于偏微分方程的近似，或只考虑边界离散处理对边界条件的近似效果，并不考虑两者的耦合；
     模相容性则是考虑两者在边界附近的耦合得到的实际格式。
@@ -881,7 +866,7 @@
     \[
         (v,D_+ w)_{r,s} + (D_- v, w)_{r+1,s+1} = \overline{v}_j w_j \big|_r^{s+1}.
     \]
-    取 $v = D_- v$ 代入可得
+    取 $w = D_- v$ 代入可得
     \[
         (v, D_+ D_- v)_{r,s} + \|D_- v\|^2_{r+1,s+1} = \overline{v}_j D_- v_j \big|_r^{s+1}. \qedhere
     \]
@@ -973,7 +958,7 @@
 \begin{lemma}\label{lemma:ib-3}
     \[
         \max_{0 \le j \le N} |f_j|^2 \le \varepsilon \|D_- f\|_{1,N}^2
-        + (1 + \frac{1}{\varepsilon}) \|f\|_{0,N}^2,\quad (\forall\,\varepsilon > 0)
+        + \left(1 + \frac{1}{\varepsilon}\right) \|f\|_{0,N}^2,\quad (\forall\,\varepsilon > 0)
     \]
 \end{lemma}
 
@@ -1015,7 +1000,7 @@
     \\
     ={}                  & -2 \|u_x\|^2 + (\bar{u} u_x + \bar{u}_x u) \big|_0^1
     \\
-    \le{}                & -2 \|u_x\|^2 + 2(|r_0|+|r_1|) \|u\|_{\infty}^2,\quad (\varepsilon := \frac{1}{2(|r_0|+|r_1|)})
+    \le{}                & -2 \|u_x\|^2 + 2(|r_0|+|r_1|) \|u\|_{\infty}^2,\quad \left(\varepsilon := \frac{1}{2(|r_0|+|r_1|)}\right)
     \\
     \overset{(*)}{\le}{} & - 2 \|u_x\|^2 + \|u_x\|^2 + \frac{1}{\varepsilon} (1 + \frac{1}{\varepsilon}) \|u\|^2
     \\
