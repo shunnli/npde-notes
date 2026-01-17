@@ -211,10 +211,10 @@
 \begin{definition}
     方程组~\eqref{eq:1d-pdes-hyperbolic} 称为：
     \begin{enumerate}
-        \item 弱双曲，如果 $A$ 的特征值全部为实数；
-        \item （强）双曲，如果 $A$ 具有完备的特征向量（$A$ 可以相似对角化），并且特征值全部为实数；
-        \item 对称双曲，如果 $A$ 是Hermite方阵；（显然也是强双曲）
-        \item 严格双曲，如果特征值全部为实数，并且互异。（显然也是强双曲）
+        \item 弱双曲（Weakly hyperbolic），如果 $A$ 的特征值全部为实数；
+        \item （强）双曲（Strongly hyperbolic），如果 $A$ 具有完备的特征向量（$A$ 可以相似对角化），并且特征值全部为实数；
+        \item 对称双曲（Symmetric hyperbolic），如果 $A$ 是Hermite方阵；（显然也是强双曲）
+        \item 严格双曲（Strictly hyperbolic），如果特征值全部为实数，并且互异。（显然也是强双曲）
     \end{enumerate}
 \end{definition}
 
@@ -232,7 +232,7 @@
 \end{theorem}
 
 \begin{proof}
-    证明见下文。
+    证明见 \ref{sec:well-posed-proofs}。
 \end{proof}
 
 考虑带非导数项的问题
@@ -251,7 +251,7 @@
 \end{theorem}
 
 \begin{proof}
-    证明见下文。
+    证明见 \ref{sec:well-posed-proofs}。
 \end{proof}
 
 \subsection{抛物型方程组}
@@ -278,7 +278,7 @@
 \end{theorem}
 
 \begin{proof}
-    证明见下文。
+    证明见 \ref{sec:well-posed-proofs}。
 \end{proof}
 
 \section{一般常系数方程组的适定性}
@@ -314,7 +314,7 @@
     \]
 \end{theorem}
 
-这个充要条件不太实用，但是可以据此推出更好用必要或充分条件。
+这个充要条件不太实用，但是可以据此推出更好用的必要或充分条件。
 \begin{theorem}[The Petrovskii condition]
     初值问题~\eqref{eq:pdes-general} 适定的必要条件为：存在常数 $\alpha$，使得对于任意 $\omega $，$\widehat{P}(i \omega)$ 的任意特征值 $\lambda(\omega )$，都有
     \[
@@ -445,7 +445,7 @@
 \end{theorem}
 
 
-\section{一些定理的证明}
+\section{一些定理的证明} \label{sec:well-posed-proofs}
 
 使用半有界算子理论可以简化几个定理的证明过程，因此将证明留在了最后。
 

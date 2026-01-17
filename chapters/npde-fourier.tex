@@ -89,11 +89,11 @@
 对于 $2\pi$ 周期的函数 $u(x)$，记 $u_j = u(x_j)$，
 存在唯一的“三角函数”
 \[
-    \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+    \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
 \]
-满足 $\text{Int}_N\,u(x)$ 在 $\{x_j\}_{j=0,\dots,N}$ 插值 $u$，即
+满足 $\operatorname{Int}_N u(x)$ 在 $\{x_j\}_{j=0,\dots,N}$ 插值 $u$，即
 \[
-    \text{Int}_N\,u(x_j) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x_j} = u(x_j),\quad
+    \operatorname{Int}_N u(x_j) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x_j} = u(x_j),\quad
     j=0,\cdots,N.
 \]
 下面默认 $u,v$ 均为 $2\pi$ 周期的函数。
@@ -113,9 +113,9 @@
 
 
 \begin{theorem}
-    三角插值 $\text{Int}_N\,u(x)$ 存在且唯一，具体表达式为
+    三角插值 $\operatorname{Int}_N u(x)$ 存在且唯一，具体表达式为
     \[
-        \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+        \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
     \]
     其中的系数为
     \[
@@ -126,35 +126,35 @@
 
 
 \begin{theorem}
-    考虑对于 $u$ 和 $v$ 的三角插值 $\text{Int}_N\,u(x)$ 和 $\text{Int}_N\,v(x)$
+    考虑对于 $u$ 和 $v$ 的三角插值 $\operatorname{Int}_N u(x)$ 和 $\operatorname{Int}_N v(x)$
     \[
-        \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x},\quad
-        \text{Int}_N\,v(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{v}(\omega) e^{i \omega x}.
+        \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x},\quad
+        \operatorname{Int}_N v(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{v}(\omega) e^{i \omega x}.
     \]
     那么
     \[
-        (u,v)_{\Delta x} = \sum_{\omega = -N/2}^{N/2} \overline{\widetilde{u}(\omega)} \widetilde{v}(\omega) = (\text{Int}_N\,u,\text{Int}_N\,v) = (\text{Int}_N\,u,\text{Int}_N\,v)_{\Delta x}.
+        (u,v)_{\Delta x} = \sum_{\omega = -N/2}^{N/2} \overline{\widetilde{u}(\omega)} \widetilde{v}(\omega) = (\operatorname{Int}_N u,\operatorname{Int}_N v) = (\operatorname{Int}_N u,\operatorname{Int}_N v)_{\Delta x}.
     \]
     以及
     \[
-        \|u\|_{\Delta x}^2 = \sum_{\omega = -N/2}^{N/2} |\widetilde{u}(\omega)|^2 = \|\text{Int}_N\,u\|^2 = \|\text{Int}_N\,u\|_{\Delta x}^2.
+        \|u\|_{\Delta x}^2 = \sum_{\omega = -N/2}^{N/2} |\widetilde{u}(\omega)|^2 = \|\operatorname{Int}_N u\|^2 = \|\operatorname{Int}_N u\|_{\Delta x}^2.
     \]
 \end{theorem}
 
 
 \begin{theorem}
-    对于 $u(x)$ 和它的三角插值 $\text{Int}_N\,u(x)$，有如下不等式成立
+    对于 $u(x)$ 和它的三角插值 $\operatorname{Int}_N u(x)$，有如下不等式成立
     \[
         \| D^\ell_+\,u\|_{\Delta x}^2 \le
-        \left\| \frac{d^\ell}{dx^\ell}\,\text{Int}_N \,u\right\|^2 \le
+        \left\| \frac{d^\ell}{dx^\ell}\,\operatorname{Int}_N \,u\right\|^2 \le
         \left(\frac{\pi}2\right)^{2\ell} \|D^\ell_+\,u\|_{\Delta x}^2,\quad \ell=1,2,\cdots
     \]
 \end{theorem}
 
-考虑 $u$ 的 Fourier 级数和三角插值 $\text{Int}_N\,u$
+考虑 $u$ 的 Fourier 级数和三角插值 $\operatorname{Int}_N u$
 \[
     u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \widehat{u}(\omega) e^{i \omega x},\quad
-    \text{Int}_N\,u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+    \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
 \]
 显然 Fourier 系数 $\widehat{u}(\omega)$ 和三角插值系数 $\widetilde{u}(\omega)$ 存在一定的联系。
 
@@ -165,7 +165,7 @@
     \]
 \end{lemma}
 
-特别地，如果对于 $|\omega| > \frac{N}2$ 都有 $\widehat{u}(\omega) = 0$，这表明 $u$ 不含高频部分，三角插值严格等于原函数：$\text{Int}_N\,u(x) = u(x)$，此时 $\widetilde{u}(\omega) = \widehat{u}(\omega)$，$|\omega| \le \frac{N}2$。
+特别地，如果对于 $|\omega| > \frac{N}2$ 都有 $\widehat{u}(\omega) = 0$，这表明 $u$ 不含高频部分，三角插值严格等于原函数：$\operatorname{Int}_N u(x) = u(x)$，此时 $\widetilde{u}(\omega) = \widehat{u}(\omega)$，$|\omega| \le \frac{N}2$。
 
 \begin{theorem}
     如果 $u$ 的 Fourier 系数满足
@@ -174,7 +174,7 @@
     \]
     那么
     \[
-        \|u - \text{Int}_N\,u\|_{\Delta x} \le \frac{2C}{\sqrt{2\pi}}
+        \|u - \operatorname{Int}_N u\|_{\Delta x} \le \frac{2C}{\sqrt{2\pi}}
         \left(\frac{N}2\right)^{1-m}
         \left(
         \frac{1}{m-1} + \frac{2(N+1)}N B_m
@@ -187,7 +187,7 @@
     存在常数 $C_\ell > 0$，使得
     \[
         \left\|
-        \frac{d^\ell \,u}{dx^\ell} - \frac{d^\ell \,\text{Int}_N\,u}{d x^\ell}
+        \frac{d^\ell \,u}{dx^\ell} - \frac{d^\ell \,\operatorname{Int}_N u}{d x^\ell}
         \right\|_{\infty}
         \le C_\ell \left(\frac{N}2\right)^{1+\ell-m},\quad 1+\ell < m
     \]
@@ -201,9 +201,9 @@
 \begin{proof}[\normalfont\bfseries Proof of Theorem~\ref{thm:big-thm}]
     % Gustafsson, Bertil《Time Dependent Problems and Difference Methods》 。
 
-    对于固定时刻 $t^n$，我们可以基于数值解 $\{v_j^n\}$ 获取对应时刻的三角插值多项式 $\text{Int}_N\,(v_j^n)$，具体表达式为
+    对于固定时刻 $t^n$，我们可以基于数值解 $\{v_j^n\}$ 获取对应时刻的三角插值多项式 $\operatorname{Int}_N (v_j^n)$，具体表达式为
     \[
-        \text{Int}_N\,(v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
+        \operatorname{Int}_N (v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
     \]
     在 $t^n$ 时刻的精确解 $u(x,t^n)$ 可以表示为
     \[
@@ -212,7 +212,7 @@
     取一个固定的整数 $M$ 使得 $0 < M < N/2$，那么
     {\small
     \begin{align*}
-        \| u(\cdot,t^n) - \text{Int}_N\,(v_j^n) \|^2 ={} & \sum_{\omega = -N/2}^{N/2}
+        \| u(\cdot,t^n) - \operatorname{Int}_N (v_j^n) \|^2 ={} & \sum_{\omega = -N/2}^{N/2}
         \left| e^{i \omega t^n} \hat{f}(\omega ) - \widehat{Q}^n(\xi) \tilde{f}(\omega ) \right|^2
         + \sum_{|\omega| > N/2} |\hat{f}(\omega)|^2                                                                                                                          \\
         \le{}                                            & \sum_{\omega = -M}^{M} \left| e^{i \omega t^n} \hat{f}(\omega ) - \widehat{Q}^n(\xi) \tilde{f}(\omega ) \right|^2
@@ -234,7 +234,7 @@
 
     $I\!I\!I$ 的估计依赖于条件 (a) 和 (b)：由于
     \[
-        \lim_{N \to \infty} \| \text{Int}_N\,f  - f \| = 0,
+        \lim_{N \to \infty} \| \operatorname{Int}_N f  - f \| = 0,
     \]
     以及
     \[
