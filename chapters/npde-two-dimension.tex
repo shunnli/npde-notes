@@ -305,3 +305,43 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
     \includegraphics[width=0.8\textwidth]{splitting.png}
     \caption{两种算子分裂格式} \label{fig:splitting}
 \end{figure}
+
+\section{高维扩散问题}
+
+考虑更一般的 $d$ 维扩散问题
+\[
+    u_t = \sum_{i=1}^d a_i u_{x_i\,x_i}
+\]
+其中 $a_i > 0$ 为常数。最简单的 FTCS 格式为
+\[
+    u^{n+1}(j_1,\dots,j_d) = u^n(j_1,\dots,j_d) + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \delta^2_{x_i} u^n(j_1,\dots,j_d)
+\]
+采用离散最大模原理进行稳定性分析
+\begin{align*}
+    u^{n+1}(j_1,\dots,j_d) ={} & \left(1 - 2 \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \right) u^n(j_1,\dots, j_i,\dots,j_d)
+    \\
+                               & + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} u^n(j_1,\dots, j_i + 1,\dots,j_d) - \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} u^n(j_1,\dots, j_i - 1,\dots,j_d)
+\end{align*}
+若取 $\Delta t$ 满足
+\[
+    1 - 2 \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \ge 0
+\]
+则有
+\begin{align*}
+    |u^{n+1}(j_1,\dots,j_d)| \le{} & \left(1 - 2 \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \right) |u^n(j_1,\dots, j_i,\dots,j_d)|
+    \\
+                                   & + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} |u^n(j_1,\dots, j_i + 1,\dots,j_d)|
+    + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} |u^n(j_1,\dots, j_i - 1,\dots,j_d)|
+    \\
+    \le{}                          & \|u^n\|_{\infty}
+\end{align*}
+对左侧取遍所有指标，即可得到此时 FTCS 格式是最大模稳定的。因此，对于 $d$ 维扩散问题，FTCS 格式的 CFL 条件形如
+\[
+\sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \le \frac12
+\]
+如果简单地取 $a_i = a$ 以及 $\Delta x_i = h$，CFL 条件即为
+\[
+a \frac{\Delta t}{\Delta x^2} \le \frac{1}{2d}
+\]
+这表明随着维数 $d$ 的增加，稳定性条件对 $\Delta t$ 的约束也逐渐增强。
+采用 Fourier 分析或能量方法也可以得到相同的结论。

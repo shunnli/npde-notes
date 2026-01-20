@@ -153,10 +153,10 @@
           \[
               f(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^{\infty} e^{i \omega  x} \hat{f}(\omega ),\quad \sum_{\omega = -\infty}^{\infty} |\hat{f}(\omega )|^2 < \infty
           \]
-          并且它的三角插值 $\text{Int}_N\,f$ 收敛于 $f$；
+          并且它的三角插值 $\operatorname{Int}_N f$ 收敛于 $f$；
           \[
-              \text{Int}_N\,f (x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \tilde{f}(\omega ),
-              \quad \lim_{N \to \infty} \| \text{Int}_N\,f  - f \| = 0
+              \operatorname{Int}_N f (x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \tilde{f}(\omega ),
+              \quad \lim_{N \to \infty} \| \operatorname{Int}_N f  - f \| = 0
           \]
     \item[(b)] 差分近似是稳定的，即存在常数 $K_s$ 使得对所有的 $\Delta t$ 和 $\Delta x$ 有：
           \[
@@ -173,13 +173,13 @@
     \[
         v_j^{n+1} = Q\,v_j^n,\quad v_j^0 = f_j,\quad Q := \sum_{\mu = -r}^s A_\mu(\Delta t, \Delta x) E^\mu,
     \]
-    若上述三个条件均成立，则差分近似解的三角插值 $\text{Int}_N\,(v_j^n)$ 收敛于偏微分方程的解 $u$，即：
+    若上述三个条件均成立，则差分近似解的三角插值 $\operatorname{Int}_N (v_j^n)$ 收敛于偏微分方程的解 $u$，即：
     \[
-        \lim_{\Delta t, \Delta x \to 0} \sup_{0 \le t^n \le T} \| u(\cdot,t^n) - \text{Int}_N\,(v_j^n)(\cdot) \| = 0
+        \lim_{\Delta t, \Delta x \to 0} \sup_{0 \le t^n \le T} \| u(\cdot,t^n) - \operatorname{Int}_N (v_j^n)(\cdot) \| = 0
     \]
-    其中 $\text{Int}_N\,(v_j^n)$ 定义为
+    其中 $\operatorname{Int}_N (v_j^n)$ 定义为
     \[
-        \text{Int}_N\,(v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
+        \operatorname{Int}_N (v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
     \]
 \end{theorem}
 
@@ -565,7 +565,7 @@
 
 考虑任意点 $P(x,t)$ 处的精确解 $u(x,t)$，根据特征线的性质，$u(x,t)$ 由过该点的特征线与 $t=0$ 交点 $P_0(x_0,0)$ 的初值决定
 \[
-    u(x,t) = u_0(x_0) = u_0(x - a t),\quad (x_0 = x - a t)
+    u(x,t) = u_0(x_0) = u_0(x - a t),\qquad x_0 := x - a t
 \]
 称 $D_p = \{P_0\} = \{(x_0,0)\} = \{(x - a t,0)\}$ 为精确解 $u(x,t)$ 的依赖区。
 
@@ -598,8 +598,8 @@
 \begin{example}\label{eg:upwind}
     对于方程 $u_t + a u_x = 0$：
     \begin{itemize}
-        \item 当 $a > 0$ 时，FTBS 格式有条件收敛，CFL 条件是 $a \Delta t \le \Delta x$，FTFS 格式不收敛；
-        \item 当 $a < 0$ 时，FTFS 格式有条件收敛，CFL 条件是 $a \Delta t \le \Delta x$，FTBS 格式不收敛；
+        \item 当 $a > 0$ 时，FTBS 格式有条件收敛，CFL 条件是 $|a| \Delta t \le \Delta x$，FTFS 格式不收敛；
+        \item 当 $a < 0$ 时，FTFS 格式有条件收敛，CFL 条件是 $|a| \Delta t \le \Delta x$，FTBS 格式不收敛；
     \end{itemize}
 \end{example}
 
@@ -615,19 +615,24 @@
     对于 FTFS 格式，$v_j^n$ 的数值解依赖区为 $N_p = [x_{j},\, x_{j+n}]$，此时 $D_p$ 不可能被包含在 $N_p$ 中，因此不可能收敛。
 \end{solution*}
 
-
-
-对于对流方程，可以根据特征线的走向（风向）来定义迎风格式：
+对于方程 $u_t + a u_x = 0$，考虑初值 $u_0(x)$，在 $t$ 时刻的精确解为 $u_0(x - a t)$，系数 $a$ 的正负决定了精确解的走向：
+\begin{itemize}
+    \item $a > 0$：$u(x,t) = u_0(x - a t)$ 等于 $u_0(x)$ 向 $x$ 轴正方向以大小 $|a|$ 的速度进行整体平移；
+    \item $a < 0$：$u(x,t) = u_0(x - a t)$ 等于 $u_0(x)$ 向 $x$ 轴负方向以大小 $|a|$ 的速度进行整体平移。
+\end{itemize}
+这里解的平移方向通常被称为风向，风向也和特征线的走向直接对应。对于对流方程，可以根据风向来定义迎风格式：
 \begin{itemize}
     \item 迎风格式：风向与模板方向一致的差分格式。
     \item 逆风格式：风向与模板方向不一致的差分格式。
 \end{itemize}
-具体来说，对于 $u_t + a u_x = 0$：
+具体来说，对于常系数对流方程 $u_t + a u_x = 0$：
 \begin{itemize}
-    \item 在 $a > 0$ 时，FTBS 格式为迎风格式，FTFS 格式为逆风格式。
-    \item 在 $a < 0$ 时，FTFS 格式为迎风格式，FTBS 格式为逆风格式。
+    \item 在 $a > 0$ 时，风向向右，FTBS 格式为迎风格式，FTFS 格式为逆风格式；
+    \item 在 $a < 0$ 时，风向向左，FTFS 格式为迎风格式，FTBS 格式为逆风格式。
 \end{itemize}
-也可以将迎风格式写为如下形式（记 $r = a \Delta t / \Delta x$）
+由例~\ref{eg:upwind} 可知，迎风格式是条件稳定的，逆风格式则是无条件不稳定的。例~\ref{eg:ftfs} 通过计算放大因子得到的（$L^2$ 模）稳定性结论与这里的结果相符。
+
+还可以将迎风格式写为如下形式（记 $r = a \Delta t / \Delta x$）
 \[
     v_j^{n+1} = v_j^n - \frac{r}2 (v_{j+1}^n - v_{j-1}^{n}) + \frac{|r|}2 (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n})
     =
@@ -636,8 +641,7 @@
         v_j^n - r (v_{j+1}^n - v_{j}^{n}), & a < 0
     \end{cases}
 \]
-由例~\ref{eg:upwind} 可知，迎风格式是条件稳定的，逆风格式则是无条件不稳定的。
-例~\ref{eg:ftfs} 通过计算放大因子得到的（$L^2$ 模）稳定性结论与这里相符。
+将其视作对 FTCS 格式的修正。
 
 \begin{remark}
     这里主要讨论的是显格式，因为显格式通常是局部更新，而隐格式通常是全局联列求解，并不能直接套用上述逻辑。
@@ -746,14 +750,9 @@ Du Fort-Frankel 格式的局部截断误差为
     \]
     记 $\xi = \omega \Delta x$，得到放大因子
     \begin{align*}
-        \widehat{Q}
-                        & = \frac12 (e^{i \xi} + e^{- i \xi})
-        - \frac{r}2 (e^{i \xi} - e^{- i \xi})
+        \widehat{Q} & = \frac12 (e^{i \xi} + e^{- i \xi})  - \frac{r}2 (e^{i \xi} - e^{- i \xi}) = \cos(\xi) - i r \sin(\xi)
         \\
-                        & = \cos(\xi) - i r \sin(\xi)
-        \\
-        |\widehat{Q}|^2 & =
-        1 - (1-r^2) \sin^2(\xi)
+        |\widehat{Q}|^2 & =  1 - (1-r^2) \sin^2(\xi)
     \end{align*}
     因此当且仅当 $0 < r \le 1$ 时，$|\widehat{Q}| \le 1$，Lax-Friedrichs 格式具有稳定性。
 \end{solution*}
@@ -808,15 +807,15 @@ Du Fort-Frankel 格式的局部截断误差为
 \begin{align*}
     \int_{x_{j-\frac12}}^{x_{j+\frac12}} u^{n+1} - u^n \,dx
     ={} & \Delta x (u_j^{n+1} - u_j^n) + \frac{\Delta x^3 }{24} \Big((u_{xx})^{n+1} - (u_{xx})^n\Big)\Big|_{x=\xi}       \\
-    ={} & \Delta x (u_j^{n+1} - u_j^n) +  \mathcal{O}(\Delta x^3 \Delta t)                                  \\
+    ={} & \Delta x (u_j^{n+1} - u_j^n) +  \mathcal{O}(\Delta x^3 \Delta t)                                               \\
     \int_{t^n}^{t^{n+1}} (u_{j+1} - u_{j-1})\, dt
     ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \frac{\Delta t^2 }{4} \Big((u_{t})_{j+1} - (u_{t})_{j-1}\Big)\Big|_{t=\eta} \\
     ={} & \Delta t (u_{j+1}^n - u_{j-1}^n) + \mathcal{O}(\Delta t^2 \Delta x).
 \end{align*}
 余项中多出来的 $\Delta t$ 和 $\Delta x$ 是因为
 \[
-\Big((u_{xx})^{n+1} - (u_{xx})^n\Big)\Big|_{x=\xi} = \mathcal{O}(\Delta t), \quad
-\Big((u_{t})_{j+1} - (u_{t})_{j-1}\Big)\Big|_{t=\eta} = \mathcal{O}(\Delta x).
+    \Big((u_{xx})^{n+1} - (u_{xx})^n\Big)\Big|_{x=\xi} = \mathcal{O}(\Delta t), \quad
+    \Big((u_{t})_{j+1} - (u_{t})_{j-1}\Big)\Big|_{t=\eta} = \mathcal{O}(\Delta x).
 \]
 
 \begin{remark}
