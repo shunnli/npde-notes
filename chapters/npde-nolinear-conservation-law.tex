@@ -987,6 +987,37 @@ $\int_{\Omega} \bm{u}\,dx$ 的变化量仅仅与边界处的交换 $\bm{n} \cdot
     \caption{对于严格凸的 $f$，Riemann 问题的熵解结构示意，左图代表稀疏波，右图代表激波。} \label{fig:entropy-solution-convex}
 \end{figure}
 
+作为对比和补充，我们还可以给出严格凸的 $f$ 情形下，Riemann 问题的一些不是熵解的弱解。
+
+\begin{example}
+    对于 $f$ 严格凸的情况，如果 $u_L < u_R$，Rimann 问题的熵解是稀疏波解，下面是几个不是熵解的弱解：
+    \begin{enumerate}
+        \item 激波
+              \[
+                  u(x,t) =
+                  \begin{cases}
+                      u_L, & x/t < s \\
+                      u_R, & x/t > s
+                  \end{cases},\quad s = \frac{f(u_R)-f(u_L)}{u_R - u_L}
+              \]
+
+        \item 激波 + 稀疏波：
+              \[
+                  u(x,t) =
+                  \begin{cases}
+                      u_L,            & x/t < s_M                   \\
+                      u_M,            & s_M < x/t < u_M             \\
+                      (f')^{-1}(x/t), & f'(u_M) \le x/t \le f'(u_R) \\
+                      u_R,            & x/t > u_R
+                  \end{cases}
+              \]
+              其中任意中间状态 $u_M$ 只要满足条件 $u_L \le u_M \le u_R$ 即可，激波速度对应为
+              \[
+                  s_M = \frac{f(u_M)-f(u_L)}{u_M - u_L}
+              \]
+    \end{enumerate}
+\end{example}
+
 \begin{example}
     考虑一个典型的 $f$ 非凸非凹的情况—— Buckley-Leverett 方程，对应的 $f(u)$ 具体为
     \[
