@@ -1006,9 +1006,9 @@ $\int_{\Omega} \bm{u}\,dx$ 的变化量仅仅与边界处的交换 $\bm{n} \cdot
                   u(x,t) =
                   \begin{cases}
                       u_L,            & x/t < s_M                   \\
-                      u_M,            & s_M < x/t < u_M             \\
+                      u_M,            & s_M < x/t < f'(u_M)             \\
                       (f')^{-1}(x/t), & f'(u_M) \le x/t \le f'(u_R) \\
-                      u_R,            & x/t > u_R
+                      u_R,            & x/t > f'(u_R)
                   \end{cases}
               \]
               其中任意中间状态 $u_M$ 只要满足条件 $u_L \le u_M \le u_R$ 即可，激波速度对应为
