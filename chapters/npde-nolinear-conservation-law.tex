@@ -564,8 +564,21 @@ $\int_{\Omega} \bm{u}\,dx$ 的变化量仅仅与边界处的交换 $\bm{n} \cdot
     \]
     任取熵对 $(\eta,\xi)$，在等式两侧乘以 $\eta'(u^{(\varepsilon)})$ 可得
     \begin{gather*}
-        \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_t + \eta'(u^{(\varepsilon)})f(u^{(\varepsilon)})_x = \varepsilon \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_{xx}  \\
-        \eta_t(u^{(\varepsilon)}) + \eta_x(u^{(\varepsilon)}) =
+        \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_t + \eta'(u^{(\varepsilon)})f(u^{(\varepsilon)})_x = \varepsilon \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_{xx}
+    \end{gather*}
+    注意到
+    \begin{align*}
+        \eta_t(u^{(\varepsilon)}) ={} \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_t, \quad
+        \xi_x(u^{(\varepsilon)}) ={} \eta'(u^{(\varepsilon)})f(u^{(\varepsilon)})_x
+    \end{align*}
+    以及
+    \begin{align*}
+        \eta_{x}(u^{(\varepsilon)}) ={} \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_{x}, \quad
+        \eta_{xx}(u^{(\varepsilon)}) ={} \eta'(u^{(\varepsilon)}) u^{(\varepsilon)}_{xx} + \eta''(u^{(\varepsilon)})(u^{(\varepsilon)}_{x})^2
+    \end{align*}
+    因此
+    \begin{gather*}
+        \eta_t(u^{(\varepsilon)}) + \xi_x(u^{(\varepsilon)}) =
         \varepsilon \eta_{xx}(u^{(\varepsilon)})
         - \varepsilon \eta''(u^{(\varepsilon)})(u^{(\varepsilon)}_{x})^2
         \le \varepsilon \eta_{xx}(u^{(\varepsilon)})
@@ -576,7 +589,7 @@ $\int_{\Omega} \bm{u}\,dx$ 的变化量仅仅与边界处的交换 $\bm{n} \cdot
         - \int_{\mathbb{R}} \eta(u^{(\varepsilon)}(x,0))\varphi(x,0)\,dx \le \varepsilon \int_0^{+\infty} \int_{\mathbb{R}}
         \eta(u^{(\varepsilon)}) \varphi_{xx}\,dx\,dt
     \]
-    可以证明在 $\varepsilon \to 0^+$ 时，上述不等式的每一项分别收敛到下式的对应项
+    在 $\varepsilon \to 0^+$ 时，上述不等式的每一项分别收敛到下式的对应项
     \[
         - \int_0^{+\infty} \int_{\mathbb{R}}(\eta(u) \varphi_t + \xi(u) \varphi_x) \,dx\,dt
         - \int_{\mathbb{R}} \eta(u(x,0))\varphi(x,0)\,dx \le 0
@@ -1006,7 +1019,7 @@ $\int_{\Omega} \bm{u}\,dx$ 的变化量仅仅与边界处的交换 $\bm{n} \cdot
                   u(x,t) =
                   \begin{cases}
                       u_L,            & x/t < s_M                   \\
-                      u_M,            & s_M < x/t < f'(u_M)             \\
+                      u_M,            & s_M < x/t < f'(u_M)         \\
                       (f')^{-1}(x/t), & f'(u_M) \le x/t \le f'(u_R) \\
                       u_R,            & x/t > f'(u_R)
                   \end{cases}
