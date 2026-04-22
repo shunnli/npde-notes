@@ -97,24 +97,23 @@
         \hline
     \end{tabular}
 \end{table}
-按照 $a$ 的正负分类：（只讨论单侧差商格式）
+对于单侧差商格式，按照 $a$ 的正负分类：
 \begin{enumerate}
     \item $a>0$：风向从左往右
           \begin{itemize}
-              \item 迎风格式 FTBS 有条件稳定（$0< r \le 1$）
-              \item 逆风格式 FTFS 不稳定
-              \item “隐式迎风格式” BTFS 有条件稳定（$r \ge 1$）
-              \item “隐式逆风格式” BTBS 无条件稳定
+              \item FTFS 不稳定
+              \item FTBS 有条件稳定（$0< r \le 1$）
+              \item BTFS 有条件稳定（$r \ge 1$）
+              \item BTBS 无条件稳定
           \end{itemize}
     \item $a<0$：风向从右往左
           \begin{itemize}
-              \item 迎风格式 FTFS 有条件稳定（$-1 \le r < 0$）
-              \item 逆风格式 FTBS 不稳定
-              \item “隐式迎风格式” BTBS 有条件稳定（$r \le -1$）
-              \item “隐式逆风格式” BTFS 无条件稳定
+              \item FTFS 有条件稳定（$-1 \le r < 0$）
+              \item FTBS 不稳定
+              \item BTFS 无条件稳定
+              \item BTBS 有条件稳定（$r \le -1$）
           \end{itemize}
 \end{enumerate}
-
 
 \section{数值微分公式的 Mathematica 代码}
 
