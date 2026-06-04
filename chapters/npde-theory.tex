@@ -703,7 +703,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \\
         \overset{(*)}{=}{} & - \mu \Delta x \sum_j b_{j+\frac12}
         \left\{
-         \frac12 \left[\Delta_+(v_j^{n+1}+v_j^n)\right]^2
+        \frac12 \left[\Delta_+(v_j^{n+1}+v_j^n)\right]^2
         + \frac12  (\Delta_+ v_j^n)^2  - \frac12  (\Delta_+ v_j^{n+1})^2
         \right\}
         \\
@@ -896,7 +896,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \subsection{半有界离散算子与稳定性}
 
 \begin{definition}
-    空间离散算子Q被称为半有界的，如果存在常数 $\alpha > 0$，使得对所有的周期格点函数 $v$，都有
+    空间离散算子Q被称为半有界的，如果存在常数 $\alpha$，使得对所有的周期格点函数 $v$，都有
     \[
         (v,Q v)_{\Delta x} + (Q v,v)_{\Delta x} \le 2 \alpha \| v \|_{\Delta x}^2
     \]
@@ -924,7 +924,250 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     证明过程完全类似定理~\ref{thm:well-posed-6}。
 \end{proof}
 
-利用半有界离散算子的性质可以很方便地证明差分格式的稳定性，在证明过程中可以完全忽略空间离散的细节处理，只关注时间离散即可。
+下面给出一些半有界离散算子的例子。
+
+\begin{lemma}
+    对于周期格点函数 $v$，记 $D_0=\frac12(D_++D_-)$，有
+    \begin{align*}
+        (v,D_+v)_{\Delta x} + (D_+v,v)_{\Delta x}
+         & = -\Delta x\|D_+v\|_{\Delta x}^2 \le 0,
+        \\
+        (v,D_-v)_{\Delta x} + (D_-v,v)_{\Delta x}
+         & = \Delta x\|D_-v\|_{\Delta x}^2 \ge 0,
+        \\
+        (v,D_0v)_{\Delta x} + (D_0v,v)_{\Delta x}
+         & = 0.
+    \end{align*}
+\end{lemma}
+
+\begin{proof}
+    对于 $D_+$ ：由周期性可得
+    \begin{align*}
+        (v,D_+v)_{\Delta x} + (D_+v,v)_{\Delta x}
+        ={} & \sum_{j}
+        \left(\overline{v}_j(v_{j+1}-v_j) + (\overline{v}_{j+1}-\overline{v}_j)v_j\right) \\
+        ={} & - \sum_{j} |v_{j+1}-v_j|^2
+        = -\Delta x\|D_+v\|_{\Delta x}^2.
+    \end{align*}
+    对于 $D_-$ ：由周期性可得
+    \begin{align*}
+        (v,D_-v)_{\Delta x} + (D_-v,v)_{\Delta x}
+        ={} & \sum_{j}
+        \left(\overline{v}_j(v_j-v_{j-1}) + (\overline{v}_j-\overline{v}_{j-1})v_j\right) \\
+        ={} & \sum_{j} |v_j-v_{j-1}|^2
+        = \Delta x\|D_-v\|_{\Delta x}^2.
+    \end{align*}
+    对于 $D_0$ ：由 $D_0=\frac12(D_++D_-)$ 以及周期性可知
+    $\|D_+v\|_{\Delta x}=\|D_-v\|_{\Delta x}$，因此
+    \begin{align*}
+        (v,D_0v)_{\Delta x} + (D_0v,v)_{\Delta x}
+        ={} & \frac12\left[(v,D_+v)_{\Delta x}+(D_+v,v)_{\Delta x}\right] + \frac12\left[(v,D_-v)_{\Delta x}+(D_-v,v)_{\Delta x}\right]
+        =0.
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    考虑周期边界条件下的常系数对流方程
+    \[
+        u_t + a u_x = 0,\quad a \neq 0.
+    \]
+    空间离散考虑迎风算子，对应的半离散格式为
+    \[
+        \frac{d v_j}{dt} = Q v_j,\quad j=0,\dots,N-1.
+    \]
+    其中 $Q = -a D_{\mathrm{up}}$，迎风算子 $D_{\mathrm{up}}$ 定义为
+    \[
+        D_{\mathrm{up}} =
+        \begin{cases}
+            D_-, & a>0, \\
+            D_+, & a<0,
+        \end{cases}
+    \]
+    证明 $Q$ 是半有界离散算子。
+\end{example}
+
+\begin{solution*}
+    由上述引理可得
+    \[
+        (v,Qv)_{\Delta x} + (Qv,v)_{\Delta x}
+        = -|a|\Delta x\|D_{\mathrm{up}}v\|_{\Delta x}^2 = -\frac{1}{|a|} \Delta x\|Q v\|_{\Delta x}^2\le 0.
+    \]
+    这表明 $Q$ 是半有界离散算子。
+\end{solution*}
+
+\begin{example}
+    考虑周期边界条件下的变系数对流方程
+    \[
+        u_t+a(x)u_x=0,
+    \]
+    其中 $a(x)$ 是 Lipschitz 连续函数。空间离散采用
+    \[
+        Qv_j=-a_jD_0v_j,\quad D_0:=\frac12(D_++D_-).
+    \]
+    证明 $Q$ 是半有界离散算子。
+\end{example}
+
+\begin{solution*}
+    记 $M$ 为 $a(x)$ 的 Lipschitz 常数。由周期性可得
+    \begin{align*}
+        \Delta x\left|\sum_j a_jD_0v_j\,\overline{v}_j\right|
+        ={}   & \frac12\left|
+        \sum_j a_jv_{j+1}\overline{v}_j-\sum_j a_jv_{j-1}\overline{v}_j
+        \right|                                                               \\
+        ={}   & \frac12\left|\sum_j (a_j-a_{j+1})v_{j+1}\overline{v}_j\right| \\
+        \le{} & \frac{M}{2}\|v\|_{\Delta x}^2.
+    \end{align*}
+    因此
+    \[
+        (v,Qv)_{\Delta x}+(Qv,v)_{\Delta x}
+        \le M\|v\|_{\Delta x}^2.
+    \]
+    这表明 $Q$ 是半有界离散算子，可以取 $\alpha=M/2$。
+\end{solution*}
+
+\begin{example}
+    考虑周期边界条件下的常系数扩散方程
+    \[
+        u_t = b u_{xx},\quad b>0.
+    \]
+    空间离散采用中心差分，对应的半离散格式为
+    \[
+        \frac{d v_j}{dt} = Q v_j,\quad Q = bD_+D_-.
+    \]
+    证明 $Q$ 是半有界离散算子。
+\end{example}
+
+\begin{solution*}
+    由周期求和分部可得
+    \[
+        (v,Qv)_{\Delta x}
+        = b(v,D_+D_-v)_{\Delta x}
+        = -b\|D_+v\|_{\Delta x}^2.
+    \]
+    因此
+    \[
+        (v,Qv)_{\Delta x} + (Qv,v)_{\Delta x}
+        = -2b\|D_+v\|_{\Delta x}^2 \le 0.
+    \]
+    这表明 $Q$ 是半有界离散算子。
+\end{solution*}
+
+\begin{example}
+    考虑周期边界条件下的变系数扩散方程
+    \[
+        u_t=(b(x)u_x)_x,\quad b(x)>0.
+    \]
+    空间离散
+    \[
+        Qv_j =
+        \frac{1}{\Delta x}\left(
+        b_{j+\frac12}D_+v_j - b_{j-\frac12}D_+v_{j-1}
+        \right).
+    \]
+    证明 $Q$ 是半有界离散算子。
+\end{example}
+
+\begin{solution*}
+    由周期求和分部可得
+    \[
+        (v,Qv)_{\Delta x}
+        =
+        -\sum_j b_{j+\frac12}|D_+v_j|^2\Delta x.
+    \]
+    因此
+    \[
+        (v,Qv)_{\Delta x}+(Qv,v)_{\Delta x}
+        =
+        -2\sum_j b_{j+\frac12}|D_+v_j|^2\Delta x\le0.
+    \]
+    这表明 $Q$ 是半有界离散算子。
+\end{solution*}
+
+
+
+利用半有界离散算子的性质可以更方便地讨论一些全离散格式的稳定性：若已知空间离散算子半有界，稳定性分析就可以忽略空间离散的细节，专注于对时间离散的分析。
+
+\begin{example}
+    考虑如下显式 Euler 格式
+    \[
+        v_j^{n+1} - v_j^n = \Delta t \,Q(v_j^n)
+    \]
+    其中对应空间离散的 $Q$ 是半有界算子。分析格式的稳定性。
+\end{example}
+
+\begin{solution*}
+    直接计算可得
+    \begin{align*}
+        \|v^{n+1}\|_{\Delta x}^2
+        ={} & \|v^n + \Delta t Qv^n\|_{\Delta x}^2 \\
+        ={} & \|v^n\|_{\Delta x}^2
+        + \Delta t \bigg((v^n,Qv^n)_{\Delta x}+(Qv^n,v^n)_{\Delta x}
+        + \Delta t \|Qv^n\|_{\Delta x}^2\bigg).
+    \end{align*}
+    我们的目标是获得
+    \[
+        \|v^{n+1}\|_{\Delta x}^2
+        \le{}
+        \left(1+C_0\Delta t\right)\|v^n\|_{\Delta x}^2.
+    \]
+    但是由于显式 Euler 产生了额外的 $\Delta t^2$ 二次项，仅有半有界性条件还不够。假设 $\Delta t$ 满足：对任意周期格点函数 $v$ 都有
+    \[
+        (v,Qv)_{\Delta x} + (Qv,v)_{\Delta x} + \Delta t \|Qv\|_{\Delta x}^2
+        \le C_0 \|v\|_{\Delta x}^2
+    \]
+    其中常数 $C_0$ 不随 $\Delta x$ 发散。
+    那么就可以自然满足目标，此时
+    \[
+        \|v^{n+1}\|_{\Delta x}^2
+        \le \left(1+C_0\Delta t\right)^{n+1}\|v^0\|_{\Delta x}^2
+        \le e^{C_0(n+1)\Delta t}\|v^0\|_{\Delta x}^2.
+    \]
+    因此格式是有条件稳定的。
+\end{solution*}
+
+\begin{remark}
+    上述条件实质就是显式欧拉格式的稳定性条件对应的时间步限制。
+
+    以周期迎风格式为例，并沿用前面的记号
+    $Q=-aD_{\mathrm{up}}$。
+    由前面的引理可得
+    \[
+        (v,Qv)_{\Delta x}+(Qv,v)_{\Delta x}
+        +\Delta t\|Qv\|_{\Delta x}^2
+        =
+        \left(-|a|\Delta x+a^2\Delta t\right)\|D_{\mathrm{up}}v\|_{\Delta x}^2.
+    \]
+    因此只要
+    \[
+        \frac{|a|\Delta t}{\Delta x}\le 1.
+    \]
+    上式就不超过 $0$，从而可以取 $C_0=0$。这正是迎风格式的稳定性条件。
+
+    对于热方程的周期中心差分离散算子 $Q=bD_+D_-$，其中 $b>0$，有
+    \[
+        (v,Qv)_{\Delta x}+(Qv,v)_{\Delta x}
+        =
+        -2b\|D_+v\|_{\Delta x}^2.
+    \]
+    又由周期 Fourier 分析可得
+    \[
+        \|D_+D_-v\|_{\Delta x}^2
+        \le \frac{4}{\Delta x^2}\|D_+v\|_{\Delta x}^2.
+    \]
+    因此
+    \[
+        (v,Qv)_{\Delta x}+(Qv,v)_{\Delta x}
+        +\Delta t\|Qv\|_{\Delta x}^2
+        \le
+        \left(-2b+\frac{4b^2\Delta t}{\Delta x^2}\right)
+        \|D_+v\|_{\Delta x}^2.
+    \]
+    只要
+    \[
+        \frac{b\Delta t}{\Delta x^2}\le \frac12,
+    \]
+    也可以取 $C_0=0$。这就是显式热方程格式的稳定性条件。
+\end{remark}
 
 \begin{example}
     考虑如下时间向后欧拉格式
