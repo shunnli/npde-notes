@@ -21,7 +21,7 @@
                   \begin{cases}
                       v_j^n - \frac{\Delta t}{\Delta x}\left(f(v_{j}^n)-f(v_{j-1}^n)\right), & f'(v_j^n) > 0   \\
                       v_j^n - \frac{\Delta t}{\Delta x}\left(f(v_{j+1}^n)-f(v_{j}^n)\right), & f'(v_j^n) \le 0 \\
-                  \end{cases}
+                  \end{cases}.
               \]
         \item 基于非守恒形式 $u_t + a(u) u_x = 0$
               \[
@@ -29,7 +29,7 @@
                   \begin{cases}
                       v_j^n - \frac{\Delta t}{\Delta x} a(v_j^n) \left(v_{j}^n-v_{j-1}^n\right), & a(v_j^n) > 0   \\
                       v_j^n - \frac{\Delta t}{\Delta x} a(v_j^n) \left(v_{j+1}^n-v_{j}^n\right), & a(v_j^n) \le 0 \\
-                  \end{cases}
+                  \end{cases}.
               \]
     \end{enumerate}
 \end{example}
@@ -41,12 +41,12 @@
         \item 基于守恒形式 $u_t + f(u)_x = 0$
               \[
                   v_j^{n+1} = \frac12 (v_{j-1}^n + v_{j+1}^n)
-                  - \frac{\Delta t}{2\Delta x} \left(f(v_{j+1}^n)-f(v_{j-1}^n)\right)
+                  - \frac{\Delta t}{2\Delta x} \left(f(v_{j+1}^n)-f(v_{j-1}^n)\right).
               \]
         \item 基于非守恒形式 $u_t + a(u) u_x = 0$
               \[
                   v_j^{n+1} = \frac12 (v_{j-1}^n + v_{j+1}^n)
-                  - \frac{\Delta t}{2\Delta x} a(v_j^n)\left(v_{j+1}^n-v_{j-1}^n\right)
+                  - \frac{\Delta t}{2\Delta x} a(v_j^n)\left(v_{j+1}^n-v_{j-1}^n\right).
               \]
     \end{enumerate}
 \end{example}
@@ -61,7 +61,7 @@
                   \\ & + \frac{\Delta t^2}{2\Delta x^2}\left\{
                   A_{j+\frac12}^n [f(v_{j+1}^n) - f(v_{j}^n)]
                   - A_{j-\frac12}^n [f(v_{j}^n) - f(v_{j-1}^n)]
-                  \right\}
+                  \right\}.
               \end{align*}
         \item 基于非守恒形式 $u_t + a(u) u_x = 0$
               \begin{align*}
@@ -70,7 +70,7 @@
                   \\ & + \frac{\Delta t^2}{2\Delta x^2}\left\{
                   a(v_j^n)^2(v_{j+1}^n - 2 v_j^n + v_{j-1}^n)
                   + \frac12 a(v_j^n)a'(v_j^n)(v_{j+1}^n-v_{j-1}^n)^2
-                  \right\}
+                  \right\}.
               \end{align*}
     \end{enumerate}
 \end{example}
@@ -83,11 +83,11 @@
         \left\{
         (1+\text{sgn}(a_{j-\frac12}^n))(f(v_{j}^n)-f(v_{j-1}^n))
         + (1-\text{sgn}(a_{j+\frac12}^n))(f(v_{j+1}^n)-f(v_{j}^n))
-        \right\}
+        \right\},
     \]
     其中 $a_{j+\frac12}^n$ 是 Roe 平均，满足如下等式
     \[
-        f(v_{j+1}^n)-f(v_{j}^n) = a_{j+\frac12}^n(v_{j+1}^n-v_j^n)
+        f(v_{j+1}^n)-f(v_{j}^n) = a_{j+\frac12}^n(v_{j+1}^n-v_j^n).
     \]
 \end{example}
 
@@ -100,7 +100,7 @@
     其中 $\alpha = \max_u |f'(u)|$。对 $f^+$ 和 $f^-$ 分别使用迎风格式可得 Lax-Friedrichs 格式
     \[
         v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}(f^+(v_{j}^n)-f^+(v_{j-1}^n))
-        - \frac{\Delta t}{\Delta x}(f^-(v_{j+1}^n)-f^-(v_{j}^n))
+        - \frac{\Delta t}{\Delta x}(f^-(v_{j+1}^n)-f^-(v_{j}^n)).
     \]
 \end{example}
 
@@ -119,11 +119,11 @@
         \begin{cases}
             0, & j \ge 0 \\
             1, & j < 0
-        \end{cases}
+        \end{cases}.
     \]
     使用非守恒形式的迎风格式进行求解
     \[
-        v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x} v_j^n (v_{j}^n-v_{j-1}^n)
+        v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x} v_j^n (v_{j}^n-v_{j-1}^n).
     \]
     单步计算得到的结果为
     \[
@@ -147,7 +147,7 @@
     \[
         v_{j}^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}\left(
         \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n
-        \right),\quad \forall\,j
+        \right),\quad \forall\,j,
     \]
     其中 $\hat{f}_{j+\frac12} = \hat{f}(v_{j-r},\cdots,v_{j+s})$ 称为数值流通量，满足
     \begin{enumerate}
@@ -161,14 +161,14 @@
     \Delta x\sum_{j=p}^q v_j^{n+1}  = \Delta x\sum_{j=p}^q v_j^n  -  \Delta t
     \left(
     \hat{f}_{q+1/2}^n - \hat{f}_{p-1/2}^n
-    \right)
+    \right).
 \]
 这是离散意义下的局部守恒性，对应的连续意义下的局部守恒性是
 \[
     \int_{x_{p-1/2}}^{x_{q+1/2}} u(x,t^{n+1}) \,dx
     =
     \int_{x_{p-1/2}}^{x_{q+1/2}} u(x,t^n)\,dx
-    - \int_{t^n}^{t^{n+1}} f(u(x_{q+1/2},t)) - f(u(x_{p-1/2},t))\,dt
+    - \int_{t^n}^{t^{n+1}} f(u(x_{q+1/2},t)) - f(u(x_{p-1/2},t))\,dt,
 \]
 给定一个守恒型数值格式，反过来要求给出数值流通量的形式时，也可以利用这个性质，对格式关于 $j$ 进行部分求和，进而推出数值流通量的具体形式。
 
@@ -193,7 +193,7 @@
         \begin{cases}
             -1, & j \ge 0 \\
             1,  & j < 0
-        \end{cases}
+        \end{cases}.
     \]
     使用守恒形式的 Roe 迎风格式进行求解
     \[
@@ -201,11 +201,11 @@
         \left\{
         (1+\text{sgn}(a_{j-\frac12}^n))(f(v_{j}^n)-f(v_{j-1}^n))
         + (1-\text{sgn}(a_{j+\frac12}^n))(f(v_{j+1}^n)-f(v_{j}^n))
-        \right\}
+        \right\}.
     \]
     注意到始终有 $f(v_{j}^0)-f(v_{j-1}^0) = 0$，因此同样有
     \[
-        v_j^n = v_j^{n-1} = \dots = v_j^1 = v_j^0
+        v_j^n = v_j^{n-1} = \dots = v_j^1 = v_j^0.
     \]
     数值格式给出了一个静止不动的解，并且随着网格加密也不会变化。
     这是满足方程的弱解，因为激波速度 $s = 0$ 此时满足 RH 条件，但是这不是熵解，因为不满足熵条件 $f'(u_l) \ge s \ge f'(u_r)$。
@@ -231,7 +231,7 @@
     称方程具有比较性质，如果满足：
     \[
         u_1(x,0) \le u_2(x,0)\quad(\forall\, x) \quad \Rightarrow \quad
-        u_1(x,t) \le u_2(x,t)\quad(\forall\, x,\,\forall\,t > 0)
+        u_1(x,t) \le u_2(x,t)\quad(\forall\, x,\,\forall\,t > 0).
     \]
 \end{definition}
 
@@ -248,7 +248,7 @@
 \begin{definition}[单调格式]
     称差分格式是单调格式，若它可以表述为如下形式
     \[
-        v_j^{n+1} = H(v_{j-r-1}^n,\cdots,v_{j+s}^n),\quad \forall\,j
+        v_j^{n+1} = H(v_{j-r-1}^n,\cdots,v_{j+s}^n),\quad \forall\,j,
     \]
     其中 $H$ 关于每一个变量都是非减的，即 $H(\uparrow,\,\cdots,\,\uparrow)$。
 \end{definition}
@@ -264,12 +264,12 @@
     取单调的离散值 $v_j^0 \le v_{j+1}^0$，$\forall\, j$，那么
     \[
         v_{j}^1 = H(v_{j-r-1}^0,\cdots,v_{j+s}^0)
-        \le H(v_{j-r}^0,\cdots,v_{j+s+1}^0) = v_{j+1}^1
+        \le H(v_{j-r}^0,\cdots,v_{j+s+1}^0) = v_{j+1}^1.
     \]
     归纳可得，对于任意时刻 $t^n$，都有相同的单调性： $v_j^n \le v_{j+1}^n$，$\forall\, j$\,。
     对于线性格式
     \[
-        v_j^{n+1} = \sum_{s=-p}^q c_s\, v_{j+s}^n
+        v_j^{n+1} = \sum_{s=-p}^q c_s\, v_{j+s}^n.
     \]
     单调保持可以推出所有系数都非负，从而是单调格式。
 \end{proof}
@@ -345,12 +345,12 @@ Godunov定理表明，由于单调格式无法获得高阶精度，如果希望�
 \begin{lemma}[Harten引理]
     若差分格式可以表述为如下形式
     \[
-        v_j^{n+1} = v_j^n - C_{j-\frac12}(v_j^n - v_{j-1}^n) + D_{j+\frac12}(v_{j+1}^n - v_j^n)
+        v_j^{n+1} = v_j^n - C_{j-\frac12}(v_j^n - v_{j-1}^n) + D_{j+\frac12}(v_{j+1}^n - v_j^n),
     \]
     其中系数 $C_{j-\frac12}, D_{j+\frac12}$ 可以依赖于数值解，
     并且处处成立
     \[
-        C_{j+\frac12} \ge 0,\quad D_{j+\frac12} \ge 0,\quad C_{j+\frac12} + D_{j+\frac12} \le 1,\quad \forall\, j
+        C_{j+\frac12} \ge 0,\quad D_{j+\frac12} \ge 0,\quad C_{j+\frac12} + D_{j+\frac12} \le 1,\quad \forall\, j,
     \]
     则它是TVD格式。
 \end{lemma}
@@ -365,7 +365,7 @@ Godunov定理表明，由于单调格式无法获得高阶精度，如果希望�
         |v_{j+1}^{n+1} - v_j^{n+1}| \le{} &
         (1-C_{j+\frac12} - D_{j+\frac12})|v_{j+1}^n - v_j^n|                                                               \\
                                           & + D_{j+3/2}|v_{j+2}^n - v_{j+1}^n|
-        + C_{j-\frac12}|v_j^n - v_{j-1}^n|
+        + C_{j-\frac12}|v_j^n - v_{j-1}^n|.
     \end{align*}
     对下标求和（忽略求和边界，假定周期或紧支边界条件）即可得证
     \[
@@ -396,16 +396,16 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
 \begin{example}\label{eg:engquist-osher}
     对于标量守恒律方程 $u_t + f(u)_x = 0$，Engquist-Osher 格式定义为
     \[
-        v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}\left( \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n \right)
+        v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}\left( \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n \right),
     \]
     其中的数值流通量 $\hat{f}_{j+\frac12}^n = \hat{f}^{EO}(v_j^n,v_{j+1}^n)$ 称为 Engquist-Osher flux，具体定义为
     \[
-        \hat{f}^{EO}(u^-,u^+) = \frac{f(u^-) + f(u^+)}2 - \frac12 \int_{u^-}^{u^+} |f'(v)| dv
+        \hat{f}^{EO}(u^-,u^+) = \frac{f(u^-) + f(u^+)}2 - \frac12 \int_{u^-}^{u^+} |f'(v)| dv,
     \]
     若 $f''(u) \ge 0$，并且存在唯一的点 $v_s$ 满足 $f'(v_s) = 0$，那么可以将其写为更具体的形式
     \[
         \hat{f}_{j+\frac12}^n = \frac{1+\text{sgn}(f'(v_j^n))}2 f(v_j^n) + \frac{1-\text{sgn}(f'(v_{j+1}^n))}2 f(v_{j+1}^n)
-        + \frac{\text{sgn}(f'(v_{j+1}^n)) - \text{sgn}(f'(v_j^n))}2 f(v_s)
+        + \frac{\text{sgn}(f'(v_{j+1}^n)) - \text{sgn}(f'(v_j^n))}2 f(v_s),
     \]
     这里的最后一项就可以解释为在 Roe 迎风格式基础上添加的熵修正。
 \end{example}
@@ -413,7 +413,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
 \begin{remark}
     Engquist-Osher flux 的另一种常见的等价形式为
     \[
-        \hat{f}^{EO}(u^-,u^+) = f(0) + \int_0^{u^-} \max(f'(u),0) \,du + \int_0^{u^+} \min(f'(u),0) \,du
+        \hat{f}^{EO}(u^-,u^+) = f(0) + \int_0^{u^-} \max(f'(u),0) \,du + \int_0^{u^+} \min(f'(u),0) \,du.
     \]
 \end{remark}
 
@@ -474,7 +474,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
     \begin{align*}
         \frac{\partial H}{\partial v^n_{j-1}} ={} & \frac{\Delta t}{2\Delta x}(f'(v^n_{j-1})+\alpha)\ge 0 , \\
         \frac{\partial H}{\partial v^n_{j}} ={}   & 1-\alpha\frac{\Delta t}{\Delta x}\ge 0,                 \\
-        \frac{\partial H}{\partial v^n_{j+1}} ={} & \frac{\Delta t}{2\Delta x}(\alpha-f'(v^n_{j+1}))\ge  0
+        \frac{\partial H}{\partial v^n_{j+1}} ={} & \frac{\Delta t}{2\Delta x}(\alpha-f'(v^n_{j+1}))\ge  0.
     \end{align*}
     $\alpha = \max |f'|$ 可以保证第一个和第三个不等式成立，第二个不等式即 CFL 条件。
 \end{proof}
@@ -494,7 +494,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
         \ge 0 ,\quad
         \frac{\partial H}{\partial v^n_{j}} ={}  0       ,\quad
         \frac{\partial H}{\partial v^n_{j+1}} ={} \frac12(1 - \frac{\Delta t}{\Delta x}f'(v^n_{j+1}))
-        \ge 0
+        \ge 0.
     \]
     CFL 条件 $\max |f'| \Delta t \le \Delta x$ 可以保证第一个和第三个不等式成立。
 \end{proof}
@@ -503,11 +503,11 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
 \begin{example}
     对于 Engquist-Osher 格式
     \[
-        v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}\left( \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n \right)
+        v_j^{n+1} = v_j^n - \frac{\Delta t}{\Delta x}\left( \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n \right),
     \]
     其中的数值流通量 $\hat{f}_{j+\frac12}^n = \hat{f}^{EO}(v_j^n,v_{j+1}^n)$ 定义为
     \[
-        \hat{f}^{EO}(u^-,u^+) = \frac{f(u^-) + f(u^+)}2 - \frac12 \int_{u^-}^{u^+} |f'(v)| dv
+        \hat{f}^{EO}(u^-,u^+) = \frac{f(u^-) + f(u^+)}2 - \frac12 \int_{u^-}^{u^+} |f'(v)| dv.
     \]
     在满足 CFL 条件时，证明它是单调格式。
 \end{example}
@@ -525,7 +525,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
         \left[
             \partial_1 \hat{f}^{EO}(v_{j}^n,v^n_{j+1}) - \partial_2 \hat{f}^{EO}(v_{j-1}^n,v^n_{j})
         \right]  = 1 - \frac{\Delta t}{\Delta x} |f'(v_j^n)| \ge 0                                                               \\
-        \frac{\partial H}{\partial v^n_{j+1}} ={} & - \frac{\Delta t}{\Delta x} \partial_2 \hat{f}^{EO}(v_{j}^n,v^n_{j+1}) \ge 0
+        \frac{\partial H}{\partial v^n_{j+1}} ={} & - \frac{\Delta t}{\Delta x} \partial_2 \hat{f}^{EO}(v_{j}^n,v^n_{j+1}) \ge 0.
     \end{align*}
     CFL 条件 $\max |f'| \Delta t \le \Delta x$ 可以保证第二个不等式成立。
 \end{proof}
@@ -562,7 +562,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
         ={}  \frac{\Delta t}{2\Delta x} a_{j+\frac12}^n
         (1+\text{sgn}(a_{j+\frac12}^n)-1+\text{sgn}(a_{j+\frac12}^n))
         ={} \frac{\Delta t}{\Delta x}
-        \text{sgn}(a_{j+\frac12}^n)  a_{j+\frac12}^n \le 1
+        \text{sgn}(a_{j+\frac12}^n)  a_{j+\frac12}^n \le 1.
     \]
     对应为 CFL 条件：$\text{max}|a_{j+\frac12}^n| \, \Delta t \le \Delta x$。
 \end{proof}
@@ -593,7 +593,7 @@ TVD格式虽然可以保证得到弱解并抑制数值振荡，但是仍然无�
         \Big\}                                                  \\
         =:{}          & v_j^n - \frac{\Delta t}{\Delta x}\left(
         \hat{f}_{j+\frac12}^n - \hat{f}_{j-\frac12}^n
-        \right)
+        \right).
     \end{align*}
     因此 Lax-Wendroff 格式是守恒型格式，对应的数值流通量 $\hat{f}_{j+\frac12}$ 为
     \[

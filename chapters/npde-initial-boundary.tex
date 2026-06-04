@@ -10,13 +10,13 @@
 
 对于 $u_t =  u_{xx}$，以左边界 $x=0$ 的混合边界条件为例
 \[
-    - a u_x(0,t) + \sigma u(0,t) = \varphi_0(t),\quad (\sigma \ge 0)
+    - a u_x(0,t) + \sigma u(0,t) = \varphi_0(t),\quad (\sigma \ge 0).
 \]
 可以直接基于微分形式做近似，有如下的边界处理方法：
 \begin{enumerate}
     \item 单侧差商离散
           \[
-              -a \frac{v_1^n - v_0^n}{\Delta x} + \sigma v_0^n = \varphi_0(t^n)
+              -a \frac{v_1^n - v_0^n}{\Delta x} + \sigma v_0^n = \varphi_0(t^n).
           \]
     \item 双侧离散方法：
           \begin{enumerate}
@@ -24,11 +24,11 @@
                     \begin{align*}
                         \text{(1)} \quad & -a \frac{v_1^n - v_{-1}^n}{2\Delta x} + \sigma v_0^n = \varphi_0(t^n)
                         \\
-                        \text{(2)} \quad & -a \frac{v_1^n - v_{-1}^n}{2\Delta x} + \sigma \frac{v_{-1}^n + v_1^n }2  = \varphi_0(t^n)
+                        \text{(2)} \quad & -a \frac{v_1^n - v_{-1}^n}{2\Delta x} + \sigma \frac{v_{-1}^n + v_1^n }2  = \varphi_0(t^n).
                     \end{align*}
               \item 半网格法：$x_0 = -{\Delta x}/2$，$x_1 = {\Delta x}/2$（如图~\ref{fig:discrete-grid}）
                     \[
-                        -a \frac{v_1^n - v_{0}^n}{\Delta x} + \sigma \frac{v_0^n + v_1^n}2 = \varphi_0(t^n)
+                        -a \frac{v_1^n - v_{0}^n}{\Delta x} + \sigma \frac{v_0^n + v_1^n}2 = \varphi_0(t^n).
                     \]
           \end{enumerate}
 \end{enumerate}
@@ -38,7 +38,7 @@
     = \Delta t a \frac{v_1^n - v_0^n}{\Delta x} + \Delta t (\varphi_0(t^n) - \sigma u_0^n)
     \\
     \Rightarrow \quad  v_0^{n+1} = \left(1 - \frac{2 a \Delta t}{\Delta x^2} - \frac{2\sigma \Delta t}{\Delta x}\right) v_0^n
-    + \frac{2 a \Delta t}{\Delta x^2} v_1^n + \frac{2\Delta t}{\Delta x} \varphi_0(t^n)
+    + \frac{2 a \Delta t}{\Delta x^2} v_1^n + \frac{2\Delta t}{\Delta x} \varphi_0(t^n).
 \end{gather*}
 
 
@@ -76,7 +76,7 @@
 对应的数值解和精确解记作
 \[
     V^{n,(k)} = \{v_0^{n,(k)},v_1^{n,(k)},\cdots,v_{M_k}^{n,(k)}\}, \quad
-    U^{n,(k)} = \{u_0^{n,(k)},u_1^{n,(k)},\cdots,u_{M_k}^{n,(k)}\}
+    U^{n,(k)} = \{u_0^{n,(k)},u_1^{n,(k)},\cdots,u_{M_k}^{n,(k)}\}.
 \]
 对应的有限维空间 $X^{(k)}$ 具有范数 $\|\cdot\|_k$。
 
@@ -86,7 +86,7 @@
     对于偏微分方程 $\mathcal{L} u = g$ 以及对应的差分格式 $L v_j^n = g_j^n$，
     定义在 $(x_j,t^n)$ 处的局部截断误差为
     \[
-        \tau_j^n = L u_j^n - g_j^n - (\mathcal{L}u(x_j,t^n) - g(x_j,t^n)) = L u_j^n - g_j^n
+        \tau_j^n = L u_j^n - g_j^n - (\mathcal{L}u(x_j,t^n) - g(x_j,t^n)) = L u_j^n - g_j^n,
     \]
     其中 $u(x,t)$ 是满足偏微分方程的充分光滑函数。在内部和边界计算得到的局部截断误差可能不一样。
 \end{definition}
@@ -99,7 +99,7 @@
     \]
     进一步，称这个格式的局部截断误差阶是 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        \tau_j^n = \mathcal{O}((\Delta x^{(k)})^p + (\Delta t^{(k)})^q)
+        \tau_j^n = \mathcal{O}((\Delta x^{(k)})^p + (\Delta t^{(k)})^q).
     \]
     由于通常对内部和边界采用了不同的近似处理，在内部和边界计算得到的局部截断误差阶可能不一样，差分格式的局部截断误差阶取两者中的最小值。
 \end{definition}
@@ -109,20 +109,20 @@
 \begin{definition}[模相容性]\label{def:ib-norm-consistency}
     对于初边值问题的双层格式
     \[
-        V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)}
+        V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)}.
     \]
     将满足偏微分方程的充分光滑函数 $U$ 代入会产生余项 $\Delta t^{(k)}\, T^{n,(k)}$
     \[
-        U^{n+1,(k)} = Q \, U^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)} + \Delta t^{(k)}\, T^{n,(k)}
+        U^{n+1,(k)} = Q \, U^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)} + \Delta t^{(k)}\, T^{n,(k)}.
     \]
     称差分格式是（无条件）关于 $\|\cdot\|_k$ 模相容的：
     如果随着 $k \to \infty$，$\Delta t^{(k)} \to 0$，$n \Delta t^{(k)} \to t^*$，有
     \[
-        \|T^{n,(k)}\|_{k} \to 0
+        \|T^{n,(k)}\|_{k} \to 0.
     \]
     进一步，称这个格式的 $\|\cdot\|_k$ 模相容阶是 $(p,q)$：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        \|T^{n,(k)}\|_{k} = \mathcal{O}((\Delta x^{(k)})^p + (\Delta t^{(k)})^q)
+        \|T^{n,(k)}\|_{k} = \mathcal{O}((\Delta x^{(k)})^p + (\Delta t^{(k)})^q).
     \]
 \end{definition}
 
@@ -140,14 +140,14 @@
 \begin{definition}[模稳定性]
     对于初边值问题的双层格式
     \[
-        V^{n+1} = Q \, V^{n}
+        V^{n+1} = Q \, V^{n}.
     \]
     称差分格式是关于 $\|\cdot\|_k$ 模稳定的：
     如果存在常数 $K,\beta > 0$，以及正的 $\Delta x_0,\Delta t_0$，
     使得对于任意 $0 < \Delta x^{(k)} \le \Delta x_0$、$0 < \Delta t^{(k)} \le \Delta t_0$，
     以及 $0 \le t = (n+1)\Delta t^{(k)}$，有
     \[
-        \|V^{n+1,(k)}\|_{k} \le K e^{\beta t} \| V^{0,(k)}\|_k
+        \|V^{n+1,(k)}\|_{k} \le K e^{\beta t} \| V^{0,(k)}\|_k.
     \]
 \end{definition}
 
@@ -155,14 +155,14 @@
 \begin{theorem}
     对于初边值问题的双层差分格式
     \[
-        V^{n+1} = Q \, V^{n}
+        V^{n+1} = Q \, V^{n}.
     \]
     差分格式是关于 $\|\cdot\|_k$ 模稳定的充要条件是：
     存在常数 $K,\beta > 0$，以及正的 $\Delta x_0,\Delta t_0$，
     使得对于任意 $0 < \Delta x^{(k)} \le \Delta x_0$、$0 < \Delta t^{(k)} \le \Delta t_0$，
     以及 $0 \le t = (n+1)\Delta t^{(k)}$，有
     \[
-        \|Q^{n+1}\|_{k} \le K e^{\beta t}
+        \|Q^{n+1}\|_{k} \le K e^{\beta t}.
     \]
 \end{theorem}
 
@@ -171,19 +171,19 @@
 \begin{theorem}
     对于初边值问题的双层差分格式
     \[
-        V^{n+1} = Q \, V^{n}
+        V^{n+1} = Q \, V^{n}.
     \]
     关于 $\|\cdot\|_{2,k}$ 模稳定的必要条件是：
     存在常数 $C \ge 0$，使得
     \[
-        \sigma(Q) = \max_i|\lambda_i(Q)| \le 1 + C\,\Delta t
+        \sigma(Q) = \max_i|\lambda_i(Q)| \le 1 + C\,\Delta t.
     \]
 \end{theorem}
 
 \begin{theorem}
     对于初边值问题的双层差分格式
     \[
-        V^{n+1} = Q \, V^{n}
+        V^{n+1} = Q \, V^{n}.
     \]
     关于最大模 $\|\cdot\|_{\infty,k}$ 稳定的一个充分条件是 $\|Q\|_{\infty,k} \le 1$。
 \end{theorem}
@@ -194,16 +194,16 @@
 \begin{definition}[模收敛性]
     对于初边值问题的双层差分格式
     \[
-        V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)}
+        V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t^{(k)}\, G^{n,(k)}.
     \]
     称这个格式是（无条件）关于 $\|\cdot\|_k$ 模收敛的：如果随着 $k \to \infty$，$\Delta t^{(k)} \to 0$，$(n+1) \Delta t^{(k)} \to t^*$，有
     \[
-        \|U^{n+1,(k)} - V^{n+1,(k)}\|_{k} \to 0
+        \|U^{n+1,(k)} - V^{n+1,(k)}\|_{k} \to 0,
     \]
     其中 $U$ 是满足偏微分方程的充分光滑函数。
     进一步，称这个格式关于 $\|\cdot\|_k$ 模的收敛阶是 $(p,q)$：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        \|U^{n+1,(k)} - V^{n+1,(k)}\|_{k} = \mathcal{O}((\Delta x^{(k)})^p + (\Delta t^{(k)})^q)
+        \|U^{n+1,(k)} - V^{n+1,(k)}\|_{k} = \mathcal{O}((\Delta x^{(k)})^p + (\Delta t^{(k)})^q).
     \]
 \end{definition}
 
@@ -214,7 +214,7 @@
 \begin{theorem}[Lax定理]
     对于一个适定的线性偏微分方程初边值问题的双层差分格式
     \[
-        V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t\, G^{n,(k)}
+        V^{n+1,(k)} = Q \, V^{n,(k)} + \Delta t\, G^{n,(k)},
     \]
     若其关于 $\|\cdot\|_k$ 模的相容阶是 $(p,q)$，并且它关于 $\|\cdot\|_k$ 模稳定，那么该格式关于 $\|\cdot\|_k$ 模的收敛阶是 $(p,q)$。
 \end{theorem}
@@ -258,7 +258,7 @@
         v_j^{n} + \mu (v_{j+1}^{n}-2v_j^{n}+v_{j-1}^{n})                        \\
         ={}                 & \mu v_{j+1}^{n} + (1-2\mu)v_j^{n}+\mu v_{j-1}^{n} \\
         |v_{j}^{n+1}| \le{} &
-        \mu |v_{j+1}^{n}| + (1-2\mu)|v_j^{n}|+\mu |v_{j-1}^{n}| \le{}  \|V^{n}\|_{\infty}
+        \mu |v_{j+1}^{n}| + (1-2\mu)|v_j^{n}|+\mu |v_{j-1}^{n}| \le{}  \|V^{n}\|_{\infty}.
     \end{align*}
     因此 $\|V^{n+1}\|_{\infty} \le{} \|V^{n}\|_{\infty}$。
 
@@ -278,7 +278,7 @@
         |z_{j}^{n+1}| \le{} &
         \mu |z_{j+1}^{n}| + (1-2\mu)|z_j^{n}| + \mu |z_{j-1}^{n}| + \Delta t A (\Delta x^2 + \Delta t)
         \\
-        \le{}               & \|Z^{n}\|_{\infty}+ \Delta t A (\Delta x^2 + \Delta t)
+        \le{}               & \|Z^{n}\|_{\infty}+ \Delta t A (\Delta x^2 + \Delta t).
     \end{align*}
     遍历所有的 $j$ 使得左侧取到最大值 $\|Z^{n+1}\|_{\infty}$，可得
     \begin{align*}
@@ -305,7 +305,7 @@
 \]
 左侧边界使用单侧差商离散
 \[
-    -  \frac{v_1^n - v_0^n}{\Delta x} + \sigma v_0^n = 0, \quad \Rightarrow \quad v_0^n = \frac{1}{1 + \sigma \Delta x} v_1^n
+    -  \frac{v_1^n - v_0^n}{\Delta x} + \sigma v_0^n = 0, \quad \Rightarrow \quad v_0^n = \frac{1}{1 + \sigma \Delta x} v_1^n.
 \]
 得到差分格式（记 $\mu = \frac{b \Delta t}{\Delta x^2}$）
 \begin{equation}
@@ -339,7 +339,7 @@
         \end{bmatrix}
         \begin{bmatrix}
             v_1^{n} \\ v_2^{n} \\ \vdots \\ v_{M-2}^{n} \\ v_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     稳定性只需要证明无穷范数 $\|Q\|_{\infty} \le 1$
     和谱半径 $\sigma(Q) \le 1$，对于矩阵 $Q$，这两个结论显然成立。
@@ -353,11 +353,11 @@
     对于内部离散，将精确解 $u$ 代入可得
     \[
         \tau_j^n = \frac{u_{j}^{n+1}-u_j^n}{\Delta t} - \frac{u_{j+1}^{n}-2u_{j}^{n}+u_{j-1}^{n}}{\Delta x^2}
-        = \mathcal{O}(\Delta x^2 + \Delta t)
+        = \mathcal{O}(\Delta x^2 + \Delta t).
     \]
     对于边界离散，将精确解 $u$ 代入可得
     \[
-        \tau_0^n = - \frac{u_1^n - u_0^n}{\Delta x} + \sigma u_0^n = \mathcal{O}(\Delta x)
+        \tau_0^n = - \frac{u_1^n - u_0^n}{\Delta x} + \sigma u_0^n = \mathcal{O}(\Delta x).
     \]
     因此格式是逐点相容的，局部截断误差阶是 $(1,1)$。
 \end{proof}
@@ -387,7 +387,7 @@
         \Delta t
         \begin{bmatrix}
             T_1^{n} \\ T_2^{n} \\ \vdots \\ T_{M-2}^{n} \\ T_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     易知 $T_j^{n} = \mathcal{O}( \Delta x^2 + \Delta t)$，$j=2,\dots,M-1$，
     只需要关注 $T_1^{n}$
@@ -398,7 +398,7 @@
         u_1^{n+1} - u_1^n - \mu(u_0^n - 2 u_1^n + u_2^n)
         \right]                                                                                                    \\
         ={}                    & \mu \left(u_0^n - \frac{1}{1+\sigma \Delta x} u_1^n\right)
-        + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2)
+        + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2).
     \end{align*}
     由边界条件可得
     \begin{gather*}
@@ -407,7 +407,7 @@
     \end{gather*}
     代入可得
     \[
-        \Delta t\, T_1^{n} ={} -\frac{b \Delta t}2 (u_{xx})_1^n + \mathcal{O}(\Delta t^2 \Delta x)+ \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2)
+        \Delta t\, T_1^{n} ={} -\frac{b \Delta t}2 (u_{xx})_1^n + \mathcal{O}(\Delta t^2 \Delta x)+ \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2).
     \]
     因此 $T_1^n = \mathcal{O}(1)$，这直接导致 $\|T^n\|_{\infty} = \mathcal{O}(1)$，因此格式按最大模不相容。
 \end{proof}
@@ -465,7 +465,7 @@
         \end{bmatrix}
         \begin{bmatrix}
             v_0^{n} \\ v_1^{n} \\ \vdots \\ v_{M-2}^{n} \\ v_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     \[
         \begin{bmatrix}
@@ -481,11 +481,11 @@
         \end{bmatrix}
         \begin{bmatrix}
             v_0^{n} \\ v_1^{n} \\ \vdots \\ v_{M-2}^{n} \\ v_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     最大模稳定性只需要证明无穷范数 $\|Q\|_{\infty} \le 1$，对于格式~\eqref{eq:ib-3a}，这要求
     \[
-        2 \mu (1 + \sigma \Delta x) \le 1
+        2 \mu (1 + \sigma \Delta x) \le 1.
     \]
     这表明边界处理导致了稳定性条件需要加强：要求 $\mu < \frac12$ 并且 $\Delta x $ 足够小。
     对于格式~\eqref{eq:ib-3b}，最大模稳定性的要求则仍然是通常的 $\mu \le \frac12$。
@@ -522,7 +522,7 @@
         \Delta t
         \begin{bmatrix}
             T_0^{n} \\ T_1^{n} \\ \vdots \\ T_{M-2}^{n} \\ T_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     易知 $T_j^{n} = \mathcal{O}(\Delta x^2 + \Delta t)$，$j=1,\dots,M-1$，只需要关注 $T_0^{n}$
     \begin{align*}
@@ -532,7 +532,7 @@
         u_0^{n+1} - u_0^n - \mu(u_{-1}^n - 2 u_0^n + u_1^n)
         \right]                                                                                               \\
         ={}                    & \mu\left(u_{-1}^n - \frac{1-\sigma \Delta x}{1+\sigma \Delta x} u_1^n\right)
-        + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2)
+        + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2).
     \end{align*}
     由边界条件可得
     \begin{gather*}
@@ -543,12 +543,12 @@
         u_{-1}^n - \frac{1-\sigma \Delta x}{1+\sigma \Delta x} u_1^n =
         -\frac{\Delta x^3}3 (u_{xxx})_1^n
         +  \sigma \Delta x^3  (u_{xx})_1^n
-        + \mathcal{O}(\Delta x^5)
+        + \mathcal{O}(\Delta x^5).
     \end{gather*}
     代入可得
     \[
         \Delta t\, T_0^{n} ={}  b \Delta t \Delta x \left( -\frac13 (u_{xxx})_1^n +\sigma (u_{xx})_1^n \right)
-        + \mathcal{O}(\Delta t\Delta x^3) + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2)
+        + \mathcal{O}(\Delta t\Delta x^3) + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^2).
     \]
     因此 $T_0^n = \mathcal{O}(\Delta x + \Delta t)$，$\|T^n\|_{\infty} = \mathcal{O}(\Delta x + \Delta t)$，格式按最大模相容。
 \end{proof}
@@ -576,7 +576,7 @@
 和上一节不同的是，这里对左边界采用半网格离散：$x_{0} = \frac{\Delta x}2$，$x_1 = \frac{\Delta x}2$，对右边界仍然使用整网格 $x_{M_k} = 1$。
 对左侧边界采用如下方式离散
 \[
-    - \frac{v_1^n - v_{0}^n}{\Delta x} + \sigma \frac{v_0^n + v_1^n}2 = 0.\quad\Rightarrow\quad v_0^{n} = \frac{1-\frac{\sigma}2 \Delta x}{1 +\frac{\sigma}2 \Delta x}\, v_1^{n}
+    - \frac{v_1^n - v_{0}^n}{\Delta x} + \sigma \frac{v_0^n + v_1^n}2 = 0.\quad\Rightarrow\quad v_0^{n} = \frac{1-\frac{\sigma}2 \Delta x}{1 +\frac{\sigma}2 \Delta x}\, v_1^{n}.
 \]
 得到差分格式（记 $\mu = \frac{b \Delta t}{\Delta x^2}$）
 \begin{equation}
@@ -610,7 +610,7 @@
         \end{bmatrix}
         \begin{bmatrix}
             v_1^{n} \\ v_2^{n} \\ \vdots \\ v_{M-2}^{n} \\ v_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     最大模稳定性只需要证明无穷范数 $\|Q\|_{\infty} \le 1$，显然只需要 $\mu \le \frac12$ 即可保证。
 \end{proof}
@@ -640,7 +640,7 @@
         \Delta t
         \begin{bmatrix}
             T_1^{n} \\ T_2^{n} \\ \vdots \\ T_{M-2}^{n} \\ T_{M-1}^{n}
-        \end{bmatrix}
+        \end{bmatrix}.
     \]
     易知 $T_j^{n} = \mathcal{O}(\Delta x^2 + \Delta t)$，$j=2,\dots,M-1$，只需要关注 $T_1^{n}$
     \begin{align*}
@@ -651,17 +651,17 @@
         u_1^{n+1} - u_1^n - \mu(u_{0}^n - 2 u_1^n + u_2^n)
         \right]                                                                                                                            \\
         ={}                    & \mu\left( u_{0}^n -  \frac{1-\frac{\sigma}2 \Delta x}{1 + \frac{\sigma}2 \Delta x} u_1^n \right)
-        + \mathcal{O}( \Delta t \Delta x^2 + \Delta t^2)
+        + \mathcal{O}( \Delta t \Delta x^2 + \Delta t^2).
     \end{align*}
     由边界条件可得
     \begin{gather*}
         - \frac{u_1^n - u_{0}^n}{\Delta x} + \sigma \frac{u_0^n + u_1^n}2 = -\frac{\Delta x^2}{24} (u_{xxx})_1^n + \frac{\sigma \Delta x^2}8 (u_{xx})_1^n + \mathcal{O}(\Delta x^4) \\
-        u_{0}^n -  \frac{1-\frac{\sigma}2 \Delta x}{1 + \frac{\sigma}2 \Delta x} u_1^n = -\frac{\Delta x^3}{24} (u_{xxx})_1^n + \frac{\sigma \Delta x^3}8 (u_{xx})_1^n + \mathcal{O}(\Delta x^5)
+        u_{0}^n -  \frac{1-\frac{\sigma}2 \Delta x}{1 + \frac{\sigma}2 \Delta x} u_1^n = -\frac{\Delta x^3}{24} (u_{xxx})_1^n + \frac{\sigma \Delta x^3}8 (u_{xx})_1^n + \mathcal{O}(\Delta x^5).
     \end{gather*}
     代入可得
     \[
         \Delta t\, T_1^{n} ={} b \Delta t \Delta x \left( -\frac1{24} (u_{xxx})_1^n + \frac{\sigma}8 (u_{xx})_1^n \right)
-        + \mathcal{O}(\Delta t\Delta x^3) + \mathcal{O}( \Delta t \Delta x^2 + \Delta t^2)
+        + \mathcal{O}(\Delta t\Delta x^3) + \mathcal{O}( \Delta t \Delta x^2 + \Delta t^2).
     \]
     因此 $T_1^n = \mathcal{O}(\Delta x + \Delta t)$，$\|T^n\|_{\infty} = \mathcal{O}(\Delta x + \Delta t)$，格式按最大模相容。
 \end{proof}
@@ -669,7 +669,7 @@
 
 考虑对左侧边界使用半网格，对应如下方式离散
 \[
-    - \frac{v_1^n - v_{0}^n}{\Delta x} + \sigma \frac{v_0^n + v_1^n}2 = 0.\quad\Rightarrow\quad v_0^{n} = \frac{1-\frac{\sigma}2 \Delta x}{1 +\frac{\sigma}2 \Delta x}\, v_1^{n}
+    - \frac{v_1^n - v_{0}^n}{\Delta x} + \sigma \frac{v_0^n + v_1^n}2 = 0.\quad\Rightarrow\quad v_0^{n} = \frac{1-\frac{\sigma}2 \Delta x}{1 +\frac{\sigma}2 \Delta x}\, v_1^{n}.
 \]
 在时间上使用 Crank–Nicolson 格式，得到的差分格式矩阵形式如下（不含 $v_0$ 和 $v_{M}$）（记 $\mu = \frac{b \Delta t}{\Delta x^2}$）
 {\small\[
@@ -719,12 +719,12 @@
         + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^3)                                                                                                                             \\
         ={}                            & \mu \left\{
         -\frac{\Delta x^3}{24} (u_{xxx})_1^{n+\frac12} + \frac{\sigma \Delta x^3}8 (u_{xx})_1^{n+\frac12} + \mathcal{O}(\Delta x^5)
-        \right\} + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^3)
+        \right\} + \mathcal{O}(\Delta t \Delta x^2 + \Delta t^3).
     \end{align*}
     因此
     \[
         \Delta t\, T_1^{n+\frac12} ={} b \Delta t \Delta x \left( -\frac1{24} (u_{xxx})_1^{n+\frac12} + \frac{\sigma}8 (u_{xx})_1^n \right)
-        + \mathcal{O}(\Delta t\Delta x^3) + \mathcal{O}( \Delta t \Delta x^2 + \Delta t^3)
+        + \mathcal{O}(\Delta t\Delta x^3) + \mathcal{O}( \Delta t \Delta x^2 + \Delta t^3).
     \]
     因此 $T_1^{n+\frac12} = \mathcal{O}(\Delta x + \Delta t^2)$，$\|T^{n+\frac12}\|_{\infty} = \mathcal{O}(\Delta x + \Delta t^2)$，格式按最大模相容。
 \end{proof}
@@ -752,7 +752,7 @@
 易知 PDE 具有如下性质
 \[
     \frac{d}{dt}\|u\|^2 = (u,u_t) + (u_t,u) = (u,u_x) + (u_x,u)
-    = |u|^2 \big|_0^1 = |g(t)|^2 - |u(0,t)|^2
+    = |u|^2 \big|_0^1 = |g(t)|^2 - |u(0,t)|^2.
 \]
 
 \begin{example}
@@ -773,7 +773,7 @@
         \frac{d}{dt} \|v\|_{0,N-1}^2
         ={}                & \left( v,\frac{d v}{d t} \right)_{0,N-1} + \left( \frac{d v}{d t}, v\right)_{0,N-1} \\
         ={}                & \left( v,D_+ v \right)_{0,N-1} + \left( D_+ v, v\right)_{0,N-1}                     \\
-        \overset{(*)}{=}{} & - \Delta x \|D_+ v\|_{0,N-1}^2 + |v_N(t)|^2 - |v_0(t)|^2 \le{}  |g(t)|^2
+        \overset{(*)}{=}{} & - \Delta x \|D_+ v\|_{0,N-1}^2 + |v_N(t)|^2 - |v_0(t)|^2 \le{}  |g(t)|^2,
     \end{align*}
     其中的 $(*)$ 利用了如下恒等式，相当于离散版本的“分部积分”
     \[
@@ -806,7 +806,7 @@
         ={} & \| v^n \|_{0,N-1}^2 + \Delta t^2 \| D_+ v^n\|_{0,N-1}^2
         + \Delta t \left(
         - \Delta x \| D_+ v^n\|_{0,N-1}^2 + |v^n_N|^2 - |v^n_0|^2
-        \right)
+        \right),
     \end{align*}
     当 $\Delta t \le \Delta x$ 时，有
     \[
@@ -838,7 +838,7 @@
 易知 PDE 具有如下性质
 \[
     \frac{d}{dt}\|u\|^2 = (u,u_t) + (u_t,u) = (u,u_{xx}) + (u_{xx},u)
-    = -2 \|u_x\|^2 + (\bar{u} u_x + \bar{u}_x u) \big|_0^1 = -2 \|u_x\|^2 \le 0
+    = -2 \|u_x\|^2 + (\bar{u} u_x + \bar{u}_x u) \big|_0^1 = -2 \|u_x\|^2 \le 0.
 \]
 
 \begin{example}
@@ -860,7 +860,7 @@
         ={}                & \left( v,D_+ D_- v \right)_{1,N-1}                                      \\
         \overset{(*)}{=}{} & - \| D_- v\|_{2,N}^2 + v_j D_- v_j \big|_1^N                            \\
         ={}                & - \| D_- v\|_{1,N}^2 + \Delta x (D_- v_1)^2 + v_N D_- v_N - v_1 D_- v_1 \\
-        ={}                & - \| D_- v\|_{1,N}^2 \le 0
+        ={}                & - \| D_- v\|_{1,N}^2 \le 0,
     \end{align*}
     其中的 $(*)$ 利用了如下恒等式
     \[
@@ -874,7 +874,7 @@
 
 \begin{lemma}\label{lemma:ib-1}
     \[
-        \| D_+ y \|_{1,N-1}^2 \le \frac{4}{\Delta x^2} \| y \|_{1,N}^2
+        \| D_+ y \|_{1,N-1}^2 \le \frac{4}{\Delta x^2} \| y \|_{1,N}^2.
     \]
 \end{lemma}
 
@@ -908,16 +908,16 @@
         + 2 \Delta t \left( v^n, D_+ D_- v^n \right)_{1,N-1}
         \\
         ={} & \| v^n \|_{1,N-1}^2 + \Delta t^2 \| D_+ D_- v^n\|_{1,N-1}^2
-        - 2 \Delta t \| D_- v^n\|_{1,N}^2
+        - 2 \Delta t \| D_- v^n\|_{1,N}^2.
     \end{align*}
     根据引理~\ref{lemma:ib-1} 有如下不等式成立
     \[
-        \| D_+ D_- v^n\|_{1,N-1}^2 \le \frac{4}{\Delta x^2} \| D_- v^n \|_{1,N}^2
+        \| D_+ D_- v^n\|_{1,N-1}^2 \le \frac{4}{\Delta x^2} \| D_- v^n \|_{1,N}^2.
     \]
     代入可得
     \[
         \| v^{n+1} \|_{1,N-1}^2 \le \| v^{n} \|_{1,N-1}^2
-        - 2\Delta t \left( 1 - \frac{2\Delta t}{\Delta x^2} \right) \| D_- v^n \|_{1,N}^2
+        - 2\Delta t \left( 1 - \frac{2\Delta t}{\Delta x^2} \right) \| D_- v^n \|_{1,N}^2.
     \]
     因此在 $\Delta t \le \frac12 \Delta x^2$ 时
     \[
@@ -930,18 +930,18 @@
 \begin{lemma}\label{lemma:ib-2}
     对于 $f \in C^1([0,1])$
     \[
-        \|f\|_{\infty}^2 \le \varepsilon \|f_x\|^2 + \left(1 + \frac{1}{\varepsilon}\right) \|f\|^2,\quad (\forall\,\varepsilon > 0)
+        \|f\|_{\infty}^2 \le \varepsilon \|f_x\|^2 + \left(1 + \frac{1}{\varepsilon}\right) \|f\|^2,\quad (\forall\,\varepsilon > 0).
     \]
 \end{lemma}
 
 \begin{proof}
     记 $x_1$ 和 $x_2$ 为对应的最值点
     \[
-        |f(x_1)| = \min_x |f(x)|,\quad |f(x_2)| = \max_y |f(y)| = \|f\|_{\infty}
+        |f(x_1)| = \min_x |f(x)|,\quad |f(x_2)| = \max_y |f(y)| = \|f\|_{\infty}.
     \]
     不妨设 $x_1 < x_2$，则有
     \[
-        \int_{x_1}^{x_2} \bar{f} f_x\,dx = |f(x_2)|^2 - |f(x_1)|^2 - \int_{x_1}^{x_2} \bar{f}_x f\,dx
+        \int_{x_1}^{x_2} \bar{f} f_x\,dx = |f(x_2)|^2 - |f(x_1)|^2 - \int_{x_1}^{x_2} \bar{f}_x f\,dx.
     \]
     因此
     \begin{align*}
@@ -958,7 +958,7 @@
 \begin{lemma}\label{lemma:ib-3}
     \[
         \max_{0 \le j \le N} |f_j|^2 \le \varepsilon \|D_- f\|_{1,N}^2
-        + \left(1 + \frac{1}{\varepsilon}\right) \|f\|_{0,N}^2,\quad (\forall\,\varepsilon > 0)
+        + \left(1 + \frac{1}{\varepsilon}\right) \|f\|_{0,N}^2,\quad (\forall\,\varepsilon > 0).
     \]
 \end{lemma}
 
@@ -966,18 +966,18 @@
     记 $\alpha$ 和 $\beta$ 为最值点对应的下标
     \[
         |f_\alpha| = \min_{0 \le j \le N} |f_j|, \quad
-        |f_\beta| = \max_{0 \le j \le N} |f_j| = \|f\|_{\infty}
+        |f_\beta| = \max_{0 \le j \le N} |f_j| = \|f\|_{\infty}.
     \]
     不妨设 $\alpha \le \beta$，则有
     \[
-        (f,\,D_+ f)_{\alpha,\beta-1} = -(D_-f,\,f)_{\alpha+1,\beta} + |f_\beta|^2 - |f_\alpha|^2
+        (f,\,D_+ f)_{\alpha,\beta-1} = -(D_-f,\,f)_{\alpha+1,\beta} + |f_\beta|^2 - |f_\alpha|^2.
     \]
     因此
     \begin{align*}
         \max_{0 \le j \le N} |f_j|^2 \le{} & \min_{0 \le j \le N} |f_j|^2
         + \|f\|_{\alpha,\beta} \Big( \| D_+ f \|_{\alpha,\beta-1} + \| D_- f \|_{\alpha+1,\beta} \Big)                   \\
         \le{}                              & \|f\|_{0,N}^2 + 2 \|f\|_{0,N} \| D_- f \|_{1,N}                             \\
-        \le{}                              & \varepsilon \| D_- f \|_{1,N}^2 + \left(1 + \frac{1}{\varepsilon}\right) \|f\|_{0,N}^2
+        \le{}                              & \varepsilon \| D_- f \|_{1,N}^2 + \left(1 + \frac{1}{\varepsilon}\right) \|f\|_{0,N}^2.
     \end{align*}
     命题得证。
 \end{proof}
@@ -1004,7 +1004,7 @@
     \\
     \overset{(*)}{\le}{} & - 2 \|u_x\|^2 + \|u_x\|^2 + \frac{1}{\varepsilon} (1 + \frac{1}{\varepsilon}) \|u\|^2
     \\
-    ={}                  & -  \|u_x\|^2 + 2(|r_0|+|r_1|)(2(|r_0|+|r_1|)+1)\|u\|^2
+    ={}                  & -  \|u_x\|^2 + 2(|r_0|+|r_1|)(2(|r_0|+|r_1|)+1)\|u\|^2,
 \end{align*}
 其中 $(*)$ 利用了引理~\ref{lemma:ib-2}。
 
@@ -1031,7 +1031,7 @@ $x_{N-1} = 1-\Delta x/2$，$x_N = 1+\Delta x/2$。
         \frac12 \frac{d}{dt} \|v\|_{1,N-1}^2
         ={} & \left( v,D_+ D_- v \right)_{1,N-1}                                             \\
         ={} & - \| D_- v\|_{2,N}^2 + v_j D_- v_j \big|_1^N                                   \\
-        ={} & - \| D_- v\|_{2,N}^2 - \frac12 r_1 v_N(v_{N-1}+v_N) + \frac12 r_0 v_1(v_0+v_1)
+        ={} & - \| D_- v\|_{2,N}^2 - \frac12 r_1 v_N(v_{N-1}+v_N) + \frac12 r_0 v_1(v_0+v_1).
     \end{align*}
     注意到当 $\Delta x$ 足够小时，有
     \[
@@ -1078,11 +1078,11 @@ ADI方法等引入了中间过渡层，过渡层的计算需要特殊的边界�
               + \left(1-\frac12 b \mu_y \delta_y^2\right) v_{j,k}^{n+1}
               \\
               =   \left(1+\frac12 b \mu_y \delta_y^2\right) g_{j,k}^{n}
-              + \left(1-\frac12 b \mu_y \delta_y^2\right) g_{j,k}^{n+1}
+              + \left(1-\frac12 b \mu_y \delta_y^2\right) g_{j,k}^{n+1}.
           \end{align*}
     \item 对于D'Yakonov格式：如果用 $t^{n+\frac12}$ 的边界条件赋值会掉阶，可以利用格式得到
           \begin{align*}
               v_{j,k}^{*}   =    \left(1-\frac12 b \mu_y \delta_y^2 \right) v_{j,k}^{n+1}
-              =  \left(1-\frac12 b \mu_y \delta_y^2 \right) g_{j,k}^{n+1}
+              =  \left(1-\frac12 b \mu_y \delta_y^2 \right) g_{j,k}^{n+1}.
           \end{align*}
 \end{enumerate}

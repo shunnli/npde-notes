@@ -33,7 +33,7 @@
 \]
 解沿着特征线保持不变
 \[
-    \frac{d}{dt}u(x(t),y(t),t) = u_x x'(t) + u_y y'(t) + u_t = a u_x + b u_y + u_t = 0
+    \frac{d}{dt}u(x(t),y(t),t) = u_x x'(t) + u_y y'(t) + u_t = a u_x + b u_y + u_t = 0.
 \]
 精确解为$u(x,y,t) = u_0(x - a t, y - b t)$。
 
@@ -41,14 +41,14 @@
 也可以通过积分方法构造差分格式，这些与一维常系数对流方程相比没有区别。
 对于二维对流方程考虑 CFL 条件时，可以简单地认为数值依赖区是各个分量的数值依赖区的笛卡儿积
 \[
-    D_p \subset  N_p = [x_1,x_2] \times [y_1,y_2]
+    D_p \subset  N_p = [x_1,x_2] \times [y_1,y_2].
 \]
 
 例如 FTBS 格式为
 \[
     \frac{v_{j,k}^{n+1} - v_{j,k}^n}{\Delta t}
     + a \left(\frac{v_{j,k}^n - v_{j-1,k}^n}{\Delta x}\right)
-    + b \left(\frac{v_{j,k}^n - v_{j,k-1}^n}{\Delta y}\right) = 0
+    + b \left(\frac{v_{j,k}^n - v_{j,k-1}^n}{\Delta y}\right) = 0.
 \]
 使用 Fourier 方法分析稳定性，放大因子为
 \[
@@ -57,13 +57,13 @@
     - b \frac{\Delta t}{\Delta y}(1 - e^{- i \omega_y \Delta y})
     = 1
     - r_x(1 - e^{- i \omega_x \Delta x})
-    - r_y(1 - e^{- i \omega_y \Delta y})
+    - r_y(1 - e^{- i \omega_y \Delta y}),
 \]
 若 $r_x > 0,\,\, r_y > 0,\,\, 0 < r_x + r_y \le 1$，则有 $|\widehat{Q}| \le 1$。
 取 $P = (x_j,y_k,t^{n+1})$ 分析 CFL 条件，计算可得
 \[
     D_p = \{(x_j - a t^{n+1},y_k - b t^{n+1})\} \subset N_p
-    = [x_{j-n-1},x_j] \times [y_{k-n-1},y_k]
+    = [x_{j-n-1},x_j] \times [y_{k-n-1},y_k].
 \]
 可以推出 $0 \le r_x \le 1$ 和 $0 \le r_y \le 1$。注意 CFL 条件只是必要条件，不是充分的。
 
@@ -94,7 +94,7 @@
 \]
 特征线是一族互不相交的曲线，解沿着特征线保持不变
 \[
-    \frac{d}{dt}u(x(t),y(t),t) = u_x x'(t) + u_y y'(t) + u_t = a(x,y,t) u_x + b(x,y,t) u_y + u_t = 0
+    \frac{d}{dt}u(x(t),y(t),t) = u_x x'(t) + u_y y'(t) + u_t = a(x,y,t) u_x + b(x,y,t) u_y + u_t = 0.
 \]
 
 可以用冻结系数等处理将常系数对流方程的有限差分格式直接推广到变系数问题中。
@@ -130,17 +130,17 @@ ADI 方法的代表格式有 Peaceman-Rachford 格式：
     v_{j,k}^{n+1} = v_{j,k}^n
     + \frac12 \mu_x \delta_x^2(v_{j,k}^n + v_{j,k}^{n+1})
     + \frac12 \mu_y \delta_y^2(v_{j,k}^n + v_{j,k}^{n+1})
-    \,+\, \frac14 \mu_x \mu_y \delta_x^2 \delta_y^2(v_{j,k}^n - v_{j,k}^{n+1})
+    \,+\, \frac14 \mu_x \mu_y \delta_x^2 \delta_y^2(v_{j,k}^n - v_{j,k}^{n+1}).
 \]
 得到的差分格式保持了 Crank–Nicolson 格式的局部截断误差，并且可以对算子进行因式分解
 \begin{align*}
     \left(1-\frac12 \mu_x \delta_x^2 \right) \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+1}
-    =\left(1+\frac12 \mu_x \delta_x^2\right) \left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n}
+    =\left(1+\frac12 \mu_x \delta_x^2\right) \left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n}.
 \end{align*}
 引入中间层，可以分裂为两个实际的计算步骤
 \begin{align*}
     \left(1-\frac12  \mu_x \delta_x^2 \right) v_{j,k}^{n+\frac12} & =\left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n}         \\
-    \left(1-\frac12  \mu_y \delta_y^2 \right) v_{j,k}^{n+1}       & =\left(1+\frac12 \mu_x \delta_x^2\right) v_{j,k}^{n+\frac12}
+    \left(1-\frac12  \mu_y \delta_y^2 \right) v_{j,k}^{n+1}       & =\left(1+\frac12 \mu_x \delta_x^2\right) v_{j,k}^{n+\frac12}.
 \end{align*}
 这两个计算步骤可以解释为：
 \begin{itemize}
@@ -150,7 +150,7 @@ ADI 方法的代表格式有 Peaceman-Rachford 格式：
 也可以以另一种方式分裂：
 \begin{align*}
     \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+\frac12} & =\left(1+\frac12 \mu_x \delta_x^2\right) v_{j,k}^{n}         \\
-    \left(1-\frac12 \mu_x \delta_x^2 \right) v_{j,k}^{n+1}       & =\left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n+\frac12}
+    \left(1-\frac12 \mu_x \delta_x^2 \right) v_{j,k}^{n+1}       & =\left(1+\frac12 \mu_y \delta_y^2\right) v_{j,k}^{n+\frac12}.
 \end{align*}
 对应的解释为：
 \begin{itemize}
@@ -161,14 +161,14 @@ Fourier 分析可得，Peaceman-Rachford 格式是无条件 $L^2$ 模稳定的�
 \[
     \widehat{Q} =
     \frac{(1-2\mu_x \sin^2(\omega_x \Delta x/2))\,(1-2\mu_y \sin^2(\omega_y \Delta y/2))}{(1+2\mu_x \sin^2(\omega_x \Delta x/2))\,(1+2\mu_y \sin^2(\omega_y \Delta y/2))},\qquad
-    |\widehat{Q}| \le 1
+    |\widehat{Q}| \le 1.
 \]
 
 \begin{remark}
     与之类似的，还可以拆分为不太对称的 D'Yakonov 格式
     \begin{align*}
         \left(1-\frac12 \mu_x \delta_x^2 \right) v_{j,k}^{*}   & =\left(1+\frac12 \mu_x \delta_x^2\right) \left(1+\frac12  \mu_y \delta_y^2\right)v_{j,k}^{n} \\
-        \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+1} & = v_{j,k}^{*}
+        \left(1-\frac12 \mu_y \delta_y^2 \right) v_{j,k}^{n+1} & = v_{j,k}^{*}.
     \end{align*}
 \end{remark}
 
@@ -178,23 +178,23 @@ Fourier 分析可得，Peaceman-Rachford 格式是无条件 $L^2$ 模稳定的�
     v_{j,k}^{n+1} = v_{j,k}^n
     + \mu_x \delta_x^2 v_{j,k}^{n+1}
     + \mu_y \delta_y^2 v_{j,k}^{n+1}
-    \,+\, \mu_x \mu_y \delta_x^2 \delta_y^2(v_{j,k}^{n} - v_{j,k}^{n+1}),\quad (\mu_x = \frac{a \Delta t}{\Delta x^2},\,\mu_y = \frac{b \Delta t}{\Delta y^2})
+    \,+\, \mu_x \mu_y \delta_x^2 \delta_y^2(v_{j,k}^{n} - v_{j,k}^{n+1}),\quad (\mu_x = \frac{a \Delta t}{\Delta x^2},\,\mu_y = \frac{b \Delta t}{\Delta y^2}).
 \]
 得到的差分格式保持了 BTCS 格式的局部截断误差，并且可以对算子进行因式分解
 \[
     \left(1- \mu_x \delta_x^2 \right)\left(1- \mu_y \delta_y^2 \right) v_{j,k}^{n+1}=
-    \left(1+ \mu_x \mu_y \delta_x^2 \delta_y^2\right) v_{j,k}^n
+    \left(1+ \mu_x \mu_y \delta_x^2 \delta_y^2\right) v_{j,k}^n.
 \]
 可以分裂为两个实际的计算步骤
 \begin{align*}
     \left(1- \mu_x \delta_x^2 \right) v_{j,k}^{*}   & =\left(1+ \mu_y \delta_y^2\right) v_{j,k}^{n} \\
-    \left(1- \mu_y \delta_y^2 \right) v_{j,k}^{n+1} & = v_{j,k}^{*} - \mu_y \delta_y^2 v_{j,k}^n
+    \left(1- \mu_y \delta_y^2 \right) v_{j,k}^{n+1} & = v_{j,k}^{*} - \mu_y \delta_y^2 v_{j,k}^n.
 \end{align*}
 Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
 \[
     \widehat{Q} =
     \frac{1 + 4 \mu_x \sin^2(\omega_x \Delta x/2)\,\cdot\,4 \mu_y \sin^2(\omega_y \Delta y/2)}{(1 + 4 \mu_x \sin^2(\omega_x \Delta x/2))(1 + 4 \mu_y \sin^2(\omega_y \Delta y/2))},\qquad
-    |\widehat{Q}| \le 1
+    |\widehat{Q}| \le 1.
 \]
 
 
@@ -207,14 +207,14 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
 其中 $A = A(t) = A_1(t) + A_2(t)$。
 不妨设$Q_1,Q_2$是对应于$A_1,A_2$的离散算子，分别对应如下的方程和数值格式
 \[
-    u_t = A_i(t) u ,\quad \Rightarrow\quad v^{n+1} = Q_i(\Delta t,t^n) v^n
+    u_t = A_i(t) u ,\quad \Rightarrow\quad v^{n+1} = Q_i(\Delta t,t^n) v^n.
 \]
 
 对方程继续求导可得
 \begin{align*}
     u_{tt} ={}  & A u_t + A_{t} u = (A^2 + A_{t}) u       \\
     u_{ttt} ={} & (A^2 + A_{t}) u_t + (2A A_t + A_{tt}) u \\
-    ={}         & (A^3 + 3A A_t + A_{tt}) u
+    ={}         & (A^3 + 3A A_t + A_{tt}) u.
 \end{align*}
 
 \subsection{一阶分裂格式（Lie-Trotter splitting）}
@@ -228,20 +228,20 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
 \begin{align*}
     Q_i(\Delta t,t^n)v^n
     ={} & v^n  + \Delta t \frac{\partial}{\partial t}v^n  + \mathcal{O}(\Delta t^2 + \Delta t \Delta x^p) \\
-    ={} & v^n  + \Delta t A_i(t^n)v^n  + \mathcal{O}(\Delta t^2 + \Delta t \Delta x^p)
+    ={} & v^n  + \Delta t A_i(t^n)v^n  + \mathcal{O}(\Delta t^2 + \Delta t \Delta x^p).
 \end{align*}
 代入可得
 \begin{align*}
     Q_2(\Delta t,t^n)\, Q_1(\Delta t,t^n) v^n
      & = (I + \Delta t A_2(t^n)) (I + \Delta t A_1(t^n)) v^n + \Delta t\, \mathcal{O}(\Delta x^p + \Delta t^q) \\
-     & = (I + \Delta t A(t^n)) v^n + \Delta t\, \mathcal{O}(\Delta x^p + \Delta t^q) + \mathcal{O}(\Delta t^2)
+     & = (I + \Delta t A(t^n)) v^n + \Delta t\, \mathcal{O}(\Delta x^p + \Delta t^q) + \mathcal{O}(\Delta t^2).
 \end{align*}
 
 \subsection{二阶分裂格式（Strang splitting）}
 
 考虑如下分裂格式：
 \[
-    v^{n+1} = Q_1(\frac{\Delta t}2,t^{n+\frac12}) Q_2(\Delta t,t^n) Q_1(\frac{\Delta t}2,t^n) v^n
+    v^{n+1} = Q_1(\frac{\Delta t}2,t^{n+\frac12}) Q_2(\Delta t,t^n) Q_1(\frac{\Delta t}2,t^n) v^n.
 \]
 假设 $Q_i$ 是时间上至少二阶，空间 $p$ 阶的离散算子，那么上述格式为时间二阶分裂格式，局部截断误差为 $\mathcal{O}(\Delta x^p + \Delta t^2)$。
 验证一下
@@ -254,7 +254,7 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
     ={} & v^n
     + \Delta t A_i(t^n) v^n
     + \frac{\Delta t^2}2 \left(A_i(t^n)^2+ A_{i,t}(t^n) \right)v^n
-    + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p)
+    + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p).
 \end{align*}
 代入可得
 \begin{align*}
@@ -273,7 +273,7 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
     \right] v^n                                                                                                                                                            \\
         & + \Delta t \,\mathcal{O}(\Delta x^p + \Delta t^q)
     \\
-    ={} & \left(I+\Delta t M_1 + \frac{\Delta t^2}2 M_2 + \frac{\Delta t^3}{3!} M_3 + \frac{\Delta t^4}{4!} M_4\right) v^n + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p)
+    ={} & \left(I+\Delta t M_1 + \frac{\Delta t^2}2 M_2 + \frac{\Delta t^3}{3!} M_3 + \frac{\Delta t^4}{4!} M_4\right) v^n + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p).
 \end{align*}
 化简一下算子 $M_i$ 的内容：
 \begin{align*}
@@ -284,19 +284,19 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
             & + \frac14 \left(A_1(t^{n+\frac12})^2+A_{1,t}(t^{n+\frac12})\right) +
     \left(A_2(t^{n})^2+A_{2,t}(t^{n})\right) +
     \frac14 \left(A_1(t^{n})^2+A_{1,t}(t^{n})\right)                                                                                        \\
-    ={}     & A(t^n)^2 + \frac12 A_{1,t}(t^n) + A_{2,t}(t^n) + \mathcal{O}(\Delta t)
+    ={}     & A(t^n)^2 + \frac12 A_{1,t}(t^n) + A_{2,t}(t^n) + \mathcal{O}(\Delta t).
 \end{align*}
 代入可得
 \begin{align*}
         & Q_1(\frac{\Delta t}2,t^{n+\frac12}) Q_2(\Delta t,t^n) Q_1(\frac{\Delta t}2,t^n) v^n                                      \\
-    ={} & v^n + \Delta t A(t^n) v^n + \frac{\Delta t^2}2 (A(t^n)^2 + A_t(t^n)) v^n + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p)
+    ={} & v^n + \Delta t A(t^n) v^n + \frac{\Delta t^2}2 (A(t^n)^2 + A_t(t^n)) v^n + \mathcal{O}(\Delta t^3 + \Delta t \Delta x^p).
 \end{align*}
 
 \subsection{补充}
 
 对于一般的方程
 \[
-    \partial_t u(t) = F_1(u(t)) + F_2(u(t)),\quad u(0) = u_0
+    \partial_t u(t) = F_1(u(t)) + F_2(u(t)),\quad u(0) = u_0.
 \]
 两种分裂格式如图~\ref{fig:splitting} 所示。更高阶的分裂格式也是可以构造的，但是存在一个严重的问题：可以证明，三阶以及更高的分裂格式必然存在一个向后的子时间步，将其应用到含有扩散项的问题求解时，向后的时间推进可能导致数值不稳定。
 
@@ -310,21 +310,21 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
 
 考虑更一般的 $d$ 维扩散问题
 \[
-    u_t = \sum_{i=1}^d a_i u_{x_i\,x_i}
+    u_t = \sum_{i=1}^d a_i u_{x_i\,x_i},
 \]
 其中 $a_i > 0$ 为常数。最简单的 FTCS 格式为
 \[
-    u^{n+1}(j_1,\dots,j_d) = u^n(j_1,\dots,j_d) + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \delta^2_{x_i} u^n(j_1,\dots,j_d)
+    u^{n+1}(j_1,\dots,j_d) = u^n(j_1,\dots,j_d) + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \delta^2_{x_i} u^n(j_1,\dots,j_d).
 \]
 采用离散最大模原理进行稳定性分析
 \begin{align*}
     u^{n+1}(j_1,\dots,j_d) ={} & \left(1 - 2 \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \right) u^n(j_1,\dots, j_i,\dots,j_d)
     \\
-                               & + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} u^n(j_1,\dots, j_i + 1,\dots,j_d) - \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} u^n(j_1,\dots, j_i - 1,\dots,j_d)
+                               & + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} u^n(j_1,\dots, j_i + 1,\dots,j_d) - \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} u^n(j_1,\dots, j_i - 1,\dots,j_d),
 \end{align*}
 若取 $\Delta t$ 满足
 \[
-    1 - 2 \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \ge 0
+    1 - 2 \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \ge 0,
 \]
 则有
 \begin{align*}
@@ -333,15 +333,15 @@ Fourier 分析可得，Douglas-Rachford 格式是无条件 $L^2$ 模稳定的。
                                    & + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} |u^n(j_1,\dots, j_i + 1,\dots,j_d)|
     + \sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} |u^n(j_1,\dots, j_i - 1,\dots,j_d)|
     \\
-    \le{}                          & \|u^n\|_{\infty}
+    \le{}                          & \|u^n\|_{\infty}.
 \end{align*}
 对左侧取遍所有指标，即可得到此时 FTCS 格式是最大模稳定的。因此，对于 $d$ 维扩散问题，FTCS 格式的 CFL 条件形如
 \[
-\sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \le \frac12
+\sum_{i=1}^d \frac{a_i \Delta t}{\Delta x_i^2} \le \frac12,
 \]
 如果简单地取 $a_i = a$ 以及 $\Delta x_i = h$，CFL 条件即为
 \[
-a \frac{\Delta t}{\Delta x^2} \le \frac{1}{2d}
+a \frac{\Delta t}{\Delta x^2} \le \frac{1}{2d}.
 \]
 这表明随着维数 $d$ 的增加，稳定性条件对 $\Delta t$ 的约束也逐渐增强。
 采用 Fourier 分析或能量方法也可以得到相同的结论。

@@ -5,11 +5,11 @@
 \begin{theorem}
     对于以 $2\pi$ 为周期的函数 $f \in C^1(\mathbb{R})$，对应的Fourier级数为
     \[
-        S(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{f}(\omega) e^{i \omega x}
+        S(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{f}(\omega) e^{i \omega x},
     \]
     其中 Fourier 系数为
     \[
-        \hat{f}(\omega) = \frac{1}{\sqrt{2\pi}} \int_{0}^{2\pi} f(x)e^{-i \omega x} \,dx
+        \hat{f}(\omega) = \frac{1}{\sqrt{2\pi}} \int_{0}^{2\pi} f(x)e^{-i \omega x} \,dx.
     \]
     那么，Fourier级数 $S(x)$ 一致收敛于 $f(x)$。
 \end{theorem}
@@ -28,13 +28,13 @@
     对于 $2\pi$ 周期的分片 $C^1$ 函数 $g(x)$，
     假设 $g$ 的 $p-1$ 阶导数连续，$p$ 阶导数是分片 $C^1$ 的，那么存在常数 $C$，使 $g$ 的Fourier系数满足
     \[
-        |\hat{g}(\omega)| \le \frac{C}{|\omega|^{p+1}+1}
+        |\hat{g}(\omega)| \le \frac{C}{|\omega|^{p+1}+1}.
     \]
 \end{theorem}
 
 考虑内积和对应的 $L^2$ 范数
 \[
-    (f,g) := \int_0^{2\pi} \overline{f(x)}g(x)\,dx,\,\|f\| := \sqrt{(f,f)}
+    (f,g) := \int_0^{2\pi} \overline{f(x)}g(x)\,dx,\,\|f\| := \sqrt{(f,f)}.
 \]
 
 
@@ -56,12 +56,12 @@
     对于 $2\pi$ 周期函数 $f,g \in L^2$
     \[
         f(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{f}(\omega) e^{i \omega x},\quad
-        g(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{g}(\omega) e^{i \omega x}
+        g(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \hat{g}(\omega) e^{i \omega x}.
     \]
     那么，
     \[
         (f,g) = \sum_{\omega = -\infty}^\infty \overline{\hat{f}(\omega)} \hat{g}(\omega),\quad
-        \|f\|^2 = \sum_{\omega = -\infty}^\infty |\hat{f}(\omega)|^2
+        \|f\|^2 = \sum_{\omega = -\infty}^\infty |\hat{f}(\omega)|^2.
     \]
 \end{theorem}
 
@@ -89,7 +89,7 @@
 对于 $2\pi$ 周期的函数 $u(x)$，记 $u_j = u(x_j)$，
 存在唯一的“三角函数”
 \[
-    \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+    \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}.
 \]
 满足 $\operatorname{Int}_N u(x)$ 在 $\{x_j\}_{j=0,\dots,N}$ 插值 $u$，即
 \[
@@ -107,7 +107,7 @@
         \begin{cases}
             0, & 0 < |m-n| \le N \\
             1, & m = n
-        \end{cases}
+        \end{cases}.
     \]
 \end{lemma}
 
@@ -115,12 +115,12 @@
 \begin{theorem}
     三角插值 $\operatorname{Int}_N u(x)$ 存在且唯一，具体表达式为
     \[
-        \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+        \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x},
     \]
     其中的系数为
     \[
         \widetilde{u}(\omega) = \frac{1}{\sqrt{2\pi}}(e^{i \omega x},u)_{\Delta x},\quad
-        |\omega| \le \frac{N}{2}
+        |\omega| \le \frac{N}{2}.
     \]
 \end{theorem}
 
@@ -147,21 +147,21 @@
     \[
         \| D^\ell_+\,u\|_{\Delta x}^2 \le
         \left\| \frac{d^\ell}{dx^\ell}\,\operatorname{Int}_N \,u\right\|^2 \le
-        \left(\frac{\pi}2\right)^{2\ell} \|D^\ell_+\,u\|_{\Delta x}^2,\quad \ell=1,2,\cdots
+        \left(\frac{\pi}2\right)^{2\ell} \|D^\ell_+\,u\|_{\Delta x}^2,\quad \ell=1,2,\cdots.
     \]
 \end{theorem}
 
 考虑 $u$ 的 Fourier 级数和三角插值 $\operatorname{Int}_N u$
 \[
     u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^\infty \widehat{u}(\omega) e^{i \omega x},\quad
-    \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}
+    \operatorname{Int}_N u(x) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} \widetilde{u}(\omega) e^{i \omega x}.
 \]
 显然 Fourier 系数 $\widehat{u}(\omega)$ 和三角插值系数 $\widetilde{u}(\omega)$ 存在一定的联系。
 
 \begin{lemma}
     Fourier 系数 $\widehat{u}(\omega)$ 和三角插值系数 $\widetilde{u}(\omega)$ 满足如下关系
     \[
-        \widetilde{u}(\omega) = \sum_{\ell = -\infty}^\infty \widehat{u}(\omega + \ell(N+1)),\quad |\omega| \le \frac{N}2
+        \widetilde{u}(\omega) = \sum_{\ell = -\infty}^\infty \widehat{u}(\omega + \ell(N+1)),\quad |\omega| \le \frac{N}2.
     \]
 \end{lemma}
 
@@ -170,7 +170,7 @@
 \begin{theorem}
     如果 $u$ 的 Fourier 系数满足
     \[
-        |\widehat{u}(\omega)| \le \frac{C}{|\omega|^m+1},\quad m > 1
+        |\widehat{u}(\omega)| \le \frac{C}{|\omega|^m+1},\quad m > 1.
     \]
     那么
     \[
@@ -178,7 +178,7 @@
         \left(\frac{N}2\right)^{1-m}
         \left(
         \frac{1}{m-1} + \frac{2(N+1)}N B_m
-        \right)
+        \right),
     \]
     其中 $B_m$ 定义为 $B_m = \sum_{j = 1}^\infty \frac{1}{(2j-1)^m}$。
 \end{theorem}
@@ -189,7 +189,7 @@
         \left\|
         \frac{d^\ell \,u}{dx^\ell} - \frac{d^\ell \,\operatorname{Int}_N u}{d x^\ell}
         \right\|_{\infty}
-        \le C_\ell \left(\frac{N}2\right)^{1+\ell-m},\quad 1+\ell < m
+        \le C_\ell \left(\frac{N}2\right)^{1+\ell-m},\quad 1+\ell < m.
     \]
 \end{corollary}
 
@@ -203,11 +203,11 @@
 
     对于固定时刻 $t^n$，我们可以基于数值解 $\{v_j^n\}$ 获取对应时刻的三角插值多项式 $\operatorname{Int}_N (v_j^n)$，具体表达式为
     \[
-        \operatorname{Int}_N (v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega )
+        \operatorname{Int}_N (v_j^n)(x)  = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -N/2}^{N/2} e^{i \omega  x} \widehat{Q}^n(\xi) \tilde{f}(\omega ).
     \]
     在 $t^n$ 时刻的精确解 $u(x,t^n)$ 可以表示为
     \[
-        u(x,t^n) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^{\infty} e^{i \omega (x+t^n)} \hat{f}(\omega )
+        u(x,t^n) = \frac{1}{\sqrt{2\pi}} \sum_{\omega = -\infty}^{\infty} e^{i \omega (x+t^n)} \hat{f}(\omega ).
     \]
     取一个固定的整数 $M$ 使得 $0 < M < N/2$，那么
     {\small
@@ -225,11 +225,11 @@
 
     $I\!I$ 最容易估计，由条件 (a) 可得
     \[
-        \sum_{\omega = -\infty}^{\infty} |\hat{f}(\omega )|^2 < \infty
+        \sum_{\omega = -\infty}^{\infty} |\hat{f}(\omega )|^2 < \infty.
     \]
     因此
     \[
-        \lim_{M \to \infty} I\!I = 2 \lim_{M \to \infty} \sum_{|\omega| > M} |\hat{f}(\omega)|^2 = 0
+        \lim_{M \to \infty} I\!I = 2 \lim_{M \to \infty} \sum_{|\omega| > M} |\hat{f}(\omega)|^2 = 0.
     \]
 
     $I\!I\!I$ 的估计依赖于条件 (a) 和 (b)：由于
@@ -256,7 +256,7 @@
         \left\{
         \left| \widehat{Q}^n(\xi) \left(\tilde{f}(\omega) - \hat{f}(\omega) \right) \right|^2
         + \left| \left(e^{i \omega t^n}  - \widehat{Q}^n(\xi)\right) \hat{f}(\omega ) \right|^2
-        \right\} = 0
+        \right\} = 0.
     \end{align*}
 
     因此，对于任意 $\varepsilon > 0$，可以选取足够大的 $M$ 使得 $I\!I + I\!I\!I < \varepsilon/2$，然后选取足够大的 $N$ 使得 $I < \varepsilon/2$，收敛性证毕。

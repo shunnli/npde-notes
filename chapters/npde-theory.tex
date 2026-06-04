@@ -16,7 +16,7 @@
     对于偏微分方程 $\mathcal{L} u = g$ 以及对应的差分格式 $L v_j^n = g_j^n$，
     定义在 $(x_j,t^n)$ 处的局部截断误差为
     \[
-        \tau_j^n := L u_j^n - g_j^n - (\mathcal{L}u(x_j,t^n) - g(x_j,t^n)) = L u_j^n - g_j^n
+        \tau_j^n := L u_j^n - g_j^n - (\mathcal{L}u(x_j,t^n) - g(x_j,t^n)) = L u_j^n - g_j^n,
     \]
     其中 $u(x,t)$ 是满足偏微分方程的充分光滑函数。
 \end{definition}
@@ -29,7 +29,7 @@
     \]
     进一步，称这个格式的局部截断误差阶是 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        \tau_j^n = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+        \tau_j^n = \mathcal{O}((\Delta x)^p + (\Delta t)^q).
     \]
 \end{definition}
 
@@ -40,36 +40,36 @@
 \begin{definition}[模相容性]\label{def:consistency-norm}
     对于双层差分格式
     \[
-        V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}
+        V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}.
     \]
     将满足偏微分方程的充分光滑函数 $U$ 代入会产生余项 $\Delta t\,T^{n}$
     \[
-        U^{n+1} = Q \, U^{n} + \Delta t\, G^{n} + \Delta t\, T^{n}
+        U^{n+1} = Q \, U^{n} + \Delta t\, G^{n} + \Delta t\, T^{n}.
     \]
     称双层差分格式是（无条件）关于 $\|\cdot\|$ 模相容的：
     如果随着 $\Delta x \to 0$，$\Delta t \to 0$，有
     \[
-        \|T^{n}\|  \to 0
+        \|T^{n}\|  \to 0.
     \]
     进一步，称这个格式的$\|\cdot\|$ 模相容阶是 $(p,q)$：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        \|T^{n}\|  = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+        \|T^{n}\|  = \mathcal{O}((\Delta x)^p + (\Delta t)^q).
     \]
 \end{definition}
 
 \begin{remark}
     对于显格式，通常可以整理为如下形式
     \[
-        V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}
+        V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}.
     \]
     但是对于隐格式（例如全隐格式，Crank–Nicolson 格式，$\theta$ 格式），可能会得到如下形式
     \[
-        P V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}
+        P V^{n+1} = Q \, V^{n} + \Delta t\, G^{n}.
     \]
     不需要计算 $P^{-1}$ 来整理为定义~\ref{def:consistency-norm} 中的形式，
     直接将满足偏微分方程的充分光滑函数 $U$ 代入会产生余项 $\Delta t\,T^{n}$
     \[
-        P U^{n+1} = Q \, U^{n} + \Delta t\, G^{n} + \Delta t\, T^{n}
+        P U^{n+1} = Q \, U^{n} + \Delta t\, G^{n} + \Delta t\, T^{n}.
     \]
     相容性分析仍然是针对 $T^{n}$ 进行的。
 \end{remark}
@@ -87,7 +87,7 @@
     称该差分格式是关于 $\| \cdot \|$ 模稳定的，若对于任意 $(x,t)$，存在 $\Delta x_0 >0$，$\Delta t_0 > 0$，$K \ge 0$，$\beta \ge 0$，使得
     $\forall\, 0 < t = (n+1)\Delta t$，$0 < \Delta x \le \Delta x_0$，$0 < \Delta t \le \Delta t_0$，有
     \[
-        \| V^{n+1} \| \le K e^{\beta t}\,\| V^0 \|
+        \| V^{n+1} \| \le K e^{\beta t}\,\| V^0 \|.
     \]
 \end{definition}
 
@@ -99,7 +99,7 @@
     双层差分格式 $V^{n+1} = Q \, V^n$ 关于 $\| \cdot \|$ 模稳定的充要条件是：存在 $\Delta x_0 >0$，$\Delta t_0 > 0$，$K \ge 0$，$\beta \ge 0$，使得
     $\forall\, 0 < t = (n+1)\Delta t$，$0 < \Delta x \le \Delta x_0$，$0 < \Delta t \le \Delta t_0$，有
     \[
-        \| Q^{n+1} \| \le K e^{\beta t}
+        \| Q^{n+1} \| \le K e^{\beta t}.
     \]
 \end{theorem}
 
@@ -107,7 +107,7 @@
     双层差分格式 $V^{n+1} = Q \, V^n$ 关于 $\|\cdot\|$ 模稳定的必要条件是：
     存在常数 $C \ge 0$，使得
     \[
-        \sigma(Q) = \max_i|\lambda_i(Q)| \le 1 + C\,\Delta t
+        \sigma(Q) = \max_i|\lambda_i(Q)| \le 1 + C\,\Delta t.
     \]
 \end{theorem}
 
@@ -118,7 +118,7 @@
     若 $Q$ 可以相似变换为一个正规矩阵：$Q = S \tilde{Q} S^{-1}$，并且变换矩阵及其逆矩阵的范数一致有界，那么也可以保证充分性，
     这利用了如下性质
     \[
-        \| Q^n \| \le \| S \| \| S^{-1} \| \| \tilde{Q}^n \| = \| S \| \| S^{-1} \|\, |\sigma(Q)|^n
+        \| Q^n \| \le \| S \| \| S^{-1} \| \| \tilde{Q}^n \| = \| S \| \| S^{-1} \|\, |\sigma(Q)|^n.
     \]
 \end{remark}
 
@@ -132,12 +132,12 @@
     称差分格式是（无条件）逐点收敛的，如果随着 $\Delta x,\,\Delta t \to 0$，
     $j\Delta x \to x_*$，$n \Delta t \to t_*$，有
     \[
-        v_j^n \to u(x_*,t_*)
+        v_j^n \to u(x_*,t_*),
     \]
     其中 $u$ 是满足偏微分方程的充分光滑函数。
     进一步，称这个格式的逐点收敛阶为 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        u(x_*,t_*) - v_j^n = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+        u(x_*,t_*) - v_j^n = \mathcal{O}((\Delta x)^p + (\Delta t)^q).
     \]
 \end{definition}
 
@@ -145,12 +145,12 @@
     称差分格式是（无条件）按$\| \cdot \|$ 模收敛的，如果随着 $\Delta x,\,\Delta t \to 0$，
     $n \Delta t \to t_*$，有
     \[
-        \|U^n - V^n\| \to 0
+        \|U^n - V^n\| \to 0,
     \]
     其中 $U$ 是满足偏微分方程的充分光滑函数。
     进一步，称这个格式在$\|\cdot\|$ 模意义下的收敛阶为 $(p,q)$ ：如果存在不可改善的正数 $p,q$，使得下式成立
     \[
-        \|U^n - V^n\| = \mathcal{O}((\Delta x)^p + (\Delta t)^q)
+        \|U^n - V^n\| = \mathcal{O}((\Delta x)^p + (\Delta t)^q).
     \]
 \end{definition}
 
@@ -175,7 +175,7 @@
 \begin{theorem}[Lax 定理]
     考虑一个适定的线性偏微分方程定解问题，假设它的双层线性差分格式
     \[
-        V^{n+1} = Q \,V^n +\Delta t \,G^n
+        V^{n+1} = Q \,V^n +\Delta t \,G^n.
     \]
     是按 $\|\cdot\|$ 模相容的，并且关于 $\|\cdot\|$ 模具有 $(p,q)$ 阶相容阶，那么：
     格式若关于 $\|\cdot\|$ 模是稳定的，则关于 $\|\cdot\|$ 模 $(p,q)$ 阶收敛。
@@ -205,22 +205,22 @@
 
 对于纯初值问题或具有周期边界条件的问题，假设在空间上进行均匀剖分，考虑标量方程的线性常系数双层差分格式
 \[
-    V^{n+1} = Q \, V^n,\quad \widehat{V}^{n+1} = \widehat{Q} \, \widehat{V}^n
+    V^{n+1} = Q \, V^n,\quad \widehat{V}^{n+1} = \widehat{Q} \, \widehat{V}^n,
 \]
 记 $\widehat{Q}(\omega)$ 为放大因子，稳定性要求
 \[
-    \| V^{n+1}\|\le K e^{\beta(n+1)\Delta t} \,\| V^0\|
+    \| V^{n+1}\|\le K e^{\beta(n+1)\Delta t} \,\| V^0\|,
 \]
 其中 $K,\beta$ 是与时间无关的系数，$L^2$ 模稳定等价于要求
 \[
-    |\widehat{Q}(\omega)|^{n+1} \le K e^{\beta(n+1)\Delta t}
+    |\widehat{Q}(\omega)|^{n+1} \le K e^{\beta(n+1)\Delta t}.
 \]
 由此可以导出著名的 von Neumann 条件。
 
 \begin{theorem}[von Neumann condition]
     双层差分格式 $V^{n+1} = Q \, V^n$ 是 $L^2$ 模稳定的，等价于存在常数 $C>0$，使得放大因子 $\widehat{Q}(\omega)$ 在 $\Delta t$ 适当小的时候满足
     \[
-        |\widehat{Q}(\omega)| \le 1+C \Delta t
+        |\widehat{Q}(\omega)| \le 1+C \Delta t.
     \]
 \end{theorem}
 
@@ -235,7 +235,7 @@
         |\widehat{Q}(\omega)|  \le K^{\frac{1}{n+1}} e^{\beta \Delta t}
         = K^{\frac{\Delta t}{T}} e^{\beta \Delta t}
         = e^{(\beta + \frac{\ln K}{T})\Delta t}
-        = 1 + \mathcal{O}(\Delta t)
+        = 1 + \mathcal{O}(\Delta t).
     \]
     因此，存在 $\Delta t_0$ 以及 $C>0$，使得对于 $0 < \Delta t \le \Delta t_0$，下式成立
     \[
@@ -248,7 +248,7 @@
     对应的稳定性要求变为
     \[
         |\widehat{Q}(\omega)|^{n+1} \le 1,\quad
-        \| V^{n+1}\|\le  \| V^0\|
+        \| V^{n+1}\|\le  \| V^0\|.
     \]
 \end{remark}
 
@@ -276,17 +276,17 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{solution*}
     计算放大因子（记 $\mu = \frac{b \Delta t}{\Delta x^2}$）
     \[
-        \widehat{Q} = \frac{1-4\mu(1-\theta)\sin^2(\frac{\xi}2)}{1+4\mu\theta\sin^2(\frac{\xi}2)},\quad (\xi = \omega \Delta x)
+        \widehat{Q} = \frac{1-4\mu(1-\theta)\sin^2(\frac{\xi}2)}{1+4\mu\theta\sin^2(\frac{\xi}2)},\quad (\xi = \omega \Delta x).
     \]
     要求$-1 \le \widehat{Q} \le 1$，显然有$\widehat{Q}\le 1$，对于$-1 \le \widehat{Q}$等价于
     \begin{gather*}
         2\left(1+4\mu \theta \sin^2(\frac{\xi}2)\right) \ge 4 \mu \sin^2(\frac{\xi}2)
         \\
-        1 -  4\mu(\frac12-\theta) \sin^2(\frac{\xi}2) \ge 0
+        1 -  4\mu(\frac12-\theta) \sin^2(\frac{\xi}2) \ge 0.
     \end{gather*}
     稳定性要求对任意 $\xi$ 均成立，即要求
     \[
-        4\mu(\frac12-\theta) \le 1
+        4\mu(\frac12-\theta) \le 1.
     \]
     因此，在 $L^2$ 模意义下，当 $\frac12 \le \theta \le 1$ 时，格式无条件稳定；
     当 $0 <\theta < \frac12$ 时，格式有条件稳定，要求 $\mu \le \frac{1}{2(1-2\theta)}$。
@@ -325,7 +325,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \]
     考虑如下格式
     \[
-        \frac{v_j^{n+1} - v_j^n}{\Delta t} = b_j^n \frac{v_{j+1}^n - 2v_j^n + v_{j-1}^n}{\Delta x^2}
+        \frac{v_j^{n+1} - v_j^n}{\Delta t} = b_j^n \frac{v_{j+1}^n - 2v_j^n + v_{j-1}^n}{\Delta x^2}.
     \]
     采用冻结系数法分析其最大模和 $L^2$ 模稳定性。
 \end{example}
@@ -333,15 +333,15 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{solution*}
     将 $b_j^n$ 近似为某个常数 $b > 0$，得到线性常系数格式
     \[
-        \frac{v_j^{n+1} - v_j^n}{\Delta t} = b \frac{v_{j+1}^n - 2v_j^n + v_{j-1}^n}{\Delta x^2}
+        \frac{v_j^{n+1} - v_j^n}{\Delta t} = b \frac{v_{j+1}^n - 2v_j^n + v_{j-1}^n}{\Delta x^2}.
     \]
     显然其最大模和 $L^2$ 模稳定性条件均为
     \[
-        \frac{b \Delta t}{\Delta x^2} \le \frac12
+        \frac{b \Delta t}{\Delta x^2} \le \frac12.
     \]
     取遍所有的 $b_j^n$ 时，上式都应当成立，因此相应稳定性要求的交集为
     \[
-        \frac{\Delta t}{\Delta x^2} \max_{x,\,t} b(x,t) \le \frac12
+        \frac{\Delta t}{\Delta x^2} \max_{x,\,t} b(x,t) \le \frac12.
     \]
     这就是冻结系数法给出的最大模和 $L^2$ 模稳定的必要条件。
 \end{solution*}
@@ -353,7 +353,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 证明过程通常只需要使用如下平凡的不等式：若 $a_i \ge 0$，则有
 \[
     |a_1 x_1 + a_2 x_2 + \cdots + a_n x_n | \le a_1 | x_1 | + a_2 | x_2 | + \cdots + a_n | x_n |
-    \le \left(\sum_{i=1}^n a_i \right)\max_i |x_i|
+    \le \left(\sum_{i=1}^n a_i \right)\max_i |x_i|.
 \]
 
 
@@ -369,7 +369,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     记 $\mu = \frac{b \Delta t}{\Delta x^2}$，将差分格式整理为
     \[
         (1 + 2 \theta \mu) v_j^{n+1}
-        = \left[1-2(1-\theta) \mu \right] v_j^n + (1-\theta) \mu (v_{j+1}^{n} + v_{j-1}^{n}) + \theta \mu (v_{j+1}^{n+1} + v_{j-1}^{n+1})
+        = \left[1-2(1-\theta) \mu \right] v_j^n + (1-\theta) \mu (v_{j+1}^{n} + v_{j-1}^{n}) + \theta \mu (v_{j+1}^{n+1} + v_{j-1}^{n+1}),
     \]
     若满足 $1-2(1-\theta) \mu \ge 0$，利用系数非负性放缩可得
     \begin{align*}
@@ -377,12 +377,12 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         ={}   & \left[1-2(1-\theta) \mu \right] v_j^n + (1-\theta) \mu (v_{j+1}^{n} + v_{j-1}^{n}) + \theta \mu (v_{j+1}^{n+1} + v_{j-1}^{n+1}) \\
         \le{} & \left[1-2(1-\theta) \mu \right] \|v^n \|_{\infty} + 2 (1-\theta) \mu \|v^n \|_{\infty}
         + 2 \theta \mu \|v^{n+1}\|_{\infty}                                                                                                     \\
-        ={}   & \|v^n\|_{\infty} + 2 \theta \mu \|v^{n+1}\|_{\infty}
+        ={}   & \|v^n\|_{\infty} + 2 \theta \mu \|v^{n+1}\|_{\infty}.
     \end{align*}
     对左侧取最大值可得
     \begin{align*}
         (1 + 2 \theta \mu)\|v^{n+1}\|_{\infty} \le{} & \|v^n\|_{\infty} + 2 \theta \mu \|v^{n+1}\|_{\infty} \\
-        \|v^{n+1}\|_{\infty} \le{}                   & \|v^n\|_{\infty}
+        \|v^{n+1}\|_{\infty} \le{}                   & \|v^n\|_{\infty},
     \end{align*}
     此时格式是最大模稳定的。
 
@@ -401,11 +401,11 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑偏微分方程 $u_t=(b(x)\, u_x)_x$（其中光滑函数 $C_1 \ge b(x) \ge C_2 > 0$），考虑如下的 $\theta$ 格式，分析其最大模稳定性。
     \[
-        v^{n+1}_j - v^n_j = \Delta t\,(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j)
+        v^{n+1}_j - v^n_j = \Delta t\,(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j),
     \]
     其中算子 $Q$ 定义为
     \[
-        Q w^n_j=\frac{1}{\Delta x}\left(b_{j+\frac12}\frac{w_{j+1}-w_{j}}{\Delta x} - b_{j-\frac12}\frac{w_j-w_{j-1}}{\Delta x}\right)
+        Q w^n_j=\frac{1}{\Delta x}\left(b_{j+\frac12}\frac{w_{j+1}-w_{j}}{\Delta x} - b_{j-\frac12}\frac{w_j-w_{j-1}}{\Delta x}\right).
     \]
 \end{example}
 
@@ -415,7 +415,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         [1+\theta \mu (b_{j+\frac12} + b_{j-\frac12})] v^{n+1}_j
         ={} & [1- (1-\theta) \mu (b_{j+\frac12}+b_{j-\frac12})] v^{n}_j                \\
             & + (1-\theta) \mu (b_{j+\frac12} v^n_{j+1} + b_{j-\frac12} v^n_{j-1})     \\
-            & + \theta \mu (b_{j+\frac12} v^{n+1}_{j+1} + b_{j-\frac12} v^{n+1}_{j-1})
+            & + \theta \mu (b_{j+\frac12} v^{n+1}_{j+1} + b_{j-\frac12} v^{n+1}_{j-1}).
     \end{align*}
     假设$1-2\,(1-\theta)\,\mu \max|b(x,t)|\ge0$，记$\|v^n\|_\infty = \max_j|v_j^n|$，两边同取绝对值可得
     \begin{align*}
@@ -424,13 +424,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
               & + (1-\theta) \mu (b_{j+\frac12} |v^n_{j+1}| + b_{j-\frac12} |v^n_{j-1})|   \\
               & + \theta \mu (b_{j+\frac12} v^{n+1}_{j+1} + b_{j-\frac12} |v^{n+1}_{j-1})| \\
         \le{} & \|v^n\|_\infty
-        + \theta \mu (b_{j+\frac12}  + b_{j-\frac12}) \|v^{n+1}\|_\infty
+        + \theta \mu (b_{j+\frac12}  + b_{j-\frac12}) \|v^{n+1}\|_\infty.
     \end{align*}
     不妨设 $j_0$ 使得 $\|v^{n+1}\|_\infty = |v_{j_0}^{n+1}|$，对上式取 $j = j_0$ 可得
     \begin{align*}
         [1 + \theta \mu (b^{n+1}_{j_0+1/2}+b^{n+1}_{j_0-1/2})]\|v^{n+1}\|_\infty
         \le{}                                        & \|v^{n}\|_\infty + \theta \mu (b^{n+1}_{j_0+1/2}+b^{n+1}_{j_0-1/2})\|v^{n+1}\|_\infty \\
-        \Rightarrow \quad   \|v^{n+1}\|_\infty \le{} & \|v^{n}\|_\infty
+        \Rightarrow \quad   \|v^{n+1}\|_\infty \le{} & \|v^{n}\|_\infty,
     \end{align*}
     此时格式是最大模稳定的。
 
@@ -443,7 +443,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑 $u_t + a u_{x} = 0$ 的 Lax-Wendroff 格式
     \[
-        \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}
+        \frac{v_j^{n+1}-v_j^n}{\Delta t} + a \frac{v_{j+1}^n-v_{j-1}^n}{2\Delta x} = \left(\frac{a^2 \Delta t}{2}\right) \frac{v_{j+1}^n-2 v_j^n+v_{j-1}^n}{\Delta x^2}.
     \]
     分析其最大模稳定性。
 \end{example}
@@ -454,12 +454,12 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         v_{j}^{n+1}
         ={} & v_j^n - \frac{r}2(v_{j+1}^n- v_{j-1}^n) + \frac{r^2}2
         (v_{j+1}^n-2v_{j}^n+v_{j-1}^n)                                          \\
-        ={} & (1-r^2) v_j^n + \frac{r^2-r}2 v_{j+1}^n + \frac{r+r^2}2 v_{j-1}^n
+        ={} & (1-r^2) v_j^n + \frac{r^2-r}2 v_{j+1}^n + \frac{r+r^2}2 v_{j-1}^n,
     \end{align*}
     当且仅当 $|r|=1$ 时，才能保证三个系数全部非负。
     因此仅在 $|r| = 1$ 时，
     \[
-        |v_{j}^{n+1}| \le{} (1-r^2) |v_j^n| + \frac{r^2-r}2 |v_{j+1}^n| + \frac{r+r^2}2 |v_{j-1}^n| \le \|v^n\|_\infty
+        |v_{j}^{n+1}| \le{} (1-r^2) |v_j^n| + \frac{r^2-r}2 |v_{j+1}^n| + \frac{r+r^2}2 |v_{j-1}^n| \le \|v^n\|_\infty.
     \]
     格式具有最大模稳定性。
 \end{solution*}
@@ -488,21 +488,21 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 首先分析对流方程，对于 $u_t + a u_x = 0$ 易得
 \[
     \frac12 \frac{d}{dt} \|u\|^2 = \int_{0}^{2\pi} u u_t \,dx = - a \int_0^{2\pi} u u_x\,dx
-    = - a \left. \frac{u^2}2 \right|_0^{2\pi} = 0
+    = - a \left. \frac{u^2}2 \right|_0^{2\pi} = 0.
 \]
 因此
 \[
-    \| u(x,t) \|^2 = \| u(x,0) \|^2
+    \| u(x,t) \|^2 = \| u(x,0) \|^2.
 \]
 对于变系数对流方程 $u_t + a(x) u_x = 0$（其中 $a(x)$ 是连续可微的周期函数），易得
 \begin{align*}
     \frac12 \frac{d}{dt} \|u\|^2 ={} & \int_{0}^{2\pi} u u_t \,dx = - \int_0^{2\pi} a(x) u u_x\,dx                         \\
     ={}                              & - \frac12 \left. a(x) u^2 \right|_0^{2\pi} + \frac12\int_{0}^{2\pi} a_x(x) u^2 \,dx
-    \le{}  \frac{M}2 \| u \|^2
+    \le{}  \frac{M}2 \| u \|^2.
 \end{align*}
 因此
 \[
-    e^{- M t} \| u(x,t) \|^2 \le \| u(x,0) \|^2
+    e^{- M t} \| u(x,t) \|^2 \le \| u(x,0) \|^2.
 \]
 我们希望数值格式也具有类似的稳定性结论。
 
@@ -517,13 +517,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{solution*}
     在格式两侧乘以 $v_j^{n+1} + v_j^n$ 可得
     \[
-        (v_j^{n+1})^2 - (v_j^n)^2 = - \frac{\Delta t}{2} a_j D_0(v_j^n + v_j^{n+1})(v_j^{n+1} + v_j^n)
+        (v_j^{n+1})^2 - (v_j^n)^2 = - \frac{\Delta t}{2} a_j D_0(v_j^n + v_j^{n+1})(v_j^{n+1} + v_j^n).
     \]
     对 $j$ 求和并乘以 $\Delta x$ 可得
     \begin{align*}
         \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2 ={}
             & - \frac{\Delta t \Delta x}{2} \sum_j a_j D_0(v_j^n + v_j^{n+1})(v_j^{n+1} + v_j^n)      \\
-        ={} & - \frac{\Delta t \Delta x}{2} \sum_j a_j D_0(w_j) w_j. \quad (w_j := v_j^{n+1} + v_j^n)
+        ={} & - \frac{\Delta t \Delta x}{2} \sum_j a_j D_0(w_j) w_j. \quad (w_j := v_j^{n+1} + v_j^n).
     \end{align*}
     注意到
     \begin{align*}
@@ -540,14 +540,14 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \sum_j \left|w_{j+1} w_j\right|
         \le  \frac{\Delta x}4 M
         \sum_j \left(|w_{j+1}|^2 + |w_j|^2 \right)
-        = \frac{M}{2} \|w\|_{\Delta x}^2
+        = \frac{M}{2} \|w\|_{\Delta x}^2,
     \end{align*}
     其中 $M$ 是 $a(x)$ 的 Lipschitz 常数。
     因此
     \[
         \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2
         \le \frac{1}{4} M \Delta t \|v^{n+1} + v^n\|_{\Delta x}^2
-        \le \frac{1}{2} M \Delta t \left( \|v^{n+1} \|_{\Delta x}^2 +  \|v^{n} \|_{\Delta x}^2\right)
+        \le \frac{1}{2} M \Delta t \left( \|v^{n+1} \|_{\Delta x}^2 +  \|v^{n} \|_{\Delta x}^2\right).
     \]
     在 $M \Delta t \ll 1$ 时，存在 $\varepsilon > 0$ 使得
     \[
@@ -559,7 +559,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \begin{align*}
         \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + (M+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
         \le{}                          & \cdots \le (1 + (M+\varepsilon) \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
-        \le{}                          & e^{(M+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+        \le{}                          & e^{(M+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2.
     \end{align*}
     格式是无条件 $L^2$ 模稳定的。
 \end{solution*}
@@ -572,11 +572,11 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         ={}
         \frac1{2\Delta x} \left|
         \sum_j a  w_{j+1} w_j - \sum_j a  w_{j-1} w_j
-        \right| = 0
+        \right| = 0,
     \]
     此时有
     \[
-        \|v^{n+1}\|_{\Delta x}^2 = \|v^{n}\|_{\Delta x}^2 = \dots = \|v^{0}\|_{\Delta x}^2
+        \|v^{n+1}\|_{\Delta x}^2 = \|v^{n}\|_{\Delta x}^2 = \dots = \|v^{0}\|_{\Delta x}^2.
     \]
 \end{remark}
 
@@ -584,33 +584,33 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑 $u_t+a(x)u_x=0$（其中 $a(x)$ 是连续可微的周期函数，并且$a(x),a_x(x)$有界）的 Lax 格式，分析 $L^2$ 模稳定性。
     \[
-        \frac{v^{n+1}_j - \frac12(v_{j-1}^n + v_{j+1}^n)}{\Delta t} +  a_j\frac{v^n_{j+1} - v^n_{j-1}}{2\Delta x} = 0
+        \frac{v^{n+1}_j - \frac12(v_{j-1}^n + v_{j+1}^n)}{\Delta t} +  a_j\frac{v^n_{j+1} - v^n_{j-1}}{2\Delta x} = 0.
     \]
 \end{example}
 
 \begin{solution*}
     记 $r = \frac{\Delta t}{\Delta x}$，将 Lax 格式整理为
     \[
-        v^{n+1}_j=\left(\frac{1}{2}-\frac{r}{2}a_j\right)v^n_{j+1}+\left(\frac{1}{2}+\frac{r}{2}a_j\right)v^n_{j-1},\quad
+        v^{n+1}_j=\left(\frac{1}{2}-\frac{r}{2}a_j\right)v^n_{j+1}+\left(\frac{1}{2}+\frac{r}{2}a_j\right)v^n_{j-1},
     \]
     当 $r\,\max{|a(x)|}\le 1$ 时
     \[
-        \frac{1}{2} - \frac{r}{2} a_j \ge 0, \quad \frac{1}{2} + \frac{r}{2} a_j \ge 0
+        \frac{1}{2} - \frac{r}{2} a_j \ge 0, \quad \frac{1}{2} + \frac{r}{2} a_j \ge 0.
     \]
     考虑凸函数 $x^2$ 满足的 Jenson 不等式，可以得到（或者平方后利用基本不等式放缩）
     \[
-        (v^{n+1}_j)^2\le \left(\frac{1}{2}-\frac{r}{2}a_j\right)(v^n_{j+1})^2+\left(\frac{1}{2}+\frac{r}{2}a_j\right)(v^n_{j-1})^2
+        (v^{n+1}_j)^2\le \left(\frac{1}{2}-\frac{r}{2}a_j\right)(v^n_{j+1})^2+\left(\frac{1}{2}+\frac{r}{2}a_j\right)(v^n_{j-1})^2.
     \]
     关于 $j$ 求和可得（记 $M = \max|a_x(x)|$）
     \[
         \sum_{j}(v^{n+1}_j)^2\le \sum_{j}(1+\frac{r}{2}(a_{j+1}-a_{j-1}))(v^n_{j})^2
-        \le \sum_{j}(1+ M r \Delta x)(v^n_{j})^2 = \sum_{j}(1 + M \Delta t)(v^n_{j})^2
+        \le \sum_{j}(1+ M r \Delta x)(v^n_{j})^2 = \sum_{j}(1 + M \Delta t)(v^n_{j})^2.
     \]
     因此
     \begin{align*}
         \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + M \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
         \le{}                          & \cdots \le (1 + M \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
-        \le{}                          & e^{M (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+        \le{}                          & e^{M (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2.
     \end{align*}
     在 $r\,\max{|a(x)|}\le 1$ 时，格式是关于 $L^2$ 模稳定的。
 \end{solution*}
@@ -618,12 +618,12 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{remark}
     与上一个例子类似，对于常系数对流方程 $u_t + a u_x = 0$ 以及对应的 Lax 格式，在满足如下条件时
     \[
-        \frac{1}{2} - \frac{r}{2} a \ge 0,\quad \frac{1}{2} + \frac{r}{2} a \ge 0
+        \frac{1}{2} - \frac{r}{2} a \ge 0,\quad \frac{1}{2} + \frac{r}{2} a \ge 0,
     \]
     亦即 $\left|\frac{a \Delta t}{\Delta x}\right| \le 1$，
     可以直接得到
     \[
-        \|v^{n+1}\|_{\Delta x}^2 = \|v^{n}\|_{\Delta x}^2 = \dots = \|v^{0}\|_{\Delta x}^2
+        \|v^{n+1}\|_{\Delta x}^2 = \|v^{n}\|_{\Delta x}^2 = \dots = \|v^{0}\|_{\Delta x}^2.
     \]
 \end{remark}
 
@@ -632,22 +632,22 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 分析扩散方程，对于 $u_t = b u_{xx}$（$b > 0$）易得
 \[
     \frac12 \frac{d}{dt} \| u \|^2 = \int_{0}^{2\pi} u u_t \,dx = b \int_0^{2\pi} u u_{xx}\,dx
-    = b u u_x \big|_0^{2\pi} - b \int_{0}^{2\pi} (u_x)^2\,dx = - b \int_{0}^{2\pi} (u_x)^2\,dx \le 0
+    = b u u_x \big|_0^{2\pi} - b \int_{0}^{2\pi} (u_x)^2\,dx = - b \int_{0}^{2\pi} (u_x)^2\,dx \le 0.
 \]
 因此
 \[
-    \| u(x,t) \|^2 \le \| u(x,0) \|^2
+    \| u(x,t) \|^2 \le \| u(x,0) \|^2.
 \]
 对于变系数扩散方程 $u_t = (b(x) u_x)_x$（其中 $C_1 \ge b(x) \ge C_2 > 0$），易得
 \begin{align*}
     \frac12 \frac{d}{dt} \|u\|^2 ={} & \int_{0}^{2\pi} u u_t \,dx
     = \int_0^{2\pi} (b(x) u_x)_x u\,dx                                      \\
     ={}                              & \left. b(x) u u_x \right|_{0}^{2\pi}
-    - \int_{0}^{2\pi} b(x) (u_x)^2\,dx \le 0
+    - \int_{0}^{2\pi} b(x) (u_x)^2\,dx \le 0.
 \end{align*}
 因此
 \[
-    \| u(x,t) \|^2 \le \| u(x,0) \|^2
+    \| u(x,t) \|^2 \le \| u(x,0) \|^2.
 \]
 我们希望数值格式也具有类似的稳定性结论。
 
@@ -661,11 +661,11 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{solution*}
     将格式整理为
     \[
-        v_j^{n+1} = \mu v_{j-1}^n + (1-2\mu) v_j^n + \mu v_{j+1}^n
+        v_j^{n+1} = \mu v_{j-1}^n + (1-2\mu) v_j^n + \mu v_{j+1}^n.
     \]
     要求 $1-2\mu \ge 0$，利用 Jensen 不等式可得（或者平方后利用基本不等式放缩）
     \[
-        (v_j^{n+1})^2 \le \mu (v_{j-1}^n)^2 + (1-2\mu) (v_j^n)^2 + \mu (v_{j+1}^n)^2
+        (v_j^{n+1})^2 \le \mu (v_{j-1}^n)^2 + (1-2\mu) (v_j^n)^2 + \mu (v_{j+1}^n)^2.
     \]
     对 $j$ 求和并乘以 $\Delta x$ 可得
     \[
@@ -688,7 +688,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     在格式两侧乘以 $v_j^{n+1} + v_j^n$ 可得
     \[
         (v_j^{n+1})^2 - (v_j^n)^2 = \mu \left[ b_{j+\frac12} (v_{j+1}^n - v_j^{n})
-        - b_{j-\frac12} (v_{j}^n - v_{j-1}^{n})\right](v_j^{n+1} + v_j^n)
+        - b_{j-\frac12} (v_{j}^n - v_{j-1}^{n})\right](v_j^{n+1} + v_j^n).
     \]
     对 $j$ 求和并乘以 $\Delta x$ 可得
     \begin{align*}
@@ -710,11 +710,11 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \le{}              & - \mu \Delta x \sum_j b_{j+\frac12}
         \left(
         \frac12  (\Delta_+ v_j^n)^2  - \frac12  (\Delta_+ v_j^{n+1})^2
-        \right)
+        \right),
     \end{align*}
     其中 $(*)$ 利用了如下恒等式
     \[
-        p(p+q) = \frac12(p+q)^2 + \frac12(p^2-q^2)
+        p(p+q) = \frac12(p+q)^2 + \frac12(p^2-q^2).
     \]
     因此
     \[
@@ -722,16 +722,16 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         (\Delta_+ v_j^{n+1})^2
         \le
         \|v^{n}\|_{\Delta x}^2 - \frac{\mu \Delta x}2 \sum_j b_{j+\frac12}
-        (\Delta_+ v_j^{n})^2
+        (\Delta_+ v_j^{n})^2.
     \]
     定义能量为
     \[
         E(v^n) := \|v^{n}\|_{\Delta x}^2 - \frac{\mu \Delta x}2 \sum_j b_{j+\frac12}
-        (\Delta_+ v_j^{n})^2
+        (\Delta_+ v_j^{n})^2,
     \]
     则有
     \[
-        E(v^{n+1}) \le E(v^n) \le \cdots \le E(v^0)
+        E(v^{n+1}) \le E(v^n) \le \cdots \le E(v^0).
     \]
 
     我们还需要说明的是： $E(v^n)$ 在一定条件下确实是一个和离散 $L^2$ 模等价的能量，由于
@@ -742,16 +742,16 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \ge{}      & \|v^{n}\|_{\Delta x}^2 -  \mu \Delta x  \sum_j b_{j+\frac12}
         ((v_{j+1}^{n})^2 + (v_{j}^{n})^2)                                               \\
         \ge{}      & \|v^{n}\|_{\Delta x}^2 -  2\mu C_1
-        \|v^{n}\|_{\Delta x}^2
+        \|v^{n}\|_{\Delta x}^2.
     \end{align*}
     因此若满足稳定性条件
     \[
-        \mu\, C_1 = \frac{\Delta t}{\Delta x^2} \max | b(x)| < \frac12
+        \mu\, C_1 = \frac{\Delta t}{\Delta x^2} \max | b(x)| < \frac12.
     \]
     两者等价，此时
     \[
         \|v^{n+1}\|_{\Delta x}^2 \le \frac{1}{1-2\mu C_1} E(v^{n+1}) \le \cdots \le \frac{1}{1-2\mu C_1}E(v^{0})
-        \le \frac{1}{1-2\mu C_1} \|v^{0}\|_{\Delta x}^2
+        \le \frac{1}{1-2\mu C_1} \|v^{0}\|_{\Delta x}^2.
     \]
     格式是 $L^2$ 模稳定的。
 \end{solution*}
@@ -765,11 +765,11 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑偏微分方程 $u_t=(b(x)\, u_x)_x$（其中光滑函数 $C_1 \ge b(x) \ge C_2 > 0$），考虑如下的 $\theta$ 格式，分析 $L^2$ 模稳定性。
     \[
-        v^{n+1}_j - v^n_j = \Delta t\,(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j)
+        v^{n+1}_j - v^n_j = \Delta t\,(\theta\,Q v^{n+1}_j+(1-\theta)\, Q v^n_j),
     \]
     其中算子 $Q$ 定义为
     \[
-        Q w^n_j=\frac{1}{\Delta x}\left(b_{j+\frac12} \frac{w_{j+1}-w_{j}}{\Delta x} - b_{j-\frac12}\frac{w_j-w_{j-1}}{\Delta x}\right)
+        Q w^n_j=\frac{1}{\Delta x}\left(b_{j+\frac12} \frac{w_{j+1}-w_{j}}{\Delta x} - b_{j-\frac12}\frac{w_j-w_{j-1}}{\Delta x}\right).
     \]
 \end{example}
 
@@ -779,7 +779,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         B(v,w):= - (Q v,w)_{\Delta x}
         ={} & - \frac{1}{\Delta x} \sum_j \left(b_{j+\frac12}\frac{v_{j+1}-v_{j}}{\Delta x}-b_{j-\frac12}\frac{v_j - v_{j-1}}{\Delta x}\right)w_j \Delta x \\
         ={} & \sum_j \frac{b_{j+\frac12}}{\Delta x}(v_{j+1}-v_{j})(w_{j+1}-w_{j})
-        ={}  \sum_j \frac{b_{j+\frac12}}{\Delta x} \Delta_+ v_{j} \Delta_+ w_{j}
+        ={}  \sum_j \frac{b_{j+\frac12}}{\Delta x} \Delta_+ v_{j} \Delta_+ w_{j}.
     \end{align*}
     显然 $B(v,w)$ 有非负性 $B(v,v) ={} - (Q v,v)_{\Delta x} \ge 0$，以及对称性 $B(v,w) = B(w,v)$。
 
@@ -805,20 +805,20 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \\
               & -\frac{\Delta t}2 B(v^{n+1}+ v^n,v^{n+1} + v^n)
         \\
-        \le{} & - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+        \le{} & - \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1}) + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n).
     \end{align*}
     移项整理可得
     \[
         \|v^{n+1}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n+1}, v^{n+1})
-        \le{} \|v^{n}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+        \le{} \|v^{n}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n).
     \]
     定义能量为
     \[
-        E(v^n) := \|v^{n}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n)
+        E(v^n) := \|v^{n}\|_{\Delta x}^2 + \Delta t \left(\theta-\frac12\right) B(v^{n}, v^n),
     \]
     则有
     \[
-        E(v^{n+1}) \le E(v^n) \le \cdots \le E(v^0)
+        E(v^{n+1}) \le E(v^n) \le \cdots \le E(v^0).
     \]
 
     我们还需要说明的是： $E(v^n)$ 在一定条件下确实是一个和离散 $L^2$ 模等价的能量，由于
@@ -831,7 +831,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \begin{itemize}
         \item 在 $\theta = \frac12$ 时，显然 $E(v^n) = \|v^{n}\|_{\Delta x}^2$，因此
               \[
-                  \|v^{n}\|_{\Delta x}^2 \le \|v^{n-1}\|_{\Delta x}^2 \le  \cdots \le \|v^{0}\|_{\Delta x}^2
+                  \|v^{n}\|_{\Delta x}^2 \le \|v^{n-1}\|_{\Delta x}^2 \le  \cdots \le \|v^{0}\|_{\Delta x}^2.
               \]
               格式无条件 $L^2$ 模稳定；
 
@@ -842,13 +842,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
               因此
               \[
                   \|v^{n}\|_{\Delta x}^2 \le E(v^n) \le \cdots \le E(v^0)
-                  \le \Big[ 1 +  2 \mu C_1(2\theta-1)\Big] \|v^{0}\|_{\Delta x}^2
+                  \le \Big[ 1 +  2 \mu C_1(2\theta-1)\Big] \|v^{0}\|_{\Delta x}^2.
               \]
               格式无条件 $L^2$ 模稳定；
 
         \item 在 $\theta < \frac12$ 时（显式的权重更大），放缩可得
               \[
-                  \|v^{n}\|_{\Delta x}^2  -  2 \mu C_1(1-2\theta) \|v^{n}\|_{\Delta x}^2 \le E(v^n) \le   \| v^n \|_{\Delta x}^2
+                  \|v^{n}\|_{\Delta x}^2  -  2 \mu C_1(1-2\theta) \|v^{n}\|_{\Delta x}^2 \le E(v^n) \le   \| v^n \|_{\Delta x}^2.
               \]
               因此在满足 $1 - 2 \mu C_1(1-2\theta) > 0$ 时，可以得到
               {\small\[
@@ -882,7 +882,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         (v_j^{n+1} + v_j^n - v_{j+1}^{n+1} - v_{j+1}^n)
         \\
         ={} & - \frac{\Delta x}2\mu \sum_j   b_{j+\frac12} \Delta_+ (v_{j}^n + v_{j}^{n+1})
-        \Delta_+ (v_{j}^n + v_{j}^{n+1}) \le 0
+        \Delta_+ (v_{j}^n + v_{j}^{n+1}) \le 0.
     \end{align*}
     因此直接得到 $\| v^{n+1}\|_{\Delta x} \le \| v^{n}\|_{\Delta x}$。
 \end{remark}
@@ -898,7 +898,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{definition}
     空间离散算子Q被称为半有界的，如果存在常数 $\alpha$，使得对所有的周期格点函数 $v$，都有
     \[
-        (v,Q v)_{\Delta x} + (Q v,v)_{\Delta x} \le 2 \alpha \| v \|_{\Delta x}^2
+        (v,Q v)_{\Delta x} + (Q v,v)_{\Delta x} \le 2 \alpha \| v \|_{\Delta x}^2.
     \]
 \end{definition}
 
@@ -916,7 +916,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     如果空间离散算子算子Q是半有界的，则解满足稳定性
     \[
         \| u(x,t) \|_{\Delta x} \le
-        K e^{\alpha(t-t_0)} \| u(x,t_0) \|_{\Delta x}
+        K e^{\alpha(t-t_0)} \| u(x,t_0) \|_{\Delta x}.
     \]
 \end{theorem}
 
@@ -981,7 +981,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \begin{cases}
             D_-, & a>0, \\
             D_+, & a<0,
-        \end{cases}
+        \end{cases}.
     \]
     证明 $Q$ 是半有界离散算子。
 \end{example}
@@ -1090,7 +1090,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑如下显式 Euler 格式
     \[
-        v_j^{n+1} - v_j^n = \Delta t \,Q(v_j^n)
+        v_j^{n+1} - v_j^n = \Delta t \,Q(v_j^n),
     \]
     其中对应空间离散的 $Q$ 是半有界算子。分析格式的稳定性。
 \end{example}
@@ -1113,7 +1113,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     但是由于显式 Euler 产生了额外的 $\Delta t^2$ 二次项，仅有半有界性条件还不够。假设 $\Delta t$ 满足：对任意周期格点函数 $v$ 都有
     \[
         (v,Qv)_{\Delta x} + (Qv,v)_{\Delta x} + \Delta t \|Qv\|_{\Delta x}^2
-        \le C_0 \|v\|_{\Delta x}^2
+        \le C_0 \|v\|_{\Delta x}^2,
     \]
     其中常数 $C_0$ 不随 $\Delta x$ 发散。
     那么就可以自然满足目标，此时
@@ -1172,7 +1172,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑如下时间向后欧拉格式
     \[
-        v_j^{n+1} - v_j^n = \Delta t \,Q(v_j^{n+1})
+        v_j^{n+1} - v_j^n = \Delta t \,Q(v_j^{n+1}),
     \]
     其中对应空间离散的 $Q$ 是半有界算子，分析格式的稳定性。
 \end{example}
@@ -1180,16 +1180,16 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{solution*}
     在格式两侧乘以 $v_j^{n+1}$ 可得（假定都是实值）
     \[
-        (v_j^{n+1})^2 - v_j^{n+1} v_j^n = \Delta t \,Q(v_j^{n+1}) v_j^{n+1}
+        (v_j^{n+1})^2 - v_j^{n+1} v_j^n = \Delta t \,Q(v_j^{n+1}) v_j^{n+1}.
     \]
     对 $j$ 求和并乘以 $\Delta x$
     \[
-        \|v^{n+1}\|_{\Delta x}^2 - (v^{n+1},v^{n})_{\Delta x} = \Delta t\, (Q(v^{n+1}),v^{n+1})_{\Delta x}
+        \|v^{n+1}\|_{\Delta x}^2 - (v^{n+1},v^{n})_{\Delta x} = \Delta t\, (Q(v^{n+1}),v^{n+1})_{\Delta x}.
     \]
     整理并进行放缩
     \begin{align*}
         \|v^{n+1}\|_{\Delta x}^2 \le{} & \|v^{n+1}\|_{\Delta x} \|v^{n}\|_{\Delta x} + \alpha \Delta t \|v^{n+1}\|_{\Delta x}^2 \\
-        \|v^{n+1}\|_{\Delta x} \le{}   & \|v^{n}\|_{\Delta x} + \alpha \Delta t \|v^{n+1}\|_{\Delta x}
+        \|v^{n+1}\|_{\Delta x} \le{}   & \|v^{n}\|_{\Delta x} + \alpha \Delta t \|v^{n+1}\|_{\Delta x}.
     \end{align*}
     因此
     \[
@@ -1205,7 +1205,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \begin{align*}
         \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + (\alpha+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
         \le{}                          & \cdots \le (1 + (\alpha+\varepsilon) \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
-        \le{}                          & e^{(\alpha+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+        \le{}                          & e^{(\alpha+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2.
     \end{align*}
     格式是 $L^2$ 模稳定的。
 \end{solution*}
@@ -1213,7 +1213,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{example}
     考虑如下 Crank–Nicolson 格式
     \[
-        v_j^{n+1} - v_j^n = \frac{\Delta t}2 \,Q(v_j^{n+1} + v_j^n)
+        v_j^{n+1} - v_j^n = \frac{\Delta t}2 \,Q(v_j^{n+1} + v_j^n),
     \]
     其中对应空间离散的 $Q$ 是半有界算子，分析格式的稳定性。
 \end{example}
@@ -1222,24 +1222,24 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{solution*}
     在格式两侧乘以 $v_j^{n+1} + v_j^{n}$ 可得（假定都是实值）
     \[
-        (v_j^{n+1})^2 - (v_j^{n})^2 = \frac{\Delta t}2 Q(v_j^{n+1} + v_j^n)(v_j^{n+1} + v_j^{n})
+        (v_j^{n+1})^2 - (v_j^{n})^2 = \frac{\Delta t}2 Q(v_j^{n+1} + v_j^n)(v_j^{n+1} + v_j^{n}).
     \]
     对 $j$ 求和并乘以 $\Delta x$
     \[
         \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2
         ={}
         \frac{\Delta t}{2} \sum_j Q(v_j^{n+1} + v_j^n)(v_j^{n+1} + v_j^{n}) \Delta x
-        \le{}  \frac{\alpha \,\Delta t}{2} \|v^{n+1} + v^n\|_{\Delta x}^2
+        \le{}  \frac{\alpha \,\Delta t}{2} \|v^{n+1} + v^n\|_{\Delta x}^2.
     \]
     因此
     \[
         \|v^{n+1}\|_{\Delta x}^2 - \|v^{n}\|_{\Delta x}^2 \le
         \frac{\alpha \,\Delta t}{2} \|v^{n+1} + v^n\|_{\Delta x}^2
-        \le \alpha \,\Delta t \left(\|v^{n+1}\|_{\Delta x}^2 + \|v^{n}\|_{\Delta x}^2\right)
+        \le \alpha \,\Delta t \left(\|v^{n+1}\|_{\Delta x}^2 + \|v^{n}\|_{\Delta x}^2\right).
     \]
     得到
     \[
-        \|v^{n+1}\|_{\Delta x}^2 \le \frac{1+ \alpha \,\Delta t}{1-\alpha \, \Delta t} \|v^{n}\|_{\Delta x}^2
+        \|v^{n+1}\|_{\Delta x}^2 \le \frac{1+ \alpha \,\Delta t}{1-\alpha \, \Delta t} \|v^{n}\|_{\Delta x}^2.
     \]
     在 $\alpha \Delta t \ll 1$ 时，存在 $\varepsilon > 0$ 使得
     \[
@@ -1251,7 +1251,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \begin{align*}
         \|v^{n+1}\|_{\Delta x}^2 \le{} & (1 + (2\alpha+\varepsilon) \Delta t) \|v^{n}\|_{\Delta x}^2                  \\
         \le{}                          & \cdots \le (1 + (2\alpha+\varepsilon) \Delta t)^{n+1} \|v^{0}\|_{\Delta x}^2 \\
-        \le{}                          & e^{(2\alpha+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2
+        \le{}                          & e^{(2\alpha+\varepsilon) (n+1)\Delta t} \|v^{0}\|_{\Delta x}^2.
     \end{align*}
     格式是 $L^2$ 模稳定的。
 \end{solution*}
@@ -1270,7 +1270,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 
 考虑如下常系数线性方程
 \[
-    u_t = \sum_{j=1}^N a_j \frac{\partial^j u}{\partial x^j},\quad a_j \in \mathbb{C}
+    u_t = \sum_{j=1}^N a_j \frac{\partial^j u}{\partial x^j},\quad a_j \in \mathbb{C}.
 \]
 取简谐波 $u(x,t) = e^{i(k t+\omega x)}$，其中$k$ 是相位速度，对应时间周期性；$\omega$ 是波数，对应空间周期性。
 
@@ -1280,16 +1280,16 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 
 直接将 $u(x,t) = e^{i(k t+\omega x)}$ 代入方程可以得到 $k$ 和 $\omega$ 需要满足的广义色散关系 $k=k(\omega)$：
 \[
-    k = k(\omega) =  - i \sum_{j=1}^N a_j (i \omega)^j
+    k = k(\omega) =  - i \sum_{j=1}^N a_j (i \omega)^j.
 \]
 把 $k = k(\omega)$ 拆分为实部和虚部代入可得谐波解
 \[
-    u(x,t) = e^{-\Im k(\omega) t} e^{i(\Re k(\omega) t + \omega x)} = e^{-\Im k(\omega) t} e^{i \omega(x + \frac{\Re k(\omega)}\omega t)}
+    u(x,t) = e^{-\Im k(\omega) t} e^{i(\Re k(\omega) t + \omega x)} = e^{-\Im k(\omega) t} e^{i \omega(x + \frac{\Re k(\omega)}\omega t)}.
 \]
 定义方程的放大因子 $\lambda = \lambda(\omega)$ 以体现谐波解随时间的变化（包括振幅和相位变化）
 \[
     \lambda(\omega) = \frac{u(x,t+\Delta t)}{u(x,t)} = \frac{e^{i(k(\omega) (t+\Delta t)+\omega x)}}{e^{i(k(\omega) t+\omega x)}} = e^{i k(\omega) \Delta t}
-    = e^{-\Im k(\omega) \Delta t} e^{i \Re k(\omega) \Delta t}
+    = e^{-\Im k(\omega) \Delta t} e^{i \Re k(\omega) \Delta t}.
 \]
 易得方程的放大因子和 $k(\omega)$ 满足如下关系
 \[
@@ -1349,7 +1349,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \[
         i k e^{i(k t+\omega x)} + a i \omega e^{i(k t+\omega x)} = 0,
         \quad \Rightarrow \quad
-        k(\omega) = - a \omega
+        k(\omega) = - a \omega.
     \]
     基于色散关系 $k(\omega) = - a \omega$ 继续分析：
     \begin{itemize}
@@ -1368,7 +1368,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \[
         i k e^{i(k t+\omega x)} + a (i \omega)^2 e^{i(k t+\omega x)} = 0,
         \quad \Rightarrow \quad
-        k(\omega) = - a i \omega^2
+        k(\omega) = - a i \omega^2.
     \]
     基于色散关系 $k(\omega) = -a i \omega^2$ 继续分析：
     \begin{itemize}
@@ -1393,7 +1393,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \[
         i k e^{i(k t+\omega x)} + a (i \omega)^3 e^{i(k t+\omega x)} = 0,
         \quad \Rightarrow \quad
-        k(\omega) = a \omega^3
+        k(\omega) = a \omega^3.
     \]
     基于色散关系 $k(\omega) = a \omega^3$ 继续分析：
     \begin{itemize}
@@ -1404,7 +1404,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 
 对于一般的实系数线性方程
 \[
-    u_t = \sum_{j=1}^N a_j \frac{\partial^j u}{\partial x^j},\quad a_j \in \mathbb{R}
+    u_t = \sum_{j=1}^N a_j \frac{\partial^j u}{\partial x^j},\quad a_j \in \mathbb{R},
 \]
 有如下结论：
 \begin{enumerate}
@@ -1422,7 +1422,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \[
         i k e^{i(k t+\omega x)} + i a (i \omega)^2 e^{i(k t+\omega x)} = 0,
         \quad \Rightarrow \quad
-        k(\omega) = a \omega^2
+        k(\omega) = a \omega^2.
     \]
     基于色散关系 $ k(\omega) = a \omega^2$ 继续分析：
     \begin{itemize}
@@ -1446,7 +1446,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 
 直接将 $v_j^n = e^{i(k t_n+\omega x_j)}$ 代入差分格式，可以得到离散的广义色散关系 $k=k(\omega)$，同样拆分为实部和虚部
 \[
-    v_j^n = e^{-\Im k(\omega) t_n} e^{i(\Re k(\omega) t_n + \omega x_j)}
+    v_j^n = e^{-\Im k(\omega) t_n} e^{i(\Re k(\omega) t_n + \omega x_j)}.
 \]
 定义差分格式的放大因子 $\lambda = \lambda(\omega)$
 \[
@@ -1489,14 +1489,14 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 对于差分格式的分析，放大因子的计算比较容易，$\Im k(\omega)$ 的正负判断直接等价于对 $|\lambda(\omega)|$ 与 1 的大小判断，
 但是计算波速时涉及到的放大因子的辐角并不容易
 \[
-    \arg \lambda(\omega) = \arctan \left(\frac{\Im \lambda(\omega)}{\Re \lambda(\omega)}\right)
+    \arg \lambda(\omega) = \arctan \left(\frac{\Im \lambda(\omega)}{\Re \lambda(\omega)}\right).
 \]
 具体表达式可能比较复杂，记 $\xi = \omega \Delta x$，对上式在 $\xi = 0$ 附近泰勒展开，只关注 $\xi = 0$ 附近的表现。
 可能涉及到如下泰勒展开
 \begin{align*}
     \sin(x) ={}    & x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots, \quad \forall\, x \in \mathbb{R}  \\
     \cos(x) ={}    & 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \cdots, \quad \forall\, x  \in \mathbb{R} \\
-    \arctan(x) ={} & x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots, \quad \forall\, |x| \le 1
+    \arctan(x) ={} & x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots, \quad \forall\, |x| \le 1.
 \end{align*}
 
 \subsection{差分格式的数值耗散/数值色散}
@@ -1539,7 +1539,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \lambda(\omega)   & = 1 - r (1 - e^{-i \omega \Delta x})                        \\
                           & = 1 - r + r \cos(\omega\Delta x) - i r \sin(\omega\Delta x) \\
         |\lambda(\omega)| & =
-        1 - \frac12 r(1-r) \xi^2 + O(\xi^4),\quad (\xi = \omega \Delta x)
+        1 - \frac12 r(1-r) \xi^2 + O(\xi^4),\quad (\xi = \omega \Delta x).
     \end{align*}
     显然在 $ 0< r \le 1$ 时，$|\lambda(\omega)| \le 1$，差分格式具有稳定性。关于格式的耗散性分析：
     \begin{itemize}
@@ -1567,13 +1567,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         - r \xi + \frac16 (r - 3r^2 + 2r^3) \xi^3 +  \mathcal{O}(\xi^5) \\
                                    & = - r\xi \left[
             1 - \frac16 (1-r)(1-2r)\xi^2 +  \mathcal{O}(\xi^4)
-            \right]
+            \right].
     \end{align*}
     计算波速
     \[
         c = -\frac{\Re k(\omega)}{\omega} = - \frac{\arg \lambda(\omega)}{ \omega\Delta t} = a  \left[
             1 - \frac16 (1-r)(1-2r)\xi^2 +  \mathcal{O}(\xi^4)
-            \right]
+            \right].
     \]
     关于格式的色散性分析：
     \begin{itemize}
@@ -1606,7 +1606,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         - \frac{1}2 (e^{i \omega \Delta x} - e^{- i \omega \Delta x})                            \\
                           & =
         \cos(\omega \Delta x) - i r \sin(\omega \Delta x),                                       \\
-        |\lambda(\omega)| & = 1 - \frac12 (1-r^2) \xi^2 + O(\xi^4),\quad (\xi = \omega \Delta x)
+        |\lambda(\omega)| & = 1 - \frac12 (1-r^2) \xi^2 + O(\xi^4),\quad (\xi = \omega \Delta x).
     \end{align*}
     显然在 $ 0< r \le 1$ 时，$|\lambda(\omega)| \le 1$，差分格式具有稳定性。关于格式的耗散性分析：
     \begin{itemize}
@@ -1632,13 +1632,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         - r \xi - \frac13 (r - r^3) \xi^3 +  \mathcal{O}(\xi^5) \\
                                    & = - r\xi \left[
             1 + \frac13 (1-r^2)\xi^2 +  \mathcal{O}(\xi^4)
-            \right]
+            \right].
     \end{align*}
     计算波速
     \[
         c = -\frac{\Re k(\omega)}{\omega} = - \frac{\arg \lambda(\omega)}{ \omega\Delta t} = a  \left[
             1 + \frac13 (1-r^2)\xi^2 +  \mathcal{O}(\xi^4)
-            \right]
+            \right].
     \]
     关于格式的色散性分析：
     \begin{itemize}
@@ -1676,7 +1676,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
                           & = 1 - 2r^2 \sin^2(\frac{\omega\Delta x}2)
         - i r \sin(\omega \Delta x)                                                          \\
         |\lambda(\omega)| & =
-        1 - \frac18 r^2(1 - r^2) \xi^4 + O(\xi^6),\quad (\xi = \omega \Delta x)
+        1 - \frac18 r^2(1 - r^2) \xi^4 + O(\xi^6),\quad (\xi = \omega \Delta x).
     \end{align*}
     显然在 $ 0< r \le 1$ 时，$|\lambda(\omega)| \le 1$，差分格式具有稳定性。关于格式的耗散性分析：
     \begin{itemize}
@@ -1704,13 +1704,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         - r \xi + \frac16 (r -  r^3) \xi^3 +  \mathcal{O}(\xi^5) \\
          & = - r\xi \left[
             1 - \frac16 (1-r^2) \xi^2 +  \mathcal{O}(\xi^4)
-            \right]
+            \right].
     \end{align*}
     计算波速
     \[
         c = -\frac{\Re k(\omega)}{\omega} = - \frac{\arg \lambda(\omega)}{ \omega\Delta t} = a  \left[
             1 - \frac16 (1-r^2)\xi^2 +  \mathcal{O}(\xi^4)
-            \right]
+            \right].
     \]
     关于格式的色散性分析：
     \begin{itemize}
@@ -1727,7 +1727,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{remark}
     以上三种格式可以整理为如下统一的形式
     \[
-        v_j^{n+1} = v_j^n - \frac{r}2 (v_{j+1}^n - v_{j-1}^{n}) + \varepsilon (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n})
+        v_j^{n+1} = v_j^n - \frac{r}2 (v_{j+1}^n - v_{j-1}^{n}) + \varepsilon (v_{j+1}^n - 2 v_j^n + v_{j-1}^{n}),
     \]
     其中：
     \begin{itemize}
@@ -1737,7 +1737,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \end{itemize}
     三种格式的耗散性强弱为：
     \[
-        \text{Lax-Wendroff 格式} < \text{迎风格式} < \text{Lax–Friedrichs 格式}
+        \text{Lax-Wendroff 格式} < \text{迎风格式} < \text{Lax–Friedrichs 格式}.
     \]
     迎风格式和 Lax–Friedrichs 格式具有强耗散性，在数值实验中无法观察到因为色散性表现出的数值振荡。
     （也可以从单调格式的角度解释，迎风格式和 Lax–Friedrichs 格式是单调格式，因此不会产生数值振荡）
@@ -1749,19 +1749,19 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 前面主要讨论的都是双层差分格式的分析，这里以蛙跳格式（CTCS 格式）为例进行多层差分格式的分析。
 考虑对流方程 $u_t + a u_x = 0$，蛙跳格式如下
 \[
-    \frac{v_j^{n+1} - v_j^{n-1}}{2\Delta t} + a \frac{v_{j+1}^{n} - v_{j-1}^{n}}{2\Delta x} = 0
+    \frac{v_j^{n+1} - v_j^{n-1}}{2\Delta t} + a \frac{v_{j+1}^{n} - v_{j-1}^{n}}{2\Delta x} = 0.
 \]
 易得局部截断误差为 $\mathcal{O}(\Delta x^2 + \Delta t^2)$。将格式整理为
 \[
-    v_j^{n+1} = v_j^{n-1} - r (v_{j+1}^n - v_{j-1}^n),\quad r = \frac{a \Delta t}{\Delta x}
+    v_j^{n+1} = v_j^{n-1} - r (v_{j+1}^n - v_{j-1}^n),\quad r = \frac{a \Delta t}{\Delta x}.
 \]
 考虑周期边界情况，由于蛙跳格式为三层格式，代入谐波解会得到如下方程
 \[
-    \hat{v}^{n+1}(\omega) = \hat{v}^{n-1}(\omega) - 2 r i \sin(\xi) \hat{v}^{n}(\omega),\quad (\xi = \omega \Delta x)
+    \hat{v}^{n+1}(\omega) = \hat{v}^{n-1}(\omega) - 2 r i \sin(\xi) \hat{v}^{n}(\omega),\quad (\xi = \omega \Delta x).
 \]
 令$\hat{v}^n(\omega)=z^n$，可以得到如下一元二次方程
 \[
-    z^2 = 1 - 2 r i \sin(\xi) z, \quad \Rightarrow \quad z_{1,2} = - i r \sin(\xi) \pm \sqrt{1 - r^2 \sin^2(\xi)}
+    z^2 = 1 - 2 r i \sin(\xi) z, \quad \Rightarrow \quad z_{1,2} = - i r \sin(\xi) \pm \sqrt{1 - r^2 \sin^2(\xi)}.
 \]
 在 $|r| \le 1$ 时，始终有 $|z_1| = |z_2| = 1$，但是还需要分类讨论：
 \begin{itemize}
@@ -1786,7 +1786,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \lambda_{\pm}(\omega) ={} - i r \sin(\xi) \pm \sqrt{1 - r^2 \sin^2(\xi)}
     ={}  - i r \xi \pm \left(
     1 - \frac12 r^2 \xi^2 + \mathcal{O}(\xi^4)
-    \right), \quad (\xi = \omega \Delta x)
+    \right), \quad (\xi = \omega \Delta x).
 \]
 关于耗散性：由于在 $|r| < 1$时始终有 $|\lambda_\pm| = 1$，因此格式无耗散，无数值耗散。
 计算放大因子的幅角
@@ -1800,7 +1800,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     }     \right)
     = - r \xi \left[
         \pm 1 \mp \frac16 (1-r^2) \xi^2 + \mathcal{O}(\xi^4)
-        \right]
+        \right].
 \]
 对应的波速为
 \begin{align*}
@@ -1809,7 +1809,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     \right]                                                                  \\
     c_- ={} & - \frac{\arg \lambda_-(\omega)}{ \omega\Delta t} = - a  \left[
         1 + \frac16 (1-r^2) \xi^2 +  \mathcal{O}(\xi^4)
-        \right]
+        \right].
 \end{align*}
 这表明：
 \begin{itemize}
@@ -1840,7 +1840,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     在格式两侧乘以 $v_j^{n+1} + v_j^{n-1}$ 可得
     \[
         (v_j^{n+1})^2 - (v_j^{n-1})^2 = - r
-        (v_{j+1}^n - v_{j-1}^{n})(v_j^{n+1} + v_j^{n-1})
+        (v_{j+1}^n - v_{j-1}^{n})(v_j^{n+1} + v_j^{n-1}).
     \]
     对 $j$ 求和并乘以 $\Delta x$ 可得
     \begin{align*}
@@ -1851,28 +1851,28 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         - 2 r \Delta x \sum_j v_j^{n-1} \Delta_0 v_j^n       \\
         ={} &
         - 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
-        + 2 r \Delta x \sum_j v_j^n \Delta_0 v_j^{n-1}
+        + 2 r \Delta x \sum_j v_j^n \Delta_0 v_j^{n-1}.
     \end{align*}
     最后一步利用了如下等式
     \[
         2 \sum_j v_j^{n-1} \Delta_0 v_j^n
         = \sum_j v_j^{n-1} (v_{j+1}^n - v_{j-1}^n)
         = \sum_j v_j^n(v_{j-1}^{n-1}-v_{j+1}^{n-1})
-        = -2 \sum_j v_j^n \Delta_0 v_j^{n-1}
+        = -2 \sum_j v_j^n \Delta_0 v_j^{n-1}.
     \]
     整理可得
     \[
         \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
         =
-        \|v^{n}\|_{\Delta x}^2 +\|v^{n-1}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n} \Delta_0 v_j^{n-1}
+        \|v^{n}\|_{\Delta x}^2 +\|v^{n-1}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n} \Delta_0 v_j^{n-1}.
     \]
     定义双层能量 $E(v^{n+1},v^{n})$ 为
     \[
-        E(v^{n+1},v^{n}) := \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n
+        E(v^{n+1},v^{n}) := \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 + 2 r \Delta x \sum_j v_j^{n+1} \Delta_0 v_j^n.
     \]
     可以得到
     \[
-        E(v^{n+1},v^{n}) = E(v^{n},v^{n-1}) = \cdots = E(v^1,v^0)
+        E(v^{n+1},v^{n}) = E(v^{n},v^{n-1}) = \cdots = E(v^1,v^0).
     \]
 
     我们还需要说明的是： $E(v^{n+1},v^{n})$ 在一定条件下确实是一个和离散 $L^2$ 模等价的能量，由于
@@ -1883,19 +1883,19 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         + \Delta x\left|\sum_j v_j^{n+1} v_{j-1}^n \right|
         \\
         \le{} & 2 \|v^{n+1}\|_{\Delta x} \|v^{n}\|_{\Delta x}
-        \le \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2
+        \le \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2.
     \end{align*}
     因此
     \[
         (1-|r|)\left(\|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2\right) \le
-        E(v^{n+1},v^{n}) \le (1+|r|)\left(\|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2\right)
+        E(v^{n+1},v^{n}) \le (1+|r|)\left(\|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2\right).
     \]
     这说明在 $|r| < 1$ 时，两者等价。
     因此
     \[
         \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2
         \le \frac{1}{1-|r|} E(v^{n+1},v^n) \le \cdots \le \frac{1}{1-|r|} E(v^{1},v^0)
-        \le \frac{1+|r|}{1-|r|}\left(\|v^{1}\|_{\Delta x}^2 +\|v^{0}\|_{\Delta x}^2\right)
+        \le \frac{1+|r|}{1-|r|}\left(\|v^{1}\|_{\Delta x}^2 +\|v^{0}\|_{\Delta x}^2\right).
     \]
     蛙跳格式在 $|r| < 1$ 时是 $L^2$ 模稳定的。（这与 Fourier 方法得到的结论一致）
 \end{solution*}
@@ -1906,7 +1906,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \|v^{n+1}\|_{\Delta x}^2 +\|v^{n}\|_{\Delta x}^2 \le{} &
         C \left(\|v^{n}\|_{\Delta x}^2 +\|v^{n-1}\|_{\Delta x}^2\right),\quad C:= \frac{1+|r|}{1-|r|} \\
         \le{}                                                  & \cdots \le{}
-        C^n \left(\|v^{1}\|_{\Delta x}^2 +\|v^{0}\|_{\Delta x}^2\right)
+        C^n \left(\|v^{1}\|_{\Delta x}^2 +\|v^{0}\|_{\Delta x}^2\right).
     \end{align*}
     因为系数 $C^n = e^{n \ln C}$ 不是稳定性所要求的 $e^{\beta n \Delta t} = e^{\beta T}$ 形式，它会随着网格加密的 $n \to \infty$ 无限增长。
 \end{remark}
