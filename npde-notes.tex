@@ -22,6 +22,7 @@
 
 \begin{document}
 
+\hypersetup{pageanchor=false}
 \maketitle
 
 \newpage
@@ -30,13 +31,12 @@
 \input{chapters/head}
 
 \newpage
-\setcounter{page}{1}
 \pagenumbering{roman}
+\hypersetup{pageanchor=true}
 \pdfbookmark[1]{目录}{toc}
 \tableofcontents
 
 \newpage
-\setcounter{page}{1}
 \pagenumbering{arabic}
 
 
