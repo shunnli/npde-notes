@@ -893,7 +893,110 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     这里得到 $L^2$ 模稳定性结论与例~\ref{eg:theta-1} 使用 Fourier方法得到的结论一致。
 \end{remark}
 
-\subsection{半有界离散算子与稳定性}
+\subsection{半离散格式的稳定性}
+
+下面主要介绍半离散格式稳定性分析中常用的 Fourier 方法和半有界离散算子方法。
+
+\subsubsection{Fourier 方法}
+
+对于纯初值问题或具有周期边界条件的问题，假设在空间上进行均匀剖分。考虑标量线性常系数半离散格式
+\[
+    \frac{d v_j}{dt}=L_{\Delta x}v_j,
+    \qquad
+    L_{\Delta x}=\sum_{\ell=-p}^{q}a_{\ell,\Delta x}E^\ell,
+\]
+其中平移算子定义为 $E^\ell v_j=v_{j+\ell}$。代入谐波解
+\[
+    v_j(t)=\widehat v(\xi,t)e^{i j\xi},
+    \qquad \xi=\omega\Delta x,
+\]
+可得
+\[
+    \frac{d\widehat v}{dt}=\widehat L_{\Delta x}(\xi)\widehat v,
+    \qquad
+    \widehat L_{\Delta x}(\xi)=\sum_{\ell=-p}^{q}a_{\ell,\Delta x}e^{i \ell\xi}.
+\]
+那么，每个谐波解随时间的变化为
+\[
+    \widehat v(\xi,t)
+    =e^{t\widehat L_{\Delta x}(\xi)}\widehat v(\xi,0),
+    \qquad
+    \left|\widehat v(\xi,t)\right|
+    =e^{t\operatorname{Re}\widehat L_{\Delta x}(\xi)}
+    \left|\widehat v(\xi,0)\right|.
+\]
+由离散 Parseval 等式立即得到下面的判据。
+
+\begin{theorem}[半离散 Fourier 稳定性判据]
+    上述半离散格式是 $L^2$ 模稳定的，当且仅当存在常数 $\alpha\ge 0$，使得对所有波数 $\xi$ 都有
+    \[
+        \operatorname{Re}\widehat L_{\Delta x}(\xi)\le\alpha.
+    \]
+    此时
+    \[
+        \|v(t)\|_{\Delta x}\le e^{\alpha t}\|v(0)\|_{\Delta x}.
+    \]
+    特别地，若 $\operatorname{Re}\widehat L_{\Delta x}(\xi)\le0$，则半离散格式是 $L^2$ 模非增的。
+\end{theorem}
+
+\begin{proof}
+    将格点函数展开为离散 Fourier 级数，并对每个 Fourier 系数使用 $|e^{t\widehat L_{\Delta x}(\xi)}|\le e^{\alpha t}$。再由离散 Parseval 等式求和，即得充分性。
+    反之，取初值为任意一个谐波；稳定性必须控制该谐波解的增长率，因而得到 $\operatorname{Re}\widehat L_{\Delta x}(\xi)\le\alpha$。
+\end{proof}
+
+\begin{example}
+    考虑周期边界条件下常系数对流方程 $u_t+a u_x=0$ 的三种半离散格式。中心差分格式
+    \[
+        \frac{dv_j}{dt}=-aD_0v_j
+    \]
+    的 Fourier 符号为
+    \[
+        \widehat L_{\Delta x}(\xi)=-i a\frac{\sin\xi}{\Delta x},
+    \]
+    其实部为零，因此半离散解的离散 $L^2$ 模保持不变。迎风格式的符号可以统一写为
+    \[
+        \widehat L_{\Delta x}(\xi)
+        =-i a\frac{\sin\xi}{\Delta x}
+        -\frac{|a|}{\Delta x}(1-\cos\xi),
+    \]
+    其实部非正，因此格式稳定，并且非零波数对应的谐波解会发生衰减。反之，若采用逆风差分，符号的实部为
+    \[
+        \operatorname{Re}\widehat L_{\Delta x}(\xi)
+        =\frac{|a|}{\Delta x}(1-\cos\xi).
+    \]
+    其最大值为 $2|a|/\Delta x$，随着 $\Delta x\to0$ 趋于无穷，因此逆风半离散格式不稳定。
+\end{example}
+
+\begin{remark}
+    对于常微分方程 $y'=\lambda y$，若时间离散格式可以写为
+    \[
+        y^{n+1}=R(\Delta t\,\lambda)y^n,
+    \]
+    则称 $R(z)$ 为时间离散格式的稳定函数。向前 Euler 格式和向后 Euler 格式的稳定函数分别为
+    \[
+        R_{\mathrm{FE}}(z)=1+z,
+        \qquad
+        R_{\mathrm{BE}}(z)=\frac{1}{1-z}.
+    \]
+    应用于半离散格式后，全离散格式的放大因子为
+    \[
+        \widehat Q(\xi)
+        =R\!\left(\Delta t\,\widehat L_{\Delta x}(\xi)\right).
+    \]
+    例如，对上述中心差分半离散格式使用向前 Euler 格式，放大因子为
+    \[
+        \widehat Q_{\mathrm{FE}}(\xi)
+        =1-i\frac{a\Delta t}{\Delta x}\sin\xi,
+    \]
+    因此全离散格式不稳定；使用向后 Euler 格式时，放大因子为
+    \[
+        \widehat Q_{\mathrm{BE}}(\xi)
+        =\frac{1}{1+i\frac{a\Delta t}{\Delta x}\sin\xi},
+    \]
+    因此全离散格式无条件稳定。这表明半离散格式稳定，并不能保证采用任意时间离散后得到的全离散格式仍然稳定。
+\end{remark}
+
+\subsubsection{半有界离散算子}
 
 \begin{definition}
     空间离散算子Q被称为半有界的，如果存在常数 $\alpha$，使得对所有的周期格点函数 $v$，都有
