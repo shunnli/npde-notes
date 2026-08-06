@@ -261,7 +261,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \begin{enumerate}
     \item 只能用于分析常系数方程；
     \item 要求空间网格是均匀的；
-    \item 要求问题是纯初值问题或者具有周期性边界条件。（分别对应 Fourier 变换和 Fourier 级数）
+    \item 要求问题是纯初值问题或者具有周期性边界条件。
 \end{enumerate}
 对于不满足限制的情况，例如涉及到变系数或非线性问题，或者使用非均匀网格，或者考虑非周期边界情况时，均无法直接应用 Fourier 方法。
 
@@ -927,7 +927,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 \]
 由离散 Parseval 等式立即得到下面的判据。
 
-\begin{theorem}[半离散 Fourier 稳定性判据]
+\begin{theorem}
     上述半离散格式是 $L^2$ 模稳定的，当且仅当存在常数 $\alpha\ge 0$，使得对所有波数 $\xi$ 都有
     \[
         \operatorname{Re}\widehat L_{\Delta x}(\xi)\le\alpha.
@@ -939,21 +939,16 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
     特别地，若 $\operatorname{Re}\widehat L_{\Delta x}(\xi)\le0$，则半离散格式是 $L^2$ 模非增的。
 \end{theorem}
 
-\begin{proof}
-    将格点函数展开为离散 Fourier 级数，并对每个 Fourier 系数使用 $|e^{t\widehat L_{\Delta x}(\xi)}|\le e^{\alpha t}$。再由离散 Parseval 等式求和，即得充分性。
-    反之，取初值为任意一个谐波；稳定性必须控制该谐波解的增长率，因而得到 $\operatorname{Re}\widehat L_{\Delta x}(\xi)\le\alpha$。
-\end{proof}
-
 \begin{example}
     考虑周期边界条件下常系数对流方程 $u_t+a u_x=0$ 的三种半离散格式。中心差分格式
     \[
         \frac{dv_j}{dt}=-aD_0v_j
     \]
-    的 Fourier 符号为
+    代入可得
     \[
         \widehat L_{\Delta x}(\xi)=-i a\frac{\sin\xi}{\Delta x},
     \]
-    其实部为零，因此半离散解的离散 $L^2$ 模保持不变。迎风格式的符号可以统一写为
+    显然实部为零，因此半离散解的离散 $L^2$ 模保持不变。迎风格式的符号可以统一写为
     \[
         \widehat L_{\Delta x}(\xi)
         =-i a\frac{\sin\xi}{\Delta x}
@@ -1230,8 +1225,7 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
 
 \begin{remark}
     上述条件实质就是显式欧拉格式的稳定性条件对应的时间步限制。
-
-    以周期迎风格式为例，并沿用前面的记号
+    以迎风格式为例，并沿用前面的记号
     $Q=-aD_{\mathrm{up}}$。
     由前面的引理可得
     \[
@@ -1245,14 +1239,13 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \frac{|a|\Delta t}{\Delta x}\le 1.
     \]
     上式就不超过 $0$，从而可以取 $C_0=0$。这正是迎风格式的稳定性条件。
-
-    对于热方程的周期中心差分离散算子 $Q=bD_+D_-$，其中 $b>0$，有
+    对于热方程的中心差分离散算子 $Q=bD_+D_-$，其中 $b>0$，有
     \[
         (v,Qv)_{\Delta x}+(Qv,v)_{\Delta x}
         =
         -2b\|D_+v\|_{\Delta x}^2.
     \]
-    又由周期 Fourier 分析可得
+    计算易得
     \[
         \|D_+D_-v\|_{\Delta x}^2
         \le \frac{4}{\Delta x^2}\|D_+v\|_{\Delta x}^2.
@@ -1265,11 +1258,11 @@ Fourier方法在分析稳定性时非常简便，但是应用范围有很多限�
         \left(-2b+\frac{4b^2\Delta t}{\Delta x^2}\right)
         \|D_+v\|_{\Delta x}^2.
     \]
-    只要
+    需要满足稳定性条件
     \[
         \frac{b\Delta t}{\Delta x^2}\le \frac12,
     \]
-    也可以取 $C_0=0$。这就是显式热方程格式的稳定性条件。
+    此时可以取 $C_0=0$。
 \end{remark}
 
 \begin{example}
