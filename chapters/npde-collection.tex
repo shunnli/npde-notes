@@ -330,20 +330,13 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
 
 \subsection*{周期边界情形}
 
-考虑周期边界下的标量常系数单步格式
+考虑周期边界下的标量线性常系数单步格式
 \[
-    v_j^{n+1} = \sum_{\ell=-r}^{p} a_\ell v_{j+\ell}^n, \quad j=1,\cdots,N.
+    \sum_{\ell=-r}^{p} b_\ell v_{j+\ell}^{n+1}
+    = \sum_{\ell=-r}^{p} a_\ell v_{j+\ell}^n,
+    \quad j=1,\cdots,N.
 \]
-其中的系数 $a_\ell$ 可能和时空网格尺度有关，但是我们要求在网格加密过程中，这些系数保持不变。
-可以将其自然转换为向量形式
-\[
-    V^{n+1} = Q_N V^n = \cdots = (Q_N)^{n+1} V^0,
-\]
-其中 $V^{n},V^{n+1} \in \mathbb{C}^N$ 是有限维向量，$Q_N \in \mathbb{C}^{N\times N}$ 满足
-\[
-    (Q_N V)_j = \sum_{\ell=-r}^{p} a_\ell\, V_{j+\ell},
-\]
-超过范围的下标在模 $N$ 的意义下理解。
+两端的求和范围可以不同，但是将缺少的系数补零后，总可以写成上面的形式。系数 $a_\ell$ 和 $b_\ell$ 可以依赖于时空网格尺度，但这里假设它们在网格加密过程中保持不变。超过范围的下标在模 $N$ 的意义下理解。
 定义循环移位矩阵
 \[
     S_N =
@@ -355,11 +348,23 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
         1 &   &        &        & 0
     \end{pmatrix} \in \mathbb{C}^{N\times N}.
 \]
-那么 $Q_N$ 可以表示为
+定义 Laurent 多项式
 \[
-    Q_N = q(S_N) = \sum_{\ell=-r}^{p} a_\ell (S_N)^\ell, \qquad q(z) = \sum_{\ell=-r}^{p} a_\ell z^\ell.
+    a(z)=\sum_{\ell=-r}^{p}a_\ell z^\ell,
+    \qquad
+    b(z)=\sum_{\ell=-r}^{p}b_\ell z^\ell.
 \]
-这里定义的记号 $q(z)$ 是一个关于 $z$ 的 Laurent 多项式，上述定义是可行的，因为 $S_N$ 是可逆矩阵。
+由于 $S_N$ 可逆，$a(S_N)$ 和 $b(S_N)$ 均有定义。于是差分格式的向量形式为
+\[
+    b(S_N)V^{n+1}=a(S_N)V^n.
+\]
+一个合理的单步格式应当保证由 $V^n$ 可以唯一确定 $V^{n+1}$，因此左端算子 $b(S_N)$ 必须可逆。格式于是可以写成
+\[
+    V^{n+1}=Q_NV^n,
+    \qquad
+    Q_N=b(S_N)^{-1}a(S_N).
+\]
+递推可得 $V^n=(Q_N)^nV^0$。
 
 易得 $S_N$ 是酉方阵，自然是正规方阵，可以酉相似对角化
 \[
@@ -369,15 +374,22 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
 \[
     D_N = \operatorname{diag}(e^{i\xi_1},\cdots,e^{i\xi_N}), \quad \xi_k=\frac{2\pi k}{N}.
 \]
-因此 $Q_N$ 也是正规方阵，可以酉相似对角化
+因此 $a(S_N)$ 和 $b(S_N)$ 可以被 $W_N$ 同时酉相似对角化，进而得到 $Q_N$ 也可以酉相似对角化
 \[
-    Q_N = \sum_{\ell=-r}^{p} a_\ell (S_N)^\ell
-    = W_N \left(\sum_{\ell=-r}^{p} a_\ell (D_N)^\ell\right) W_N^*
-    = W_N \operatorname{diag}\bigl(q(e^{i\xi_1}),\dots,q(e^{i\xi_N})\bigr) W_N^*,
+    Q_N
+    = W_N b(D_N)^{-1}a(D_N)W_N^*
+    = W_N \operatorname{diag}\left(
+    \frac{a(e^{i\xi_1})}{b(e^{i\xi_1})},\dots,
+    \frac{a(e^{i\xi_N})}{b(e^{i\xi_N})}
+    \right) W_N^*.
 \]
 因此
 \[
-    \|(Q_N)^n\| = \max_{k=1,\dots,N} |q(e^{i\xi_k})|^n.
+    \|(Q_N)^n\| = \max_{k=1,\dots,N} |q(e^{i\xi_k})|^n
+\]
+其中
+\[
+    q(z) = \frac{a(z)}{b(z)} = \frac{\sum_{\ell=-r}^{p}a_\ell z^\ell}{\sum_{\ell=-r}^{p}b_\ell z^\ell}.
 \]
 
 数值格式的稳定性可以转换为如下要求：存在不依赖 $N$ 的常数 $C$，使得
@@ -394,19 +406,22 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
     \max_{1\le k \le N} |q(e^{i\xi_k})| \le 1.
 \]
 但是对于数值格式，我们关注的是网格加密后的极限情况，因此要求有界性对网格加密（$N\to\infty$）一致成立。
-由 $q$ 的连续性，一致稳定性等价于
+由于 $q(z)=a(z)/b(z)$ 在单位圆上有定义且连续，一致稳定性等价于
 \[
     \sup_{\xi\in[-\pi,\pi]} |q(e^{i\xi})| \le 1.
 \]
-这就得到了严格的 von~Neumann 条件，并且 $q(e^{i\xi})$ 就是之前定义的放大因子。
+这就得到了严格的 von~Neumann 条件，并且
+\[
+    q(e^{i\xi}) = \frac{a(e^{i\xi})}{b(e^{i\xi})} = \frac{\sum_{\ell=-r}^{p}a_\ell e^{i\ell\xi}}{\sum_{\ell=-r}^{p}b_\ell e^{i\ell\xi}}.
+\]
+正是之前定义的放大因子。
 
 \subsection*{无界情形}
 
-现在去掉周期边界，考虑整空间网格上的标量常系数单步格式
+现在去掉周期边界，考虑整空间网格上的标量线性常系数单步格式
 \[
-    v_j^{n+1}
-    =
-    \sum_{\ell=-r}^{p}a_\ell v_{j+\ell}^n,
+    \sum_{\ell=-r}^{p}b_\ell v_{j+\ell}^{n+1}
+    =\sum_{\ell=-r}^{p}a_\ell v_{j+\ell}^n,
     \qquad j\in\mathbb Z.
 \]
 考虑无限维 Hilbert 空间
@@ -414,8 +429,8 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
     H_h=\ell_h^2(\mathbb Z)
     :=
     \left\{
-        V=(V_j)_{j\in\mathbb Z}:
-        h\sum_{j\in\mathbb Z}|V_j|^2<\infty
+    V=(V_j)_{j\in\mathbb Z}:
+    h\sum_{j\in\mathbb Z}|V_j|^2<\infty
     \right\},
 \]
 其内积和范数分别为
@@ -427,7 +442,7 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
     \|V\|_h
     =
     \left(
-        h\sum_{j\in\mathbb Z}|V_j|^2
+    h\sum_{j\in\mathbb Z}|V_j|^2
     \right)^{1/2}.
 \]
 定义双边移位算子
@@ -440,36 +455,44 @@ n=5;MPDE[n,Tlist[n],Xlist[n]]
 \[
     (S^{-1}V)_j=V_{j-1}.
 \]
-定义演化算子
+定义算子
 \[
-    Q = q(S) = \sum_{\ell=-r}^{p}a_\ell S^\ell.
+    A=a(S),
+    \qquad
+    B=b(S).
 \]
-因此数值格式可以表示为
+其中 $a(z), b(z)$ 的定义与周期边界情形相同。
+单步格式应当保证能够由 $V^n$ 可以唯一确定 $V^{n+1}$，因此左端算子 $B$ 可逆。数值格式可以表示为
 \[
-    V^{n+1} = Q V^n = \cdots = Q^{n+1} V^0.
+    BV^{n+1}=AV^n,
+    \qquad
+    V^{n+1}=QV^n,
+    \qquad
+    Q=B^{-1}A,
 \]
+进而 $V^n=Q^nV^0$。
 
 双边移位算子 $S$ 是酉算子，谱为单位圆
 \[
     \sigma(S)
     =
     \left\{
-        e^{i \xi}:
-        \xi\in[-\pi,\pi]
+    e^{i \xi}:
+    \xi\in[-\pi,\pi]
     \right\}.
 \]
-由谱映射定理，$Q=q(S)$ 的谱为
+由谱映射定理，$Q$ 的谱为
 \[
     \sigma(Q)
     =
     q(\sigma(S))
     =
     \left\{
-        q(e^{i \xi}):
-        \xi\in[-\pi,\pi]
+    q(e^{i \xi}):
+    \xi\in[-\pi,\pi]
     \right\}.
 \]
-由于 $S$ 是正规算子，所以 $Q=q(S)$ 也是正规算子，$Q^n$ 仍然正规，并且
+由于 $S$ 是正规算子，所以 $Q=a(S)^{-1} b(S)$ 也是正规算子，$Q^n$ 仍然正规，并且
 \[
     \|Q^n\| = \max_{\lambda\in\sigma(Q^n)}|\lambda| = \max_{\lambda\in\sigma(Q)}|\lambda|^n = \max_{\xi\in[-\pi,\pi]}|q(e^{i\xi})|^n.
 \]
