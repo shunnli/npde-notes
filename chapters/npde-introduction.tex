@@ -12,13 +12,13 @@
 \end{itemize}
 常见模型方程：
 \begin{itemize}
-    \item 对流方程（双曲型方程）
+    \item 对流方程（双曲型方程，hyperbolic）
     \item 波动方程（双曲型方程）
-    \item 热方程（扩散方程）（抛物型方程）
-    \item 泊松方程（椭圆型方程）
-    \item 对流扩散方程
+    \item 热方程（扩散方程）（抛物型方程，parabolic）
+    \item Poisson 方程（椭圆型方程，elliptic）
+    \item 对流扩散方程（convection-diffusion）
     \item Euler 方程组
-    \item 可压/不可压 Navier-Stokes 方程组
+    \item 可压 / 不可压 Navier-Stokes 方程组
     \item \dots
 \end{itemize}
 
@@ -54,7 +54,7 @@
 \end{definition}
 
 \begin{definition}
-    称定解问题的解是稳定的，如果定解条件发生微小变化时，相应问题的解也只会发生微小变化，
+    称定解问题的解是稳定的（stable），如果定解条件发生微小变化时，相应问题的解也只会发生微小变化，
     即：解对于定解条件存在连续依赖关系。
 \end{definition}
 
@@ -77,10 +77,10 @@
 \end{enumerate}
 根据离散方式的不同，常见的数值方法可以简单分为如下几类：
 \begin{itemize}
-    \item 有限差分法
-    \item 有限元方法
-    \item 谱方法
-    \item 其它方法，例如有限体积法，间断有限元方法等
+    \item 有限差分法（finite difference method）
+    \item 有限元方法（finite element method）
+    \item 谱方法（spectral method）
+    \item 其它方法，例如有限体积法（finite volume method），间断有限元方法（discontinuous Galerkin method, DG）等
 \end{itemize}
 这里主要讨论有限差分法。
 
