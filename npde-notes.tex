@@ -1,4 +1,4 @@
-\documentclass{ctexrep}
+\documentclass{ctexbook}
 
 \input{note-setup}
 \hypersetup{colorlinks=false}
@@ -25,44 +25,33 @@
 \hypersetup{pageanchor=false}
 \maketitle
 
-\newpage
 \thispagestyle{empty}
-
+\pagestyle{empty}
 \input{chapters/header}
 
-\newpage
-\pagenumbering{roman}
+\frontmatter
+\pagestyle{headings}
 \hypersetup{pageanchor=true}
 \pdfbookmark[1]{目录}{toc}
 \tableofcontents
 
-\newpage
-\pagenumbering{arabic}
-
+\mainmatter
 
 \input{chapters/npde-introduction}
-
 \input{chapters/npde-model-linear}
-
 \input{chapters/npde-well-defined}
-
 \input{chapters/npde-theory}
-
 \input{chapters/npde-two-dimension}
-
 \input{chapters/npde-initial-boundary}
-
 \input{chapters/npde-nolinear-conservation-law}
-
 \input{chapters/npde-model-nolinear-numerical}
 
 \appendix
 
-\input{chapters/npde-fourier.tex}
+\input{chapters/npde-fourier}
+\input{chapters/npde-collection}
 
-\input{chapters/npde-fourier-stability.tex}
-
-\input{chapters/npde-collection.tex}
+\backmatter
 
 \nocite{*}
 \printbibliography[title={参考文献}]
